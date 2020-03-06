@@ -22,7 +22,6 @@ router.post('/cars', (req, res, next)=>{
     numberPlate
   })
   .then(response => {
-    console.log('yoooooooooo')
     res.json(response);
   })
   .catch(err => {
