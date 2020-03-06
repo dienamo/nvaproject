@@ -21,12 +21,13 @@ router.post('/cars', (req, res, next)=>{
     feesPerDay,
     numberPlate
   })
-    .then(response => {
-      res.json(response);
-    })
-    .catch(err => {
-      res.json(err);
-    })
+  .then(response => {
+    console.log('yoooooooooo')
+    res.json(response);
+  })
+  .catch(err => {
+    res.json(err);
+  })
 });
 
 router.get('/cars', (req, res, next) => {

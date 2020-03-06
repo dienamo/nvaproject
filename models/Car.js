@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const carSchema = new Schema({
-  brand: {type : String, enum: ['Mercedes','Audi','BMW','Toyota'] , required: true},
+  brand: {type : String, enum: ['Mercedes','Audi','BMW','Toyota' , "Bentley"] , required: true},
   model: {type: String , required: true},
   type: {type : String, enum: ['4X4','Berline','Luxe'] , required: true},
   numberOfSeats : {type: Number , required: true},

@@ -1,0 +1,17 @@
+
+
+.AddCar {
+    width: 500px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    .MuiFormControl-root{
+        margin-bottom: 10px;
+    }
+
+    .text-field {
+        background-color:white;
+    }
+}
+
