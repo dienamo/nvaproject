@@ -9,13 +9,12 @@ const carSchema = new Schema({
   numberOfDoors : {type: Number , required: true},
   transmission : {type : String, enum: ['automatique', 'manuelle'] , required: true},
   airConditionner : {type: Boolean , required: true},
-  mainImgUrl: {type: String , required: true},
   images: [{type: String}],
   available : {type: Boolean , required: true},
   agency : {type : Schema.Types.ObjectId, ref: 'Agency'},
   feesPerDay:{type: Number , required: true},
   numberPlate: {type: String , required: true},
-  
+  imageUrl: { type: String, required: true }
 }, {
   timestamps: {
     createdAt: 'created_at',

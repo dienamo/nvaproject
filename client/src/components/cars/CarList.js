@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import CarCard from './CarCard'
 
 class CarList extends React.Component{
     state={
@@ -9,7 +10,7 @@ class CarList extends React.Component{
         axios.get('http://localhost:5000/api/cars')
         .then(responseFromApi=>{
             this.setState({
-                listOfCars : responseFromApi
+                listOfCars : responseFromApi.data
             })
         })
         .catch(err=>{
@@ -26,7 +27,7 @@ class CarList extends React.Component{
                 {this.state.listOfCars.map(car=>{
                     return(
                         <div>
-                            {car.name}
+                            <CarCard brand={car.brand} image={car.imageUrl}/>
                         </div>
                     )
                 })}
