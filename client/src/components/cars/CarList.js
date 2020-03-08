@@ -21,12 +21,11 @@ class CarList extends React.Component{
         this.getAllCars()
     }
     render(){
-        console.log(this.state.listOfCars)
         return(
             <div>
                 {this.state.listOfCars.map(car=>{
                     return(
-                        <div>
+                        <div key={car._id}>
                             <CarCard brand={car.brand} image={car.imageUrl}/>
                         </div>
                     )

@@ -1,0 +1,17 @@
+.NavBar{
+  .MuiPaper-root{
+    color: white;
+    background: -webkit-linear-gradient(0deg, rgba(0,0,0,1) 7%, rgba(0,0,0,0.7525385154061625) 52%, rgba(0,0,0,0.6348914565826331) 100%)
+  }
+  .tool-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-button {
+    display: flex;
+    justify-content: space-between;
+    width: 280px;
+  }
+}
+

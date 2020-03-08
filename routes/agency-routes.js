@@ -5,11 +5,13 @@ const router  = express.Router();
 const Agency = require('../models/Agency')
 
 router.post('/agencies', (req, res, next)=>{
-  let {name,address,latlng} = req.body
+  let {name,address,latlng,phone,cars} = req.body
   Agency.create({
     name,
+    cars,
     address,
-    latlng
+    latlng,
+    phone
   })
     .then(response => {
       res.json(response);
@@ -37,6 +39,7 @@ router.get('/agencies/:id', (req, res, next)=>{
   }
 
   Agency.findById(req.params.id)
+    .populate('cars')
     .then(response => {
       res.status(200).json(response);
     })
