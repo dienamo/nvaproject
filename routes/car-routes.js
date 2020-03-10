@@ -1,15 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
-
 const Car = require('../models/Car')
+const Agency = require('../models/Agency')
 
 router.post('/cars', (req, res, next)=>{
-  let {brand,model,type,numberOfSeats,numberOfDoors,transmission,airConditionner,images,available,agency,feesPerDay,numberPlate} = req.body;
+  let {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,images,available,agency,feesPerDay,numberPlate} = req.body;
   let imageUrl = req.body.imageUrl
   Car.create({
     brand,
     model,
+    year,
     type,
     numberOfSeats,
     numberOfDoors,
@@ -24,6 +25,13 @@ router.post('/cars', (req, res, next)=>{
   })
   .then(response => {
     res.json(response);
+    Agency.update({$push:{cars : response}})
+    .then(response=>{
+      res.json(response)
+    })
+    .catch(err=>{
+      console.log('Error',err)
+    })
   })
   .catch(err => {
     res.json(err);

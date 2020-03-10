@@ -6,16 +6,16 @@ import service from '../../api/service'
 
 class AddCar extends Component {
   state={
-    brand: "",model: "",type: "",numberOfSeats: "",numberOfDoors: "",transmission:"",airConditionner:"",
+    brand: "",model: "",type: "",year:"",numberOfSeats: "",numberOfDoors: "",transmission:"",airConditionner:"",
     available:"",agency: "",feesPerDay: "",numberPlate: "",imageUrl: ""
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
     
-    const {brand,model,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl} = this.state
+    const {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl} = this.state
     
-    axios.post("http://localhost:5000/api/cars", {brand,model,type,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,})
+    axios.post("http://localhost:5000/api/cars", {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,})
       .then(() => {
           // this.props.getData();
           // Reset form
@@ -57,6 +57,7 @@ handleFileUpload = e => {
           <form onSubmit={this.handleFormSubmit} className="AddCar">
           <TextField id="outlined-basic" name="brand" value={this.state.brand}label="Marque" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="model" value={this.state.model}label="Model" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <TextField id="outlined-basic" name="year" value={this.state.year}label="Année" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="type" value={this.state.type}label="Type" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="numberOfSeats" value={this.state.numberOfSeats}label="Nombre de siège" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="numberOfDoors" value={this.state.numberOfDoors}label="Nombre de portes" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>

@@ -5,7 +5,7 @@ const carSchema = new Schema({
   brand: {type : String, enum: ['Mercedes','Audi','BMW','Toyota' , "Bentley"] , required: true},
   model: {type: String , required: true},
   year: {type: Number , required: true},
-  type: {type : String, enum: ['4X4','Berline','Luxe'] , required: true},
+  type: {type : String, enum: ['4X4','Berline','Luxe','Sport'] , required: true},
   numberOfSeats : {type: Number , required: true},
   numberOfDoors : {type: Number , required: true},
   transmission : {type : String, enum: ['automatique', 'manuelle'] , required: true},

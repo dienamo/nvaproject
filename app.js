@@ -7,6 +7,10 @@ const favicon      = require('serve-favicon');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const session       = require('express-session');
+const passport      = require('passport');
+
+require('./configs/passport');
 
 
 mongoose
@@ -41,7 +45,14 @@ app.use(require('node-sass-middleware')({
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+app.use(session({
+  secret:"some secret goes here",
+  resave: true,
+  saveUninitialized: true
+}));
 
+app.use(passport.initialize());
+app.use(passport.session());
 
 // default value for title local
 app.locals.title = 'Express - Generated with IronGenerator';
@@ -57,7 +68,7 @@ app.use(cors({
 
 const index = require('./routes/index');
 app.use('/', index);
-
+app.use('/api', require('./routes/auth-routes'));
 app.use('/api', require('./routes/car-routes'));
 app.use('/api', require('./routes/agency-routes'));
 app.use('/api', require('./routes/rental-routes'));

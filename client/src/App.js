@@ -7,6 +7,7 @@ import AgencyDetails from './components/agencies/AgencyDetails'
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './components/navbar/NavBar';
 import CarDetails from './components/cars/CarDetails'
+import Reservation from './components/reservation/Reservation'
 
 class App extends Component {
   render(){
@@ -19,6 +20,7 @@ class App extends Component {
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />
             <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" component={CarDetails} />
+            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:year/:id/reservation/:total/:delta" component={Reservation} />
           </Switch>
         </div>
       )
