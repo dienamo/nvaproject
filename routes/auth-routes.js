@@ -11,7 +11,6 @@ const User       = require('../models/User');
 
 
 authRoutes.post('/signup', (req, res, next) => {
-    console.log('heeeeeeeeeeeeeeee',req.body.name)
     const name = req.body.name;
     const lastname = req.body.lastname;
     const email = req.body.email;
