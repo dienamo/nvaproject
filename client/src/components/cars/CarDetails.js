@@ -50,6 +50,7 @@ class CarDetails extends React.Component{
       
     
     render(){
+        // eslint-disable-next-line react/no-direct-mutation-state
         let numberOfDays = Math.ceil((this.state.eDate --- this.state.sDate) / (1000 * 60 * 60 * 24));
         let total = this.state.car.feesPerDay*numberOfDays;
         return(
@@ -66,7 +67,7 @@ class CarDetails extends React.Component{
                 <MaterialUIPickers handleDateChange={this.handleEndDateChange} selectedDate={this.state.eDate} label='Date de retour' timeLabel='Heure de retour'/>
                 <h3>{numberOfDays} jours</h3>
                 <h3>Total:{total}</h3>
-                <Link to={`/agence/${this.state.car.agency}/vehicule/${this.state.car.brand}/${this.state.car.model}/${this.state.car.year}/${this.state.car._id}/reservation/${total}/${numberOfDays}`}><Button variant="contained">Reserver</Button></Link>
+                <Link to={`/agence/${this.state.car.agency}/vehicule/${this.state.car.brand}/${this.state.car.model}/${this.state.car.year}/${this.state.car._id}/reservation/${total}/${numberOfDays}`} ><Button variant="contained">Reserver</Button></Link>
                 </Paper>
                 </Grid>
                 </Grid>

@@ -13,12 +13,13 @@ const User       = require('../models/User');
 authRoutes.post('/signup', (req, res, next) => {
     const name = req.body.name;
     const lastname = req.body.lastname;
-    const email = req.body.email;
+    const username = req.body.username;
     const password = req.body.password;
+    const phonenumber = req.body.phonenumber;
     
   
-    if (!email || !password) {
-      res.status(400).json({ message: 'Provide email and password' });
+    if (!username || !password) {
+      res.status(400).json({ message: 'Provide username and password' });
       return;
     }
 
@@ -27,15 +28,15 @@ authRoutes.post('/signup', (req, res, next) => {
         return;
     }
   
-    User.findOne({ email }, (err, foundUser) => {
+    User.findOne({ username }, (err, foundUser) => {
 
         if(err){
-            res.status(500).json({message: "email check went bad."});
+            res.status(500).json({message: "username check went bad."});
             return;
         }
 
         if (foundUser) {
-            res.status(400).json({ message: 'email taken. Choose another one.' });
+            res.status(400).json({ message: 'username taken. Choose another one.' });
             return;
         }
   
@@ -45,8 +46,9 @@ authRoutes.post('/signup', (req, res, next) => {
         const aNewUser = new User({
             name,
             lastname,
-            email:email,
+            username,
             password: hashPass,
+            phonenumber
         });
   
         aNewUser.save(err => {

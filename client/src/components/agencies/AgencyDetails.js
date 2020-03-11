@@ -33,7 +33,7 @@ class AgencyDetails extends React.Component{
                 {this.state.agency.cars.map(car=>{
                     return(
                         <div key={car._id}>
-                           <Link to={`/agence/${this.state.agency.name}/vehicule/${car.brand}/${car.model}/${car._id}`}><CarCard brand={car.brand} image={car.imageUrl}/></Link> 
+                           <Link to={`/agence/${this.state.agency.name}/vehicule/${car.brand}/${car.model}/${car._id}`} style={{ textDecoration: 'none' }} ><CarCard brand={car.brand} image={car.imageUrl}/></Link> 
                         </div>
                     )
                 })}

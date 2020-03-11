@@ -3,9 +3,9 @@ import React from 'react'
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom'
 
-class Signup extends React.Component {
+class Login extends React.Component {
   
-    state = { username: '', password: '' , name: '' , lastname: '' , phonenumber:''};
+    state = { username: '', password: '' };
     service = new AuthService();
   
 
@@ -14,11 +14,8 @@ class Signup extends React.Component {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
-    const name = this.state.name;
-    const lastname = this.state.lastname;
-    const phonenumber = this.state.phonenumber
-
-    this.service.signup(username, password, name, lastname, phonenumber)
+    this.service.login(username, password)
+    
     .then( response => {
       // reset form
     //   this.setState({
@@ -41,21 +38,18 @@ class Signup extends React.Component {
   render(){
     return(
       <div>
-          <form onSubmit={this.handleFormSubmit} className="Signup">
+          <form onSubmit={this.handleFormSubmit} className="Login">
           <TextField id="outlined-basic" name="username" value={this.state.username}label="Adresse mail" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="password" value={this.state.password}label="Mot de passe" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="lastname" value={this.state.lastname}label="NOM" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="name" value={this.state.name}label="Prenom" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="phonenumber" value={this.state.phonenumber}label="Numéro de téléphone" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <input type="submit" value="submit"/>
+          <input type="submit" value="login"/>
           </form>
           <p>
-          Déja un compte? 
-          <Link to={"/"} style={{ textDecoration: 'none' }}>Se connecter</Link>
+          Vous n'avez pas de compte? 
+          <Link to={"/signup"} style={{ textDecoration: 'none' }}>S'inscrire</Link>
         </p>
       </div>
     )
   }
 }
 
-export default Signup;
+export default Login;

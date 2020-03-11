@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const agencySchema = new Schema ({
-  name : {type : String , require: true},
+  name : {type : String , required: true},
   cars : [{type : Schema.Types.ObjectId, ref: 'Car'}],
   address : {type : String , required: true},
   phone : {type : Number , required : true},

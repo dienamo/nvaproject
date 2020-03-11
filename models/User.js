@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
 
 const userSchema = new Schema({
-  name: {type : String , require: true},
-  lastname: {type : String , require: true},
-  email: {type : String , require: true},
-  password: {type : String , require: true},
-  phonenumber: {type : Number , require: true},
+  name: {type : String , required: true},
+  lastname: {type : String , required: true},
+  username: {type : String , required: true},
+  password: {type : String , required: true},
+  phonenumber: {type : Number , required: true},
   rentals: [{type : Schema.Types.ObjectId, ref: 'Rental'}] 
 }, 
 {

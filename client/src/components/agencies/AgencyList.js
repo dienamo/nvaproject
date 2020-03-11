@@ -26,7 +26,7 @@ class Agency extends React.Component{
                 {this.state.listOfAgencies.map(agency=>{
                     return(
                         <div key={agency._id}>
-                            <Link to={`/agence/${agency._id}`}>{agency.name}</Link>
+                            <Link to={`/agence/${agency._id}`} style={{ textDecoration: 'none' }}>{agency.name}</Link>
                         </div>
                     )
                 })}
