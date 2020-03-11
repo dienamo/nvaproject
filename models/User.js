@@ -6,6 +6,7 @@ const userSchema = new Schema({
   lastname: {type : String , require: true},
   email: {type : String , require: true},
   password: {type : String , require: true},
+  phonenumber: {type : Number , require: true},
   rentals: [{type : Schema.Types.ObjectId, ref: 'Rental'}] 
 }, 
 {
