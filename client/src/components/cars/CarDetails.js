@@ -32,11 +32,19 @@ class CarDetails extends React.Component{
         this.getCar()
     }
 
-    handleDateChange = date => {
+    handleStartDateChange = date => {
     
         console.log('date de prise en charge',date)
         this.setState({
             sDate: date
+        })
+      };
+
+      handleEndDateChange = date => {
+    
+        console.log('date de retour',date)
+        this.setState({
+            eDate: date
         })
       };
       
@@ -54,8 +62,8 @@ class CarDetails extends React.Component{
                  <Grid item xs className='car-reservation'>
                 <Paper>
                 <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}>/jour</h5>
-                <MaterialUIPickers handleDateChange={this.handleDateChange} selectedDate={this.state.sDate} label='Date de prise en charge' timeLabel='Heure de prise en charge'/>
-                <MaterialUIPickers handleDateChange={this.handleDateChange} selectedDate={this.state.eDate} label='Date de retour' timeLabel='Heure de retour'/>
+                <MaterialUIPickers handleDateChange={this.handleStartDateChange} selectedDate={this.state.sDate} label='Date de prise en charge' timeLabel='Heure de prise en charge'/>
+                <MaterialUIPickers handleDateChange={this.handleEndDateChange} selectedDate={this.state.eDate} label='Date de retour' timeLabel='Heure de retour'/>
                 <h3>Total:{total}</h3>
                 <Link to={`/agence/${this.state.car.agency}/vehicule/${this.state.car.brand}/${this.state.car.model}/${this.state.car.year}/${this.state.car._id}/reservation/${total}/${this.state.delta}`}><Button variant="contained">Reserver</Button></Link>
                 </Paper>
