@@ -4,18 +4,19 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import '../cars/CarDetails.scss'
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 import 'date-fns';
 import MaterialUIPickers from '../MaterialUIPickers'
-import moment from 'moment'
-import 'moment/locale/fr'
+import Modal from '@material-ui/core/Modal';
+import moment from 'moment';
+import 'moment/locale/fr';  // without this line it didn't work
+moment.locale('fr');
 
 class CarDetails extends React.Component{
     state = {
         car : {},
-        delta: '',
-        sDate: new Date(),
-        eDate: new Date()
+        dateOut: new Date(),
+        dateOfReturn: new Date(),
+        open: false
     }
     
     getCar=()=>{
@@ -29,32 +30,54 @@ class CarDetails extends React.Component{
             console.log('Error',err)
         })
     }
+
+    handleConfirm=(total,numberOfDays,dateOut,dateOfReturn)=>{
+        const car = this.state.car.id
+        const agency = this.state.car.agency
+        console.log(car,agency,total,numberOfDays,dateOut,dateOfReturn)
+        axios.post(`http://localhost:5000/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn},{withCredentials:true})
+            .then(response=>{
+                console.log(response)
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+    }
     
     componentDidMount(){
         this.getCar()
     }
 
     handleStartDateChange = date => {
-    
-        console.log('date de prise en charge',date)
         this.setState({
-            sDate: date
+            dateOut: date
         })
       };
 
       handleEndDateChange = date => {
-    
-        console.log('date de retour',date)
         this.setState({
-            eDate: date
+            dateOfReturn: date
         })
       };
+
+      handleOpen=()=>{
+        this.setState({
+            open: true
+        })
+      }
+
+      handleClose=()=>{
+        this.setState({
+            open: false
+        })
+      }
       
-    
     render(){
         // eslint-disable-next-line react/no-direct-mutation-state
-        let numberOfDays = Math.ceil((this.state.eDate --- this.state.sDate) / (1000 * 60 * 60 * 24));
+        let numberOfDays = Math.ceil((this.state.dateOfReturn --- this.state.dateOut) / (1000 * 60 * 60 * 24));
         let total = this.state.car.feesPerDay*numberOfDays;
+        let dateOut = moment(this.state.dateOut).locale('fr').format('LLLL')
+        let dateOfReturn = moment(this.state.dateOfReturn).locale('fr').format('LLLL')
         return(
             <div>
                 <img src={this.state.car.imageUrl} alt=""/>
@@ -65,18 +88,36 @@ class CarDetails extends React.Component{
                  <Grid item xs className='car-reservation'>
                 <Paper>
                 <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}>/jour</h5>
-                <MaterialUIPickers handleDateChange={this.handleStartDateChange} selectedDate={this.state.sDate} label='Date de prise en charge' timeLabel='Heure de prise en charge'/>
-                <MaterialUIPickers handleDateChange={this.handleEndDateChange} selectedDate={this.state.eDate} label='Date de retour' timeLabel='Heure de retour'/>
+                <MaterialUIPickers handleDateChange={this.handleStartDateChange} selectedDate={dateOut} label='Date de prise en charge' timeLabel='Heure de prise en charge'/>
+                <MaterialUIPickers handleDateChange={this.handleEndDateChange} selectedDate={dateOfReturn} label='Date de retour' timeLabel='Heure de retour'/>
                 <h3>{numberOfDays} jours</h3>
                 <h3>Total:{total}</h3>
-                <Link to={`/agence/${this.state.car.agency}/vehicule/${this.state.car.brand}/${this.state.car.model}/${this.state.car.year}/${this.state.car._id}/reservation/${total}/${numberOfDays}/${moment(this.state.sDate).locale('fr').format('LLLL')}/${moment(this.state.eDate).locale('fr').format('LLLL')}`} ><Button variant="contained">Reserver</Button></Link>
+                <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    >
+                    <div className='confirmation-modal'>
+                        <h2 id="simple-modal-title">Details de votre réservation</h2>
+                        <p id="simple-modal-description"></p>
+                        <h4>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h4>
+                        <h5>Date de prise en charge : {dateOut}</h5>
+                        <h5>Date de retour : {dateOfReturn}</h5>
+                        <h5>Durée totale : {numberOfDays} jours</h5>
+                        <h5>Total : {total}fcfa</h5>
+                        <Button variant="contained" onClick={()=>this.handleConfirm(total,numberOfDays,dateOut,dateOfReturn)}>Confirmer</Button>
+                        
+                    </div>
+                </Modal>
                 </Paper>
                 </Grid>
                 </Grid>
                 
             </div>
         )
-    }
+      }
 }
 
 export default CarDetails;

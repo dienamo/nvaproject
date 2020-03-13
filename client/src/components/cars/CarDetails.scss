@@ -3,3 +3,12 @@
     flex-direction: column;
     align-items: center;
 }
+
+.confirmation-modal{
+        position: absolute;
+        width: 400;
+        background-color: white;
+        border: 2px solid #000;
+        top: 32%;
+        left: 37%;
+}

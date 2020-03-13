@@ -5,15 +5,15 @@ const router  = express.Router();
 const Rental = require('../models/Rental')
 
 router.post('/rentals', (req, res, next)=>{
-  let {car,dateOut,dateOfReturn,withDriver,rentalFees,reservationNumber} = req.body
+  console.log('################', req.user)
+  let {car,dateOut,dateOfReturn,total,agency} = req.body
   Rental.create({
     user : req.user._id,
     car,
     dateOut,
     dateOfReturn,
-    withDriver,
-    rentalFees,
-    reservationNumber
+    total,
+    agency
   })
     .then(response => {
       res.json(response);
