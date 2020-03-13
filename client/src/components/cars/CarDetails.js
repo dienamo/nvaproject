@@ -7,6 +7,8 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import 'date-fns';
 import MaterialUIPickers from '../MaterialUIPickers'
+import moment from 'moment'
+import 'moment/locale/fr'
 
 class CarDetails extends React.Component{
     state = {
@@ -67,7 +69,7 @@ class CarDetails extends React.Component{
                 <MaterialUIPickers handleDateChange={this.handleEndDateChange} selectedDate={this.state.eDate} label='Date de retour' timeLabel='Heure de retour'/>
                 <h3>{numberOfDays} jours</h3>
                 <h3>Total:{total}</h3>
-                <Link to={`/agence/${this.state.car.agency}/vehicule/${this.state.car.brand}/${this.state.car.model}/${this.state.car.year}/${this.state.car._id}/reservation/${total}/${numberOfDays}`} ><Button variant="contained">Reserver</Button></Link>
+                <Link to={`/agence/${this.state.car.agency}/vehicule/${this.state.car.brand}/${this.state.car.model}/${this.state.car.year}/${this.state.car._id}/reservation/${total}/${numberOfDays}/${moment(this.state.sDate).locale('fr').format('LLLL')}/${moment(this.state.eDate).locale('fr').format('LLLL')}`} ><Button variant="contained">Reserver</Button></Link>
                 </Paper>
                 </Grid>
                 </Grid>

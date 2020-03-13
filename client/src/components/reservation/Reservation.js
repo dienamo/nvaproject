@@ -2,9 +2,11 @@ import React from 'react'
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
+
 class Confirmation extends React.Component{
-  rental=()=>{
-    axios.post(`http://localhost:5000/api/rentals`)
+  handleRental=()=>{
+    let{agency,car,dateOut,dateOfReturn,rentalFees}= this.props.match.params
+    axios.post(`http://localhost:5000/api/rentals`,{agency,car,dateOut,dateOfReturn,rentalFees})
   }
   render(){
     console.log(this.props.match.params)
@@ -15,7 +17,7 @@ class Confirmation extends React.Component{
         {vehiculeBrand} {vehiculeModel} {year}<br/>
         Durée de la location {delta} {delta <= 1 ? 'jour' : 'jours'}<br/>
         Prix Total {total}fcfa<br/>
-        <Button variant="contained">Payer à l'agence</Button>
+        <Button variant="contained" onClick={this.handleRental}>Payer à l'agence</Button>
       </div>
     )
   }

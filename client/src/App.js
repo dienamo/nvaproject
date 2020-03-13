@@ -50,7 +50,7 @@ class App extends Component {
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />
             <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" component={CarDetails} />
-            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:year/:id/reservation/:total/:delta" component={Reservation} />
+            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:year/:id/reservation/:total/:delta/:sDate/:eDate" component={Reservation} />
           </Switch>
         </div>
       )
