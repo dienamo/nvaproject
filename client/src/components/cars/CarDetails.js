@@ -32,12 +32,13 @@ class CarDetails extends React.Component{
     }
 
     handleConfirm=(total,numberOfDays,dateOut,dateOfReturn)=>{
-        const car = this.state.car.id
+        const car = this.state.car._id
         const agency = this.state.car.agency
-        console.log(car,agency,total,numberOfDays,dateOut,dateOfReturn)
+        console.log('car is',this.state.car._id)
         axios.post(`http://localhost:5000/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn},{withCredentials:true})
             .then(response=>{
                 console.log(response)
+                this.props.history.push('/redirection')
             })
             .catch(err=>{
                 console.log(err)
@@ -80,7 +81,9 @@ class CarDetails extends React.Component{
         let dateOfReturn = moment(this.state.dateOfReturn).locale('fr').format('LLLL')
         return(
             <div>
-                <img src={this.state.car.imageUrl} alt=""/>
+                <div className='car-div'>
+                <img src={this.state.car.imageUrl} alt="" className='car-image'/>
+                </div>
                 <Grid container spacing={3}>
                 <Grid item xs={6}>
                 <Paper className='car-details'><h1>{this.state.car.brand} {this.state.car.model}</h1></Paper>

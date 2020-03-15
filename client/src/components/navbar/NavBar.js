@@ -20,7 +20,7 @@ class NavBar extends React.Component{
     if(this.props.userInSession){
       return(
         <div className='NavBar'>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <div className="tool-bar">
           <Typography variant="h6">
@@ -39,15 +39,15 @@ class NavBar extends React.Component{
     }
     return(
       <div className='NavBar'>
-      <AppBar position="static">
+      <AppBar position="sticky">
         <Toolbar>
           <div className="tool-bar">
           <Typography variant="h6">
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
           <div className='nav-button'>
-          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Connexion</Button></Link>
-          <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
+          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
+          <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Connexion</Button></Link>
           </div>
           </div>
         </Toolbar>

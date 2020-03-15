@@ -9,6 +9,7 @@ const bcrypt     = require('bcryptjs');
 // require the user model !!!!
 const User       = require('../models/User');
 
+var nodemailer = require('nodemailer');
 
 authRoutes.post('/signup', (req, res, next) => {
     const name = req.body.name;
@@ -56,16 +57,34 @@ authRoutes.post('/signup', (req, res, next) => {
                 res.status(400).json({ message: 'Saving user to database went wrong.' });
                 return;
             }
-            
+            console.log('@@@@@@@@@@@@@@',aNewUser)
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: 'nvisioauto@gmail.com',
+                  pass: 'hbzytesdluptbsqc'
+                }
+              });
+              var mailOptions = {
+                from: 'nvisioauto@gmail.com',
+                to: aNewUser.username,
+                subject: 'Bienvenue chez NVA',
+                html: `<h1>Merci ${aNewUser.name}</h1><p>Nous sommes heureux de vous compter parmi nous.</p>`
+              };
+              transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
             // Automatically log in user after sign up
             // .login() here is actually predefined passport method
             req.login(aNewUser, (err) => {
-
                 if (err) {
                     res.status(500).json({ message: 'Login after signup went bad.' });
                     return;
                 }
-            
                 // Send the user's information to the frontend
                 // We can use also: res.status(200).json(req.user);
                 res.status(200).json(aNewUser);

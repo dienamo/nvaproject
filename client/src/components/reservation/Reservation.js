@@ -4,6 +4,7 @@ import axios from 'axios';
 
 
 class Confirmation extends React.Component{
+  
   handleRental=()=>{
     let{agency,car,dateOut,dateOfReturn,rentalFees}= this.props.match.params
     axios.post(`http://localhost:5000/api/rentals`,{agency,car,dateOut,dateOfReturn,rentalFees})

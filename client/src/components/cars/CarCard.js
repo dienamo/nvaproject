@@ -10,41 +10,43 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: 620,
   },
   media: {
-    height: 140,
+    height: 300,
   },
 });
 
 export default function CarCard(props) {
+  //console.log(props)
   const classes = useStyles();
-
+  const buttons = props.isAdmin ? 
+  (<div>
+    <Button size="small" color="primary" onClick={()=>{props.handleDelete(props.car._id)}}> Supprimer</Button>
+    <Button size="small" color="primary" onClick={()=>{props.handleOpen(props.car._id)}}> Modifier</Button>
+    </div>) : (
+    <Button size="small" color="primary">
+      Réserver
+    </Button>)
+      const adminDetails = props.isAdmin ? <div>{props.car.feesPerDay}</div> : <div></div>
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={props.image}
+          image={props.car.imageUrl}
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.brand}
+            {props.car.brand} {props.car.model} {props.car.year}
+            <h5>{props.car.feesPerDay}</h5>
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
+        {adminDetails}
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+      {buttons}
       </CardActions>
     </Card>
   );

@@ -7,9 +7,9 @@ import AgencyDetails from './components/agencies/AgencyDetails'
 import { Switch, Route } from 'react-router-dom';
 import NavBar from './components/navbar/NavBar';
 import CarDetails from './components/cars/CarDetails'
-import Reservation from './components/reservation/Reservation'
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
+import Redirection from './components/reservation/Redirection'
 import AuthService from './components/auth/auth-service';
 
 class App extends Component {
@@ -50,6 +50,7 @@ class App extends Component {
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />
             <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" component={CarDetails} />
+            <Route exact path="/redirection" render={(props) => (<Redirection history={props.history} />)} />
           </Switch>
         </div>
       )

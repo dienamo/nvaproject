@@ -1,26 +1,57 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router  = express.Router();
-
+const Car = require('../models/Car')
 const Rental = require('../models/Rental')
+var nodemailer = require('nodemailer');
 
 router.post('/rentals', (req, res, next)=>{
-  console.log('################', req.user)
-  let {car,dateOut,dateOfReturn,total,agency} = req.body
-  Rental.create({
-    user : req.user._id,
-    car,
-    dateOut,
-    dateOfReturn,
-    total,
-    agency
-  })
+  let {car,dateOut,dateOfReturn,agency,numberOfDays} = req.body
+  
+  Car.findById(car).then(car => {
+    const feesPerDay = car.feesPerDay;    
+    // compute the total BUT server-side !!
+    const total = numberOfDays * feesPerDay;
+    
+    Rental.create({
+      user : req.user._id,
+      car,
+      dateOut,
+      dateOfReturn,
+      total: total,
+      agency,
+      numberOfDays
+    })
     .then(response => {
-      res.json(response);
-    })
-    .catch(err => {
-      res.json(err);
-    })
+        res.json(response);
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'nvisioauto@gmail.com',
+            pass: 'hbzytesdluptbsqc'
+          }
+        });
+        
+        var mailOptions = {
+          from: 'nvisioauto@gmail.com',
+          to: req.user.username,
+          subject: 'Sending Email using Node.js',
+          html: `<h1>Merci ${req.user.name}</h1><p>That was easy!</p>`
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
+      })
+      .catch(err => {
+        res.json(err);
+      })
+  }).catch(err => res.status(500).json({message: err.message}))
+  
 });
 
 router.get('/rentals', (req, res, next) => {

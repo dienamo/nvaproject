@@ -66,12 +66,10 @@ router.get('/cars/:id', (req, res, next)=>{
 
 // PUT route => to update a specific Car
 router.put('/cars/:id', (req, res, next)=>{
-
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified id is not valid' });
     return;
   }
-
   Car.findByIdAndUpdate(req.params.id, req.body)
     .then(() => {
       res.json({ message: `Car with ${req.params.id} is updated successfully.` });
@@ -91,7 +89,7 @@ router.delete('/cars/:id', (req, res, next)=>{
 
   Car.findByIdAndRemove(req.params.id)
     .then(() => {
-      res.json({ message: `Car with ${req.params.id} is removed successfully.` });
+      res.json({ carId : req.params.id , message: `Car with ${req.params.id} is removed successfully.` });
     })
     .catch( err => {
       res.json(err);
