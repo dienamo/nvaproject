@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const router  = express.Router();
 const Car = require('../models/Car')
 const Rental = require('../models/Rental')
+const User = require('../models/User')
 var nodemailer = require('nodemailer');
 
 router.post('/rentals', (req, res, next)=>{
@@ -24,6 +25,14 @@ router.post('/rentals', (req, res, next)=>{
     })
     .then(response => {
         res.json(response);
+        User.updateOne({ "_id": req.user._id} , {$push:{rentals : response}})
+          .populate('Rental')
+          .then(response=>{
+             res.json(response)
+          })
+          .catch(err=>{
+            console.log('Error',err)
+          })
         var transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
