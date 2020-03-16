@@ -11,6 +11,7 @@ import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import Redirection from './components/reservation/Redirection'
 import AuthService from './components/auth/auth-service';
+import UserAccount from './components/auth/UserAccount';
 
 class App extends Component {
   state = { loggedInUser: null }
@@ -44,6 +45,7 @@ class App extends Component {
           <NavBar userInSession={this.state.loggedInUser} getUser={this.getTheUser}/>
           <Switch>
             <Route exact path="/" component={AgencyList} />
+            <Route exact path="/moncompte" render={() => <UserAccount getUser={this.getTheUser} userInSession={this.state.loggedInUser}/>} />
             <Route exact path="/signup" render={() => <Signup getUser={this.getTheUser}/>} />
             <Route exact path="/login" render={() => <Login getUser={this.getTheUser}/>} />
             <Route exact path="/agence/:id" component={AgencyDetails} />

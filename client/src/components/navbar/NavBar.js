@@ -28,6 +28,7 @@ class NavBar extends React.Component{
           </Typography>
           <div className='user-in-session'>
             Bienvenue {this.props.userInSession.name}
+            <Link to={'/moncompte'} style={{ textDecoration: 'none' }}>mon compte</Link>
           </div>
           <button onClick={() => this.logoutUser()}>Logout</button>
           </div>
