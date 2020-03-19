@@ -5,6 +5,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import AuthService from '../auth/auth-service'
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './NavBar.scss'
 
 class NavBar extends React.Component{
@@ -27,10 +29,10 @@ class NavBar extends React.Component{
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
           <div className='user-in-session'>
-            Bienvenue {this.props.userInSession.name}
-            <Link to={'/moncompte'} style={{ textDecoration: 'none' }}>mon compte</Link>
+              {this.props.userInSession.name}
+            <Link to={'/moncompte'} style={{ textDecoration: 'none' }}><AccountBoxIcon /></Link>
+            <ExitToAppIcon onClick={() => this.logoutUser()}/>
           </div>
-          <button onClick={() => this.logoutUser()}>Logout</button>
           </div>
         </Toolbar>
       </AppBar>
@@ -47,8 +49,8 @@ class NavBar extends React.Component{
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
           <div className='nav-button'>
-          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
-          <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Connexion</Button></Link>
+          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Connexion</Button></Link>
+          <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
           </div>
           </div>
         </Toolbar>

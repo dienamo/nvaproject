@@ -14,7 +14,8 @@ class AgencyDetails extends React.Component{
         agency : {
             cars: []
         },
-        fileredArray: []
+        filteredArray: [],
+        selected: ''
     }
 
     getAgency=()=>{
@@ -30,28 +31,21 @@ class AgencyDetails extends React.Component{
     }
 
     transmission=(value)=>{
-        if(value === 'automatique') {
-            const automatiqueCars=this.state.agency.cars.filter(car=>{
-                return car.transmission === 'automatique'
+        this.setState({
+            selected : value,
+            filteredArray : this.state.agency.cars.filter(car=>{
+                return car.transmission === value
             })
-            this.setState({
-                agency: {
-                    ...this.state.agency,
-                    cars: automatiqueCars
-              }
+        })
+    }
+
+    withAC=(value)=>{
+        this.setState({
+            selected : value,
+            filteredArray : this.state.agency.cars.filter(car=>{
+                return car.airConditionner === value
             })
-        }
-        if(value === 'manuelle') {
-            const manualCars=this.state.agency.cars.filter(car=>{
-                return car.transmission === 'manuelle'
-            })
-            this.setState({
-                agency: {
-                    ...this.state.agency,
-                    cars: manualCars
-              }
-            })
-        }
+        })
     }
 
     sortByPrice = (value) => {
@@ -60,6 +54,7 @@ class AgencyDetails extends React.Component{
                 return a.feesPerDay - b.feesPerDay;
         })
         this.setState({
+            selected : value,
             agency: {
                 ...this.state.agency,
                 cars: sortedArray
@@ -71,7 +66,8 @@ class AgencyDetails extends React.Component{
                 return b.feesPerDay - a.feesPerDay;
         })
         this.setState({
-            agency: {
+            selected : value,
+            agency : {
                 ...this.state.agency,
                 cars: sortedArray
           }
@@ -82,11 +78,22 @@ class AgencyDetails extends React.Component{
     
     componentDidMount(){
         this.getAgency()
+        
+        
     }
 
-
     render(){
-        const carArray =this.state.agency.cars
+
+        //this.setState({filteredArray: this.state.agency.cars})
+        const availableCars = this.state.agency.cars
+        const filteredCars = this.state.filteredArray
+        // areFiltersActive is of type boolean
+        const areFiltersActive = filteredCars.length 
+        // if no active filter show all availableCars
+        const displayedCars = areFiltersActive ? filteredCars : availableCars
+
+        
+        
         return(
             <div className='container'>
             
@@ -97,7 +104,7 @@ class AgencyDetails extends React.Component{
                         <InputLabel htmlFor="age-native-simple">Prix</InputLabel>
                             <Select
                                 native
-                                value=''
+                                value={this.state.selected}
                                 onChange={(e)=>this.sortByPrice(e.target.value)}
                                 inputProps={{
                                 name: 'age',
@@ -113,7 +120,7 @@ class AgencyDetails extends React.Component{
                         <InputLabel htmlFor="age-native-simple">Transmission</InputLabel>
                             <Select
                                 native
-                                value=''
+                                value={this.state.selected}
                                 onChange={(e)=>this.transmission(e.target.value)}
                                 inputProps={{
                                 name: 'age',
@@ -147,26 +154,28 @@ class AgencyDetails extends React.Component{
                         <InputLabel htmlFor="age-native-simple">Climatisation</InputLabel>
                             <Select
                                 native
-                                value=''
-                                onChange={this.getAC}
+                                value={this.state.selected}
+                                onChange={(e)=>this.withAC(e.target.value)}
                                 inputProps={{
                                 name: 'age',
                                 id: 'age-native-simple',
                                 }}
                             >
                                 <option value="" />
-                                <option value={10}>Climatisée</option>
+                                <option value='climatisées'>Climatisée</option>
                                 <option value={20}>Non-climatisée</option>
                                 </Select>
                     </FormControl>
                 </div>
-                    {carArray.map(car=>{
+                <div className='car-list'> 
+                    {displayedCars.map(car=>{
                         return(
-                            <div key={car._id} className='car-card'>                          
-                                <Link to={`/agence/${this.state.agency.name}/vehicule/${car.brand}/${car.model}/${car._id}`} style={{ textDecoration: 'none' }} ><CarCard car={car}/></Link> 
-                            </div>
+                                <div key={car._id}>                        
+                                    <Link to={`/agence/${this.state.agency.name}/vehicule/${car.brand}/${car.model}/${car._id}`} style={{ textDecoration: 'none' }} ><div className='car-card'><CarCard car={car}/></div></Link> 
+                                </div> 
                         )
                     })}
+                </div>
                 </div>
                 <div className='agency-details'>
                     <h3>{this.state.agency.name}</h3>

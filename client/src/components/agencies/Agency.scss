@@ -3,23 +3,18 @@
 }
 
 .car-list{
-    padding: 50px;
+    padding: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
-    width: 70%;
+    width: 80%;
 }
 
 .car-card{
-    width: 620px;
-    height: 400px;
+    width: 400px;
     margin-bottom: 30px;
 }
 
-.MuiPaper-root{
-    width: 100%;
-    height: 100%;
-}
 
 .agency-details{
     padding: 50px;
@@ -40,4 +35,51 @@
 .MuiFormControl-root{
     width: 140px;
     margin-right: 30px;
+}
+
+
+.select-container{
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../images/samuele-errico-piccarini-FMbWFDiVRPs-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.form-container{
+    opacity: 0.9;
+    width: 50vw;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.agencies-list{
+    width: 80%;
+}
+
+.MuiPopover-root{
+    width: 20%;
+    height: 30%;
+}
+
+.search-button{
+    margin-top: 5%;
+}
+
+.search-button button{
+    width: 40%;
+    background-color: white;
+    color: black;
+}
+
+.louer{
+    width: 100%;
+    height: 60vh;
+    background-image: url(../../images/senegal.jpg);
+    background-size: cover;
 }

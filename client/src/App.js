@@ -12,6 +12,7 @@ import Login from './components/auth/Login'
 import Redirection from './components/reservation/Redirection'
 import AuthService from './components/auth/auth-service';
 import UserAccount from './components/auth/UserAccount';
+import AdminPage from './components/admin/AdminPage'
 
 class App extends Component {
   state = { loggedInUser: null }
@@ -44,14 +45,15 @@ class App extends Component {
         <div className="App">
           <NavBar userInSession={this.state.loggedInUser} getUser={this.getTheUser}/>
           <Switch>
-            <Route exact path="/" component={AgencyList} />
+            <Route exact path="/" render={(props) => (<AgencyList history={props.history}/> )}/>
+            <Route exact path="/admin" component={AdminPage} />
             <Route exact path="/moncompte" render={() => <UserAccount getUser={this.getTheUser} userInSession={this.state.loggedInUser}/>} />
-            <Route exact path="/signup" render={() => <Signup getUser={this.getTheUser}/>} />
-            <Route exact path="/login" render={() => <Login getUser={this.getTheUser}/>} />
+            <Route exact path="/signup" render={() => <Signup getUser={this.getTheUser} />} />
+            <Route exact path="/login" render={() => <Login getUser={this.getTheUser} />} />
             <Route exact path="/agence/:id" component={AgencyDetails} />
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />
-            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" component={CarDetails} />
+            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser}/> }/>
             <Route exact path="/redirection" render={(props) => (<Redirection history={props.history} />)} />
           </Switch>
         </div>

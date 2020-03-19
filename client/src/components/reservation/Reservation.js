@@ -10,7 +10,6 @@ class Confirmation extends React.Component{
     axios.post(`http://localhost:5000/api/rentals`,{agency,car,dateOut,dateOfReturn,rentalFees})
   }
   render(){
-    console.log(this.props.match.params)
     let{vehiculeBrand,vehiculeModel,year,total,delta}=this.props.match.params
     return(
       <div>

@@ -1,0 +1,22 @@
+.root {
+    height: 100vh
+  }
+
+  .image {
+    background-image: url('../../images/goree.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .MuiPaper-root .paper {
+    //margin: theme.spacing(8, 4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+  }
+
+  .form {
+    width: 100%
+  }

@@ -9,6 +9,11 @@ import MaterialUIPickers from '../MaterialUIPickers'
 import Modal from '@material-ui/core/Modal';
 import moment from 'moment';
 import 'moment/locale/fr';  // without this line it didn't work
+import AcUnitIcon from '@material-ui/icons/AcUnit';
+import SettingsIcon from '@material-ui/icons/Settings';
+import AirlineSeatLegroomExtraIcon from '@material-ui/icons/AirlineSeatLegroomExtra';
+import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
+import { withRouter } from "react-router";
 moment.locale('fr');
 
 class CarDetails extends React.Component{
@@ -34,10 +39,9 @@ class CarDetails extends React.Component{
     handleConfirm=(total,numberOfDays,dateOut,dateOfReturn)=>{
         const car = this.state.car._id
         const agency = this.state.car.agency
-        console.log('car is',this.state.car._id)
         axios.post(`http://localhost:5000/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn},{withCredentials:true})
             .then(response=>{
-                console.log(response)
+                this.props.getUser(response.data)
                 this.props.history.push('/redirection')
             })
             .catch(err=>{
@@ -84,11 +88,20 @@ class CarDetails extends React.Component{
                 <div className='car-div'>
                 <img src={this.state.car.imageUrl} alt="" className='car-image'/>
                 </div>
+                <div className='main-container'>
                 <Grid container spacing={3}>
                 <Grid item xs={6}>
-                <Paper className='car-details'><h1>{this.state.car.brand} {this.state.car.model}</h1></Paper>
+                <Paper className='car-details'>
+                    <h1>{this.state.car.brand} {this.state.car.model}</h1>
+                    <div className='car-infos'>
+                        {this.state.car.airConditionner ? <div className='align-infos'><AcUnitIcon /><h4>Climatisées</h4></div> : <div className='align-infos'><AcUnitIcon /><h4>Non climatisée</h4> </div>}
+                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><SettingsIcon /> <h4>Transmission automatique</h4></div> : <div className='align-infos'><SettingsIcon /> <h4>Transmission manuelle</h4></div>}
+                        {this.state.car.fuel === 'essence' ? <div className='align-infos'><LocalGasStationIcon /> <h4>Essence</h4></div> : <div className='align-infos'><LocalGasStationIcon /> <h4>Diesel</h4></div>}
+                        <div className='align-infos'><AirlineSeatLegroomExtraIcon />{this.state.car.numberOfSeats}<h4>Sièges</h4></div>
+                    </div>
+                </Paper>
                 </Grid>
-                 <Grid item xs className='car-reservation'>
+                 <Grid item xs={6} className='car-reservation'>
                 <Paper>
                 <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}>/jour</h5>
                 <MaterialUIPickers handleDateChange={this.handleStartDateChange} selectedDate={dateOut} label='Date de prise en charge' timeLabel='Heure de prise en charge'/>
@@ -117,10 +130,10 @@ class CarDetails extends React.Component{
                 </Paper>
                 </Grid>
                 </Grid>
-                
+                </div>
             </div>
         )
       }
 }
 
-export default CarDetails;
+export default withRouter(CarDetails);

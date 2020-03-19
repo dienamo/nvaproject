@@ -7,15 +7,15 @@ import service from '../../api/service'
 class AddCar extends Component {
   state={
     brand: "",model: "",type: "",year:"",numberOfSeats: "",numberOfDoors: "",transmission:"",airConditionner:"",
-    available:"",agency: "",feesPerDay: "",numberPlate: "",imageUrl: ""
+    available:"",agency: "",feesPerDay: "",numberPlate: "",imageUrl: "",fuel: ""
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
     
-    const {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl} = this.state
+    const {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl,fuel} = this.state
     
-    axios.post("http://localhost:5000/api/cars", {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,})
+    axios.post("http://localhost:5000/api/cars", {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,fuel})
       .then(() => {
           // this.props.getData();
           // Reset form
@@ -62,6 +62,7 @@ handleFileUpload = e => {
           <TextField id="outlined-basic" name="numberOfSeats" value={this.state.numberOfSeats}label="Nombre de siège" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="numberOfDoors" value={this.state.numberOfDoors}label="Nombre de portes" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="transmission" value={this.state.transmission}label="Transmission" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <TextField id="outlined-basic" name="fuel" value={this.state.fuel}label="Carburant" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="airConditionner" value={this.state.airConditionner}label="Air conditionnée" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="mainImgUrl" value={this.state.mainImgUrl}label="Image" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="available" value={this.state.available}label="Disponible" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>

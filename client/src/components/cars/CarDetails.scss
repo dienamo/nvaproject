@@ -1,9 +1,3 @@
-.car-reservation{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
 .confirmation-modal{
         position: absolute;
         width: 40;
@@ -11,6 +5,8 @@
         border: 2px solid #000;
         top: 32%;
         left: 37%;
+        padding: 50px;
+        border: hidden;
 }
 
 
@@ -23,4 +19,25 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.car-infos{
+    display: flex;
+    padding: 30px;
+    flex-wrap: wrap;
+}
+
+.align-infos{
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.main-container{
+    width: 70%;
+    margin: auto;
+}
+
+.MuiPaper-root{
+    padding: 10px;
 }

@@ -25,6 +25,11 @@ class AuthService {
     .then(response => response.data)
   }
 
+  userAccount = (id) =>{
+    return this.service.get('/moncompte' , {id})
+      .then(response => response.data)
+  }
+
 }
 
 export default AuthService;

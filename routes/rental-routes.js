@@ -24,10 +24,10 @@ router.post('/rentals', (req, res, next)=>{
       numberOfDays
     })
     .then(response => {
-        res.json(response);
-        User.updateOne({ "_id": req.user._id} , {$push:{rentals : response}})
-          .populate('Rental')
-          .then(response=>{
+      User.findByIdAndUpdate(req.user._id , {$push:{rentals : response}} , {"new": true})
+      .populate('rentals')
+      .then(response=>{
+        console.log(response)
              res.json(response)
           })
           .catch(err=>{
@@ -123,5 +123,24 @@ router.delete('/rentals/:id', (req, res, next)=>{
     })
 })
 
+router.get('/moncompte',(req,res,next)=>{
+  console.log("Server (moncompte): ", req.user)
+
+  // if (!id)...
+
+  User.findById(req.user._id)
+    .populate({ 
+      path: "rentals", 
+      model: "Rental",
+      populate:{
+        path: "car",
+        model: 'Car'
+      }
+    })
+    .then(user => {
+      res.status(200).json(user)
+    })
+    .catch(err => console.error(err))
+})
 
 module.exports = router;

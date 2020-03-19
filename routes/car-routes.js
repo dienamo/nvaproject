@@ -5,13 +5,14 @@ const Car = require('../models/Car')
 const Agency = require('../models/Agency')
 
 router.post('/cars', (req, res, next)=>{
-  let {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,images,available,agency,feesPerDay,numberPlate} = req.body;
+  let {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,images,available,agency,feesPerDay,numberPlate,fuel} = req.body;
   let imageUrl = req.body.imageUrl
   Car.create({
     brand,
     model,
     year,
     type,
+    fuel,
     numberOfSeats,
     numberOfDoors,
     transmission,

@@ -1,8 +1,9 @@
 .AddCar {
-    width: 500px;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+     width: 100%;
+     //display: flex;
+     height: 100%;
+    // justify-content: space-between;
+     flex-direction: column;
 
     .MuiFormControl-root{
         margin-bottom: 10px;
