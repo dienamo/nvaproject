@@ -15,7 +15,10 @@ import UserAccount from './components/auth/UserAccount';
 import AdminPage from './components/admin/AdminPage'
 
 class App extends Component {
-  state = { loggedInUser: null }
+  state = { 
+    loggedInUser: null,
+    notifications: 0
+  }
   service = new AuthService()
 
   getTheUser= (userObj) => {
@@ -36,6 +39,12 @@ class App extends Component {
     }
   }
 
+  handleNotifications=()=>{
+    this.setState({
+       notification: this.state.notifications + 1
+    })
+  }
+
   componentDidMount() {
     this.fetchUser();
   }
@@ -53,7 +62,7 @@ class App extends Component {
             <Route exact path="/agence/:id" component={AgencyDetails} />
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />
-            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser}/> }/>
+            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser} /> }/>
             <Route exact path="/redirection" render={(props) => (<Redirection history={props.history} />)} />
           </Switch>
         </div>

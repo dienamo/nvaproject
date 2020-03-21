@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -10,40 +9,34 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import SimpleTabs from './SimpleTabs'
+import Badge from '@material-ui/core/Badge';
+import axios from 'axios'
+import './Header.scss'
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+class Header extends React.Component {
 
-const styles = theme => ({
-  secondaryBar: {
-    zIndex: 0,
-  },
-  menuButton: {
-    marginLeft: -theme.spacing(1),
-  },
-  iconButtonAvatar: {
-    padding: 4,
-  },
-  link: {
-    textDecoration: 'none',
-    color: lightColor,
-    '&:hover': {
-      color: theme.palette.common.white,
-    },
-  },
-  button: {
-    borderColor: lightColor,
-  },
-});
+  state={
+    notification: 0,
+  }
+  
+handleNotifications=()=>{
+  axios.get('http://localhost:5000/api/todonumber')
+   .then(todonumber=>{
+     this.setState({
+       notification: todonumber.data
+     })
+   })
+}
 
-function Header(props) {
-  const { classes, onDrawerToggle } = props;
+componentDidMount(){
+  this.handleNotifications()
+}
 
+  render(){
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -54,8 +47,8 @@ function Header(props) {
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
-                  onClick={onDrawerToggle}
-                  className={classes.menuButton}
+                  onClick={this.onDrawerToggle}
+                  className='menuButton'
                 >
                   <MenuIcon />
                 </IconButton>
@@ -63,19 +56,21 @@ function Header(props) {
             </Hidden>
             <Grid item xs />
             <Grid item>
-              <Link className={classes.link} href="#" variant="body2">
+              <Link className='link' href="#" variant="body2">
                 Go to docs
               </Link>
             </Grid>
             <Grid item>
               <Tooltip title="Alerts • No alerts">
                 <IconButton color="inherit">
+                <Badge badgeContent={this.state.notification} color="secondary">
                   <NotificationsIcon />
+                </Badge>
                 </IconButton>
               </Tooltip>
             </Grid>
             <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
+              <IconButton color="inherit" className='iconButtonAvatar'>
                 <Avatar src="/static/images/avatar/1.jpg" alt="My Avatar" />
               </IconButton>
             </Grid>
@@ -84,7 +79,7 @@ function Header(props) {
       </AppBar>
       <AppBar
         component="div"
-        className={classes.secondaryBar}
+        className='secondaryBar'
         color="primary"
         position="static"
         elevation={0}
@@ -97,7 +92,7 @@ function Header(props) {
               </Typography>
             </Grid>
             <Grid item>
-              <Button className={classes.button} variant="outlined" color="inherit" size="small">
+              <Button className='button' variant="outlined" color="inherit" size="small">
                 Web setup
               </Button>
             </Grid>
@@ -113,25 +108,16 @@ function Header(props) {
       </AppBar>
       <AppBar
         component="div"
-        className={classes.secondaryBar}
+        className='secondaryBar'
         color="primary"
         position="static"
         elevation={0}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab textColor="inherit" label="Véhicules" />
-          <Tab textColor="inherit" label="Réservation" />
-          <Tab textColor="inherit" label="Clients" />
-          <Tab textColor="inherit" label="Agences" />
-        </Tabs>
       </AppBar>
+      <SimpleTabs handleNotifications={this.handleNotifications}/>
     </React.Fragment>
   );
 }
+}
 
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onDrawerToggle: PropTypes.func.isRequired,
-};
-
-export default withStyles(styles)(Header);
+export default Header;

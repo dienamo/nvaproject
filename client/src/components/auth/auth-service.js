@@ -30,6 +30,11 @@ class AuthService {
       .then(response => response.data)
   }
 
+  isreadynumber = (id) =>{
+    return this.service.get('/isreadynumber' , {id})
+      .then(response => response.data)
+  }
+
 }
 
 export default AuthService;

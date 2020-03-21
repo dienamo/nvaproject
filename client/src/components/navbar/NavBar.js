@@ -8,8 +8,10 @@ import AuthService from '../auth/auth-service'
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './NavBar.scss'
+import Notifications from './Notifications';
 
 class NavBar extends React.Component{
+
   service = new AuthService()
   logoutUser = () => {
     this.service.logout()
@@ -17,8 +19,8 @@ class NavBar extends React.Component{
       this.props.getUser(null);  
     })
   }
+  
   render(){
-
     if(this.props.userInSession){
       return(
         <div className='NavBar'>
@@ -31,6 +33,7 @@ class NavBar extends React.Component{
           <div className='user-in-session'>
               {this.props.userInSession.name}
             <Link to={'/moncompte'} style={{ textDecoration: 'none' }}><AccountBoxIcon /></Link>
+            <Notifications userInSession={this.props.userInSession}/>
             <ExitToAppIcon onClick={() => this.logoutUser()}/>
           </div>
           </div>

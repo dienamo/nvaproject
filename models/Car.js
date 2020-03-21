@@ -12,7 +12,7 @@ const carSchema = new Schema({
   fuel : {type: String , enum: ['essence', 'diesel'] , required: true},
   airConditionner : {type : String, enum: ['Climatisée', 'Non climatisées'] , required: true},
   images: [{type: String}],
-  available : {type: Boolean , required: true},
+  available : {type : Boolean , required: true},
   agency : {type : Schema.Types.ObjectId, ref: 'Agency'},
   feesPerDay:{type: Number , required: true},
   numberPlate: {type: String , required: true},

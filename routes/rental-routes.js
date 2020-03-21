@@ -27,7 +27,6 @@ router.post('/rentals', (req, res, next)=>{
       User.findByIdAndUpdate(req.user._id , {$push:{rentals : response}} , {"new": true})
       .populate('rentals')
       .then(response=>{
-        console.log(response)
              res.json(response)
           })
           .catch(err=>{
@@ -65,6 +64,18 @@ router.post('/rentals', (req, res, next)=>{
 
 router.get('/rentals', (req, res, next) => {
   Rental.find()
+    .populate({
+      path: "car", 
+      model: "Car",
+    })
+    .populate({
+      path: 'user',
+      model: 'User'
+    })
+    .populate({
+      path: 'agency',
+      model: 'Agency'
+    })
     .then(allTheRentals => {
       res.json(allTheRentals);
     })
@@ -97,9 +108,32 @@ router.put('/rentals/:id', (req, res, next)=>{
     return;
   }
 
-  Rental.findByIdAndUpdate(req.params.id, req.body)
-    .then(() => {
-      res.json({ message: `Rental with ${req.params.id} is updated successfully.` });
+  Rental.findByIdAndUpdate(req.params.id , {orderStatus : 'En cours'}, {new: true})
+    .then((updatedRental) => {
+      console.log(updatedRental)
+      res.json({ message: `Rental with ${req.params.id} is updated successfully.`,updatedRental });
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'nvisioauto@gmail.com',
+          pass: 'hbzytesdluptbsqc'
+        }
+      });
+      
+      var mailOptions = {
+        from: 'nvisioauto@gmail.com',
+        to: req.user.username,
+        subject: 'Sending Email using Node.js',
+        html: `<h1>Merci ${req.user.name}</h1><p>That was easy!</p>`
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
     })
     .catch(err => {
       res.json(err);
@@ -141,6 +175,40 @@ router.get('/moncompte',(req,res,next)=>{
       res.status(200).json(user)
     })
     .catch(err => console.error(err))
+})
+
+router.get('/users', (req, res, next) => {
+  User.find()
+    .populate({
+      path: 'rentals',
+      model: 'Rental'
+    })
+    .then(allTheUsers => {
+      res.json(allTheUsers);
+    })
+    .catch(err => {
+      res.json(err);
+    })
+});
+
+router.get('/todonumber' , (req , res, next) => {
+  Rental.find()
+   .then(rentals=>{
+     res.json(rentals.filter(rental=> rental.orderStatus === 'À traiter').length)
+   })
+})
+
+router.get('/isreadynumber' , (req , res , next)=>{
+  User.findById(req.user._id)
+  .populate({
+    path: 'rentals',
+    model: 'Rental'
+  })
+  .then(user=>{
+    // res.json(user.rentals.filter(rental=> rental.orderStatus === 'En cours').length)
+    res.json(user.rentals)
+  })
+  .catch(err=>console.log(err))
 })
 
 module.exports = router;

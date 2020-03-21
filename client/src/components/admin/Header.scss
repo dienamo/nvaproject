@@ -1,0 +1,19 @@
+.secondaryBar {
+    z-index: 0;
+  }
+// .menuButton {
+//     marginLeft -theme.spacing(1);
+//   }
+.iconButtonAvatar {
+    padding: 4;
+  }
+.link {
+    text-decoration: none;
+    color: lightColor;
+    hover: {
+      color: white
+    }
+  }
+.button {
+    border-color: rgba(255, 255, 255, 0.7)
+  }

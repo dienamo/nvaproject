@@ -7,9 +7,10 @@ const rentalSchema = new Schema({
   agency: {type : Schema.Types.ObjectId, ref: 'Agency'},
   dateOut : {type: Date , required: true},
   dateOfReturn : {type: Date , required: true},
-  //withDriver : {type: Boolean , required: true},
   total: {type: Number , required: true},
   numberOfDays: {type: Number , required: true},
+  //driver :  {type : Boolean , required: true},
+  orderStatus : {type : String , enum : ['À traiter' , 'En cours' , 'Terminée' , 'Annulée'] , default : 'À traiter'}
 }, {
   timestamps: {
     createdAt: 'created_at',

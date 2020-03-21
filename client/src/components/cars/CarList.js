@@ -98,7 +98,7 @@ class CarList extends React.Component{
                 {this.state.listOfCars.map(car=>{
                     return(
                         <div key={car._id}>
-                            <CarCard car={car} isAdmin={true} handleDelete={this.deleteCar} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
+                            <CarCard car={car} isAdmin={true} isAvailable={true} handleDelete={this.deleteCar} handleOpen={this.handleOpen} handleClose={this.handleClose}/>
                             <Modal
                             aria-labelledby="simple-modal-title"
                             aria-describedby="simple-modal-description"

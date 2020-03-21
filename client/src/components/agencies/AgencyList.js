@@ -7,9 +7,7 @@ import Select from '@material-ui/core/Select';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
-
-
-
+import Typist from 'react-typist';
 
 class Agency extends React.Component{
     state={
@@ -45,6 +43,9 @@ class Agency extends React.Component{
         return(
             <div>
                 <section className='select-container'>
+                <Typist className='typist'>
+                    Profitez de notre gamme complète de véhicules directement en ligne
+                </Typist>
                 <Paper className='form-container' elevation={3}>
                 <FormControl variant="outlined" className='agencies-list'>
                     <InputLabel ref='{inputLabel} 'id="demo-simple-select-outlined-label">
@@ -80,6 +81,9 @@ class Agency extends React.Component{
             
             <section className='louer'>
                 
+            </section>
+            <section className='user-infos'>
+
             </section>
             </div>
         )

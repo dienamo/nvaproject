@@ -38,9 +38,9 @@ export default function CarCard(props) {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h5">
             {props.car.brand} {props.car.model} {props.car.year}
-            <h5>{props.car.feesPerDay}</h5>
+            {props.car.feesPerDay}
           </Typography>
         {adminDetails}
         </CardContent>

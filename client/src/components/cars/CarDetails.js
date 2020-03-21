@@ -21,7 +21,7 @@ class CarDetails extends React.Component{
         car : {},
         dateOut: new Date(),
         dateOfReturn: new Date(),
-        open: false
+        open: false,
     }
     
     getCar=()=>{
