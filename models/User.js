@@ -6,6 +6,7 @@ const userSchema = new Schema({
   lastname: {type : String , required: true},
   username: {type : String , required: true},
   password: {type : String , required: true},
+  address: {type : String , required: true},
   phonenumber: {type : Number , required: true},
   rentals: [{type : Schema.Types.ObjectId, ref: 'Rental'}] ,
   userStatus : {type : String ,  enum : ['admin' , 'standard'] , default : 'standard'}

@@ -39,6 +39,34 @@ class Rentals extends React.Component{
     })
   }
   
+  handleCancellation=(rentalId)=>{
+    axios.put(`http://localhost:5000/api/cancelrental/${rentalId}`)
+    .then(response=>{
+      const updatedRental = response.data.updatedRental
+      const listOfReservations2 = [...this.state.listOfReservations.map(reservation=>{
+        return reservation._id === updatedRental._id ? updatedRental : reservation
+      })];
+      this.setState({
+        listOfReservations : listOfReservations2
+      })
+      this.props.handleNotifications()
+    })
+  }
+
+  handleTermination=(rentalId)=>{
+    axios.put(`http://localhost:5000/api/terminaterental/${rentalId}`)
+    .then(response=>{
+      const updatedRental = response.data.updatedRental
+      const listOfReservations2 = [...this.state.listOfReservations.map(reservation=>{
+        return reservation._id === updatedRental._id ? updatedRental : reservation
+      })];
+      this.setState({
+        listOfReservations : listOfReservations2
+      })
+      this.props.handleNotifications()
+    })
+  }
+  
   
   componentDidMount(){
     this.getAllReservations()
@@ -68,9 +96,16 @@ class Rentals extends React.Component{
                   <Button variant="contained" size='small' color="primary" className='main-button' onClick={(e)=>{this.handleValidation(reservation._id)}}>
                     {reservation.orderStatus === 'À traiter' ? 'Véhicule prêt, envoyer la notification' : 'Notification envoyée'}
                   </Button>
-                  <Button variant="contained" color="secondary">
+                  <p>
+                  <p>
+                    <Button variant='contained' size='small' onClick={(e)=>{this.handleTermination(reservation._id)}}>
+                    Retour véhicule, Terminer
+                    </Button>  
+                  </p>            
+                  <Button variant="contained" size='small' color="secondary" onClick={(e)=>{this.handleCancellation(reservation._id)}}>
                     Annuler
-                  </Button>                 
+                  </Button>    
+                  </p> 
                 </div>
             </List>
             <Divider />

@@ -17,18 +17,22 @@ class Notifications extends React.Component{
     handleReadyOrders=(id)=>{
       this.service.isreadynumber(id)
       .then(response=>{
-          console.log(response)
           const notifNumber = response.filter(rental=> rental.orderStatus === 'En cours').length
           const notificationContent = response.filter(rental=> rental.orderStatus === 'En cours')
+          console.log(notificationContent)
           this.setState({
               notification : notifNumber,
               notificationContent : notificationContent
             })
-            console.log(this.state.notificationContent)
       })
     }
 
     handleOpen=()=>{
+        const notificationIds = this.state.notificationContent.map(rental=>{
+            return rental._id
+        })
+        this.service.readbyuser(notificationIds)
+        .then(response=>console.log(response))
         this.setState({
             open: true,
             notification: 0

@@ -26,9 +26,12 @@ router.post('/rentals', (req, res, next)=>{
     .then(response => {
       User.findByIdAndUpdate(req.user._id , {$push:{rentals : response}} , {"new": true})
       .populate('rentals')
-      .then(response=>{
-             res.json(response)
+      .then(
+        Car.findByIdAndUpdate({_id: car._id} , {available: false} , {"new": true})
+        .then(response=>{
+            res.json(response)
           })
+          )
           .catch(err=>{
             console.log('Error',err)
           })
@@ -109,8 +112,19 @@ router.put('/rentals/:id', (req, res, next)=>{
   }
 
   Rental.findByIdAndUpdate(req.params.id , {orderStatus : 'En cours'}, {new: true})
+  .populate({
+    path: 'car',
+    model: 'Car'
+  })
+  .populate({
+    path: 'user',
+    model: 'User'
+  })
+  .populate({
+    path: 'agency',
+    model: 'Agency'
+  })
     .then((updatedRental) => {
-      console.log(updatedRental)
       res.json({ message: `Rental with ${req.params.id} is updated successfully.`,updatedRental });
       var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -140,6 +154,69 @@ router.put('/rentals/:id', (req, res, next)=>{
     })
 })
 
+router.put('/cancelrental/:id', (req, res, next)=>{
+
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  Rental.findByIdAndUpdate(req.params.id , {orderStatus : 'Annulée'}, {new: true})
+  .populate({
+    path: 'car',
+    model: 'Car'
+  })
+  .populate({
+    path: 'user',
+    model: 'User'
+  })
+  .populate({
+    path: 'agency',
+    model: 'Agency'
+  })
+    .then(updatedRental => {
+      Car.findByIdAndUpdate({_id: updatedRental.car._id} , {available: true} , {"new": true})
+      .then(updatedCar=>{
+        res.json({ message: `Rental with ${req.params.id} is updated successfully.`,updatedRental});
+      })
+    })
+    .catch(err => {
+      res.json(err);
+    })
+})
+
+router.put('/terminaterental/:id', (req, res, next)=>{
+
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  Rental.findByIdAndUpdate(req.params.id , {orderStatus : 'Terminée'}, {new: true})
+  .populate({
+    path: 'car',
+    model: 'Car'
+  })
+  .populate({
+    path: 'user',
+    model: 'User'
+  })
+  .populate({
+    path: 'agency',
+    model: 'Agency'
+  })
+    .then(updatedRental => {
+      Car.findByIdAndUpdate({_id: updatedRental.car._id} , {available: true} , {"new": true})
+      .then(updatedCar=>{
+        res.json({ message: `Rental with ${req.params.id} is updated successfully.`,updatedRental});
+      })
+    })
+    .catch(err => {
+      res.json(err);
+    })
+})
+
+
 // DELETE route => to delete a specific Rental
 router.delete('/rentals/:id', (req, res, next)=>{
 
@@ -158,10 +235,7 @@ router.delete('/rentals/:id', (req, res, next)=>{
 })
 
 router.get('/moncompte',(req,res,next)=>{
-  console.log("Server (moncompte): ", req.user)
-
   // if (!id)...
-
   User.findById(req.user._id)
     .populate({ 
       path: "rentals", 
@@ -209,6 +283,15 @@ router.get('/isreadynumber' , (req , res , next)=>{
     res.json(user.rentals)
   })
   .catch(err=>console.log(err))
+})
+
+router.put('/readbyuser' , (req , res , next)=>{
+  Rental.update(
+    {_id: {$in: req.body.ids}},
+    {$set: {orderStatus : 'Lu'}},
+    {multi : true}
+  )
+  .then(response => res.json(response))
 })
 
 module.exports = router;

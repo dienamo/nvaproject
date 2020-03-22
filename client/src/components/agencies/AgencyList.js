@@ -80,9 +80,22 @@ class Agency extends React.Component{
                 </section>
             
             <section className='louer'>
-                
+                <div className='flex-container'>
+                    <div className='user-infos'>
+                    
+                    </div>
+                    <div className='user-infos'>
+
+                    </div>
+                    <div className='user-infos'>
+
+                    </div>
+                    <div className='user-infos'>
+
+                    </div>
+                </div>
             </section>
-            <section className='user-infos'>
+            <section >
 
             </section>
             </div>

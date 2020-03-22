@@ -10,7 +10,7 @@ const rentalSchema = new Schema({
   total: {type: Number , required: true},
   numberOfDays: {type: Number , required: true},
   //driver :  {type : Boolean , required: true},
-  orderStatus : {type : String , enum : ['À traiter' , 'En cours' , 'Terminée' , 'Annulée'] , default : 'À traiter'}
+  orderStatus : {type : String , enum : ['À traiter' , 'En cours' , 'Lu' , 'Terminée' , 'Annulée'] , default : 'À traiter'}
 }, {
   timestamps: {
     createdAt: 'created_at',

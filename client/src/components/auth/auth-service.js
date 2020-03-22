@@ -35,6 +35,11 @@ class AuthService {
       .then(response => response.data)
   }
 
+  readbyuser = (ids) =>{
+    return this.service.put('/readbyuser' , {ids})
+      .then(response => response.data)
+  }
+
 }
 
 export default AuthService;
