@@ -1,4 +1,4 @@
-.container{
+.sub-container{
     display: flex;
 }
 
@@ -7,11 +7,15 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    width: 80%;
+    width: 70vw;
+}
+
+.list-container .car-list{
+    margin: 0;
 }
 
 .car-card{
-    width: 400px;
+    width: 430px;
     margin-bottom: 30px;
 }
 
@@ -27,7 +31,7 @@
 .filter-bar{
     display: flex;
     align-items: center;
-    padding: 0px 40px 40px 40px;
+    padding: 50px 40px 0px 40px;
     justify-content: space-around;
     width: 100%;
 }
@@ -72,7 +76,7 @@
 }
 
 .search-button button{
-    width: 40%;
+    width: 58%;
     background-color: white;
     color: black;
 }

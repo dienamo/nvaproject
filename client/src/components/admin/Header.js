@@ -38,8 +38,8 @@ componentDidMount(){
 
   render(){
   return (
-    <React.Fragment>
-      <AppBar color="primary" position="sticky" elevation={0}>
+    <React.Fragment >
+      <AppBar position="sticky" elevation={0} className='header'>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden smUp>

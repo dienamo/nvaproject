@@ -7,25 +7,25 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import './CarCard.scss'
 
 const useStyles = makeStyles({
   root: {
     maxWidth: 620,
   },
   media: {
-    height: 300,
+    height: 250,
   },
 });
 
 export default function CarCard(props) {
-  //console.log(props)
   const classes = useStyles();
   const buttons = props.isAdmin ? 
   (<div>
     <Button size="small" color="primary" onClick={()=>{props.handleDelete(props.car._id)}}> Supprimer</Button>
     <Button size="small" color="primary" onClick={()=>{props.handleOpen(props.car._id)}}> Modifier</Button>
     </div>) : (
-    <Button size="small" color="primary">
+    <Button variant="contained" size="small" className='reservation-button'>
       Réserver
     </Button>)
       const adminDetails = props.isAdmin ? <div>{props.car.feesPerDay}</div> : <div></div>
@@ -39,8 +39,7 @@ export default function CarCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5">
-            {props.car.brand} {props.car.model} {props.car.year}
-            {props.car.feesPerDay}
+            {props.car.brand} {props.car.model} {props.car.year} {props.car.feesPerDay} f/jour
           </Typography>
         {adminDetails}
         </CardContent>

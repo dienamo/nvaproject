@@ -52,7 +52,7 @@ class NavBar extends React.Component{
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
           <div className='nav-button'>
-          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Connexion</Button></Link>
+          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button className='connexion-button' color="inherit" variant="outlined">Connexion</Button></Link>
           <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
           </div>
           </div>

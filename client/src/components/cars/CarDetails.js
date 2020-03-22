@@ -95,7 +95,7 @@ class CarDetails extends React.Component{
                     <h1>{this.state.car.brand} {this.state.car.model}</h1>
                     <div className='car-infos'>
                         {this.state.car.airConditionner ? <div className='align-infos'><AcUnitIcon /><h4>Climatisées</h4></div> : <div className='align-infos'><AcUnitIcon /><h4>Non climatisée</h4> </div>}
-                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><SettingsIcon /> <h4>Transmission automatique</h4></div> : <div className='align-infos'><SettingsIcon /> <h4>Transmission manuelle</h4></div>}
+                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><SettingsIcon /> <h4>Boite automatique</h4></div> : <div className='align-infos'><SettingsIcon /> <h4>Transmission manuelle</h4></div>}
                         {this.state.car.fuel === 'essence' ? <div className='align-infos'><LocalGasStationIcon /> <h4>Essence</h4></div> : <div className='align-infos'><LocalGasStationIcon /> <h4>Diesel</h4></div>}
                         <div className='align-infos'><AirlineSeatLegroomExtraIcon />{this.state.car.numberOfSeats}<h4>Sièges</h4></div>
                     </div>

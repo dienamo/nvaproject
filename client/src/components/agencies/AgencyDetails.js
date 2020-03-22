@@ -96,9 +96,8 @@ class AgencyDetails extends React.Component{
         
         return(
             <div className='container'>
-            
-            <div className='container'>
-                <div className='car-list'>
+                <div className='sub-container'>
+                <div className = 'list-container'>
                 <div className='filter-bar'>
                     <FormControl className='form-control'>
                         <InputLabel htmlFor="age-native-simple">Prix</InputLabel>
@@ -170,7 +169,7 @@ class AgencyDetails extends React.Component{
                 <div className='car-list'> 
                     {displayedCars.map(car=>{
                         return(
-                                <div key={car._id}>                        
+                                <div key={car._id} className='card-container'>                        
                                     <Link to={`/agence/${this.state.agency.name}/vehicule/${car.brand}/${car.model}/${car._id}`} style={{ textDecoration: 'none' }} ><div className='car-card'><CarCard car={car}/></div></Link> 
                                 </div> 
                         )
@@ -182,7 +181,7 @@ class AgencyDetails extends React.Component{
                     <h4>{this.state.agency.address}</h4>
                     <h4><PhoneIcon />+{this.state.agency.phone}</h4>
                 </div>
-            </div>
+                </div>
             </div>
         )
     }

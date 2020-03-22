@@ -25,6 +25,7 @@ router.post('/cars', (req, res, next)=>{
     imageUrl
   })
   .then(response => {
+    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@', response)
     res.json(response);
     Agency.update({$push:{cars : response}})
     .then(response=>{

@@ -108,10 +108,23 @@ class Signup extends React.Component {
                 required
                 fullWidth
                 id="email"
-                label="Adresse mail"
+                label="Email"
                 name="username"
                 autoComplete="email"
                 value={this.state.username}
+                onChange={ e => this.handleChange(e)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="address"
+                label="Adresse"
+                name="address"
+                autoComplete="address"
+                value={this.state.address}
                 onChange={ e => this.handleChange(e)}
               />
             </Grid>
