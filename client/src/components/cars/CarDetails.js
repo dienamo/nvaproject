@@ -28,7 +28,7 @@ class CarDetails extends React.Component{
     }
     
     getCar=()=>{
-        axios.get(`http://localhost:5000/api/cars/${this.props.match.params.id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/cars/${this.props.match.params.id}`)
         .then(responseFromApi=>{
             this.setState({
                 car : responseFromApi.data
@@ -42,7 +42,7 @@ class CarDetails extends React.Component{
     handleConfirm=(total,numberOfDays,dateOut,dateOfReturn)=>{
         const car = this.state.car._id
         const agency = this.state.car.agency
-        axios.post(`http://localhost:5000/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn},{withCredentials:true})
+        axios.post(`${process.env.REACT_APP_API_URL}/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn},{withCredentials:true})
             .then(response=>{
                 this.props.getUser(response.data)
                 this.props.history.push('/redirection')

@@ -10,11 +10,12 @@ const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
 
+require('dotenv').config();
 require('./configs/passport');
 
 
 mongoose
-  .connect('mongodb://localhost/nvaproject', {useNewUrlParser: true})
+  .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -73,5 +74,18 @@ app.use('/api', require('./routes/car-routes'));
 app.use('/api', require('./routes/agency-routes'));
 app.use('/api', require('./routes/rental-routes'));
 app.use('/api', require('./routes/file-upload'));
+
+// Serve static files from client/build
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+// For any other routes: serve client/build/index.html SPA
+app.use((req, res, next) => {
+  res.sendFile(`${__dirname}/client/build/index.html`), err => {
+    if (err) { next(err) }
+  }
+})
+ 
+
+
 
 module.exports = app;

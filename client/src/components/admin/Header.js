@@ -24,7 +24,7 @@ class Header extends React.Component {
   }
   
 handleNotifications=()=>{
-  axios.get('http://localhost:5000/api/todonumber')
+  axios.get(`${process.env.REACT_APP_API_URL}/todonumber`)
    .then(todonumber=>{
      this.setState({
        notification: todonumber.data
