@@ -63,7 +63,7 @@ class App extends Component {
             <Route exact path="/agence/:id" component={AgencyDetails} />
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />
-            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser} /> }/>
+            <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser} userInSession={this.state.loggedInUser}/> }/>
             <Route exact path="/redirection" render={(props) => (<Redirection history={props.history} />)} />
           </Switch>
         </div>

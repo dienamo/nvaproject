@@ -12,6 +12,7 @@ class Clients extends React.Component{
 
   state = {
     listOfClients: [],
+    filteredList:[],
     search: ''
   }
 
@@ -19,7 +20,8 @@ class Clients extends React.Component{
     axios.get(`${process.env.REACT_APP_API_URL}/users`)
     .then(responseFromApi=>{
         this.setState({
-            listOfClients : responseFromApi.data
+            listOfClients : responseFromApi.data,
+            filteredList: responseFromApi.data
         })
     })
     .catch(err=>{
@@ -27,13 +29,25 @@ class Clients extends React.Component{
     })
   }
 
+  searchSpace=(event)=>{
+    let keyword = event.target.value;
+    const copyList = [...this.state.listOfClients]
+    const filteredList = copyList.filter(theClient => {
+      return theClient.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || theClient.lastname.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+      || theClient.username.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+      ;
+    })
+    this.setState({
+        filteredList,
+        search:keyword,
+    })
+}
+
   componentDidMount(){
     this.getAllClients()
   }
 
   render(){
-    console.log(this.state.listOfClients)
-    console.log(this.state.listOfClients[0])
     return(
       <div>
         <div className='search-bar'>
@@ -41,13 +55,13 @@ class Clients extends React.Component{
           <InputLabel htmlFor="outlined-adornment-amount">Rechercher un client</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
-            value=''
-            onChange=''
+            value={this.state.search}
+            onChange={this.searchSpace}
             labelWidth={60}
           />
         </FormControl>
         </div>
-        {this.state.listOfClients.map(client=>{
+        {this.state.filteredList.map(client=>{
           return(
             <div key={client._id}>
               <List component="nav" aria-label="secondary mailbox folders" className='main-list-container'>

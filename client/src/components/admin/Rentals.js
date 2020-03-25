@@ -76,7 +76,11 @@ class Rentals extends React.Component{
     let keyword = event.target.value;
     const copyList = [...this.state.listOfReservations]
     const filteredList = copyList.filter(theReservation => {
-      return theReservation.user.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+      console.log(theReservation)
+      return theReservation.user.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || theReservation.user.lastname.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+      || theReservation.car.brand.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || theReservation.car.model.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+      || theReservation.user.username.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
+      ;
     })
     this.setState({
         filteredList,
@@ -115,6 +119,7 @@ class Rentals extends React.Component{
                 <div className='other-infos'>
                   <ListItemText primary={'Prise en charge:'} secondary={`${reservation.dateOut}`} />
                   <ListItemText primary={'Retour:'} secondary={`${reservation.dateOfReturn}`}/>
+                  {reservation.driverFees ? <ListItemText primary={'Frais de chauffeur:'} secondary={`${reservation.driverFees}`}/> : ''}
                 </div>
                 <div className='status'>
                   <ListItemText primary={'Statut:'} secondary={`${reservation.orderStatus}`} />

@@ -7,7 +7,7 @@ const User = require('../models/User')
 var nodemailer = require('nodemailer');
 
 router.post('/rentals', (req, res, next)=>{
-  let {car,dateOut,dateOfReturn,agency,numberOfDays} = req.body
+  let {car,dateOut,dateOfReturn,agency,numberOfDays,driverFees} = req.body
   
   Car.findById(car).then(car => {
     const feesPerDay = car.feesPerDay;    
@@ -21,7 +21,8 @@ router.post('/rentals', (req, res, next)=>{
       dateOfReturn,
       total: total,
       agency,
-      numberOfDays
+      numberOfDays,
+      driverFees
     })
     .then(response => {
       User.findByIdAndUpdate(req.user._id , {$push:{rentals : response}} , {"new": true})

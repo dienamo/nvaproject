@@ -15,6 +15,7 @@ import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
 import { withRouter } from "react-router";
 import DateFnsUtils from '@date-io/date-fns';
 import frLocale from "date-fns/locale/fr";
+import Radio from '@material-ui/core/Radio';
 import {DateTimePicker , MuiPickersUtilsProvider} from '@material-ui/pickers'
 
 moment.locale('fr');
@@ -25,6 +26,8 @@ class CarDetails extends React.Component{
         dateOut: new Date(),
         dateOfReturn: new Date(),
         open: false,
+        checked: false,
+        driverFees:0
     }
     
     getCar=()=>{
@@ -42,7 +45,8 @@ class CarDetails extends React.Component{
     handleConfirm=(total,numberOfDays,dateOut,dateOfReturn)=>{
         const car = this.state.car._id
         const agency = this.state.car.agency
-        axios.post(`${process.env.REACT_APP_API_URL}/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn},{withCredentials:true})
+        const driverFees = this.state.driverFees
+        axios.post(`${process.env.REACT_APP_API_URL}/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn,driverFees},{withCredentials:true})
             .then(response=>{
                 this.props.getUser(response.data)
                 this.props.history.push('/redirection')
@@ -69,9 +73,10 @@ class CarDetails extends React.Component{
       };
 
       handleOpen=()=>{
-        this.setState({
+        this.props.userInSession ? this.setState({
             open: true
         })
+        : this.props.history.push('/login')
       }
 
       handleClose=()=>{
@@ -79,11 +84,23 @@ class CarDetails extends React.Component{
             open: false
         })
       }
+
+      handleCheck=(event)=>{
+          this.state.checked ? this.setState({
+            checked:false,
+            driverFees: 0
+        }) : this.setState({
+            checked:true,
+            driverFees: 30000
+        })
+          
+      }
       
     render(){
         // eslint-disable-next-line react/no-direct-mutation-state
         let numberOfDays = Math.ceil((this.state.dateOfReturn --- this.state.dateOut) / (1000 * 60 * 60 * 24));
-        let total = this.state.car.feesPerDay*numberOfDays;
+        let driverFees = this.state.driverFees * numberOfDays;
+        let total = (this.state.car.feesPerDay*numberOfDays) + driverFees;
         let dateOut = moment(this.state.dateOut).locale('fr').format('LLLL')
         let dateOfReturn = moment(this.state.dateOfReturn).locale('fr').format('LLLL')
         return(
@@ -115,6 +132,15 @@ class CarDetails extends React.Component{
                     </MuiPickersUtilsProvider>
                 </div>
                 {total <= 0 ? '' : <div><h3>{numberOfDays} {numberOfDays > 1 ? 'jours' : 'jour'}</h3>
+                <label>Avec chauffeur
+                <Radio
+                    checked={this.state.checked}
+                    onClick={this.handleCheck}
+                    value={30000}
+                    name="radio-button"
+                    inputProps={{ 'aria-label': 'A' }}
+                />
+                </label>
                 <h3>Total:{total}</h3>
                 <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button></div>}
                 </div>
