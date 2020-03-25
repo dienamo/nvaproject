@@ -5,7 +5,6 @@ import Paper from '@material-ui/core/Paper';
 import '../cars/CarDetails.scss'
 import Button from '@material-ui/core/Button';
 import 'date-fns';
-import MaterialUIPickers from '../MaterialUIPickers'
 import Modal from '@material-ui/core/Modal';
 import moment from 'moment';
 import 'moment/locale/fr';  // without this line it didn't work
@@ -14,6 +13,10 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import AirlineSeatLegroomExtraIcon from '@material-ui/icons/AirlineSeatLegroomExtra';
 import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
 import { withRouter } from "react-router";
+import DateFnsUtils from '@date-io/date-fns';
+import frLocale from "date-fns/locale/fr";
+import {DateTimePicker , MuiPickersUtilsProvider} from '@material-ui/pickers'
+
 moment.locale('fr');
 
 class CarDetails extends React.Component{
@@ -94,21 +97,27 @@ class CarDetails extends React.Component{
                 <Paper className='car-details'>
                     <h1>{this.state.car.brand} {this.state.car.model}</h1>
                     <div className='car-infos'>
-                        {this.state.car.airConditionner ? <div className='align-infos'><AcUnitIcon /><h4>Climatisées</h4></div> : <div className='align-infos'><AcUnitIcon /><h4>Non climatisée</h4> </div>}
+                        {this.state.car.airConditionner ? <div className='align-infos'><AcUnitIcon /> <h4>Climatisées</h4></div> : <div className='align-infos'><AcUnitIcon /> <h4>Non climatisée</h4> </div>}
                         {this.state.car.transmission === 'automatique' ? <div className='align-infos'><SettingsIcon /> <h4>Boite automatique</h4></div> : <div className='align-infos'><SettingsIcon /> <h4>Transmission manuelle</h4></div>}
                         {this.state.car.fuel === 'essence' ? <div className='align-infos'><LocalGasStationIcon /> <h4>Essence</h4></div> : <div className='align-infos'><LocalGasStationIcon /> <h4>Diesel</h4></div>}
-                        <div className='align-infos'><AirlineSeatLegroomExtraIcon />{this.state.car.numberOfSeats}<h4>Sièges</h4></div>
+                        <div className='align-infos'><AirlineSeatLegroomExtraIcon /> {this.state.car.numberOfSeats} <h4>Sièges</h4></div>
                     </div>
                 </Paper>
                 </Grid>
                  <Grid item xs={6} className='car-reservation'>
                 <Paper>
+                <div className='rental-infos'>
                 <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}>/jour</h5>
-                <MaterialUIPickers handleDateChange={this.handleStartDateChange} selectedDate={dateOut} label='Date de prise en charge' timeLabel='Heure de prise en charge'/>
-                <MaterialUIPickers handleDateChange={this.handleEndDateChange} selectedDate={dateOfReturn} label='Date de retour' timeLabel='Heure de retour'/>
-                <h3>{numberOfDays} jours</h3>
+                <div className='date-time-picker'>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                        <p><DateTimePicker value={dateOut} onChange={this.handleStartDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de prise en charge' /></p>
+                        <p><DateTimePicker value={dateOfReturn} onChange={this.handleEndDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de retour'/></p>
+                    </MuiPickersUtilsProvider>
+                </div>
+                {total <= 0 ? '' : <div><h3>{numberOfDays} {numberOfDays > 1 ? 'jours' : 'jour'}</h3>
                 <h3>Total:{total}</h3>
-                <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button>
+                <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button></div>}
+                </div>
                 <Modal
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"

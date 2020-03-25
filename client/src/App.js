@@ -50,15 +50,16 @@ class App extends Component {
   }
 
   render(){
+    const userStatus = this.state.loggedInUser && this.state.loggedInUser.userStatus
    return (
         <div className="App">
-          <NavBar userInSession={this.state.loggedInUser} getUser={this.getTheUser}/>
+          {userStatus === 'admin' ? '' : <NavBar userInSession={this.state.loggedInUser} getUser={this.getTheUser}/>}
           <Switch>
             <Route exact path="/" render={(props) => (<AgencyList history={props.history}/> )}/>
             <Route exact path="/admin" component={AdminPage} />
             <Route exact path="/moncompte" render={() => <UserAccount getUser={this.getTheUser} userInSession={this.state.loggedInUser}/>} />
             <Route exact path="/signup" render={() => <Signup getUser={this.getTheUser} />} />
-            <Route exact path="/login" render={() => <Login getUser={this.getTheUser} />} />
+            <Route exact path="/login" render={() => <Login getUser={this.getTheUser} userStatus={userStatus}/>} />
             <Route exact path="/agence/:id" component={AgencyDetails} />
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/admin/liste" component={CarList} />

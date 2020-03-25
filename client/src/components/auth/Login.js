@@ -38,7 +38,7 @@ class Login extends React.Component {
     //     phonenumber: ""
     //   });
       this.props.getUser(response)
-      this.props.history.push('/')
+      this.props.userStatus === 'admin'? this.props.history.push('/admin') : this.props.history.push('/')
     })
     .catch( error => console.log(error) )
   }

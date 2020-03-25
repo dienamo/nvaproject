@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import PhoneIcon from '@material-ui/icons/Phone';
+import MapContainer from './GoogleMap'
 
 
 class AgencyDetails extends React.Component{
@@ -180,6 +181,7 @@ class AgencyDetails extends React.Component{
                     <h3>{this.state.agency.name}</h3>
                     <h4>{this.state.agency.address}</h4>
                     <h4><PhoneIcon />+{this.state.agency.phone}</h4>
+                    <MapContainer />
                 </div>
                 </div>
             </div>

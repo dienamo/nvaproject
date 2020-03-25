@@ -6,13 +6,13 @@ import List from '@material-ui/core/List';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import './Clients.scss'
 
 class Clients extends React.Component{
 
   state = {
-    listOfClients: []
+    listOfClients: [],
+    search: ''
   }
 
   getAllClients=()=>{
@@ -37,13 +37,12 @@ class Clients extends React.Component{
     return(
       <div>
         <div className='search-bar'>
-        <FormControl fullWidth className='margin' variant="outlined">
+        <FormControl fullWidth className='margin' variant="filled">
           <InputLabel htmlFor="outlined-adornment-amount">Rechercher un client</InputLabel>
           <OutlinedInput
             id="outlined-adornment-amount"
             value=''
             onChange=''
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
             labelWidth={60}
           />
         </FormControl>

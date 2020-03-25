@@ -17,6 +17,8 @@ authRoutes.post('/signup', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
     const phonenumber = req.body.phonenumber;
+    const address = req.body.address;
+    const userStatus = req.body.userStatus
     
   
     if (!username || !password) {
@@ -49,15 +51,16 @@ authRoutes.post('/signup', (req, res, next) => {
             lastname,
             username,
             password: hashPass,
-            phonenumber
+            phonenumber,
+            address,
+            userStatus
         });
-  
+
         aNewUser.save(err => {
             if (err) {
                 res.status(400).json({ message: 'Saving user to database went wrong.' });
                 return;
             }
-            console.log('@@@@@@@@@@@@@@',aNewUser)
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {

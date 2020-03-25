@@ -4,19 +4,24 @@ import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import './Rentals.scss'
 
 class Rentals extends React.Component{
   state={
     listOfReservations: [],
-    buttonValue: 'Véhicule prêt, envoyer la notification'
+    filteredList:[],
+    search: ''
   }
 
   getAllReservations=()=>{
     axios.get('http://localhost:5000/api/rentals')
     .then(responseFromApi=>{
         this.setState({
-            listOfReservations : responseFromApi.data
+            listOfReservations : responseFromApi.data,
+            filteredList: responseFromApi.data
         })
     })
     .catch(err=>{
@@ -29,11 +34,11 @@ class Rentals extends React.Component{
     axios.put(`http://localhost:5000/api/rentals/${rentalId}`)
     .then(response=>{
       const updatedRental = response.data.updatedRental
-      const listOfReservations2 = [...this.state.listOfReservations.map(reservation=>{
+      const listOfReservations2 = [...this.state.filteredList.map(reservation=>{
         return reservation._id === updatedRental._id ? updatedRental : reservation
       })];
       this.setState({
-        listOfReservations : listOfReservations2
+        filteredList : listOfReservations2
       })
       this.props.handleNotifications()
     })
@@ -43,11 +48,11 @@ class Rentals extends React.Component{
     axios.put(`http://localhost:5000/api/cancelrental/${rentalId}`)
     .then(response=>{
       const updatedRental = response.data.updatedRental
-      const listOfReservations2 = [...this.state.listOfReservations.map(reservation=>{
+      const listOfReservations2 = [...this.state.filteredList.map(reservation=>{
         return reservation._id === updatedRental._id ? updatedRental : reservation
       })];
       this.setState({
-        listOfReservations : listOfReservations2
+        filteredList : listOfReservations2
       })
       this.props.handleNotifications()
     })
@@ -57,26 +62,48 @@ class Rentals extends React.Component{
     axios.put(`http://localhost:5000/api/terminaterental/${rentalId}`)
     .then(response=>{
       const updatedRental = response.data.updatedRental
-      const listOfReservations2 = [...this.state.listOfReservations.map(reservation=>{
+      const listOfReservations2 = [...this.state.filteredList.map(reservation=>{
         return reservation._id === updatedRental._id ? updatedRental : reservation
       })];
       this.setState({
-        listOfReservations : listOfReservations2
+        filteredList : listOfReservations2
       })
       this.props.handleNotifications()
     })
   }
+
+  searchSpace=(event)=>{
+    let keyword = event.target.value;
+    const copyList = [...this.state.listOfReservations]
+    const filteredList = copyList.filter(theReservation => {
+      return theReservation.user.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1;
+    })
+    this.setState({
+        filteredList,
+        search:keyword,
+    })
+}
   
   
   componentDidMount(){
     this.getAllReservations()
 }
 
-
   render(){
     return(
       <div>
-        {this.state.listOfReservations.map(reservation=>{
+        <div className='search-bar'>
+        <FormControl fullWidth className='margin' variant="filled">
+          <InputLabel htmlFor="outlined-adornment-amount">Rechercher une réservation</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            value={this.state.search}
+            onChange={this.searchSpace}
+            labelWidth={60}
+          />
+        </FormControl>
+        </div>
+        {this.state.filteredList.map(reservation=>{
           return <div key={reservation._id}>
             <List component="nav" aria-label="secondary mailbox folders" className='main-list-container'>
                 <div className='main-infos'>
@@ -92,21 +119,18 @@ class Rentals extends React.Component{
                 <div className='status'>
                   <ListItemText primary={'Statut:'} secondary={`${reservation.orderStatus}`} />
                 </div>
-                <div className='buttons'>
-                  <Button variant="contained" size='small' color="primary" className='main-button' onClick={(e)=>{this.handleValidation(reservation._id)}}>
-                    {reservation.orderStatus === 'À traiter' ? 'Véhicule prêt, envoyer la notification' : 'Notification envoyée'}
-                  </Button>
+                {reservation.orderStatus === 'Annulée' ? 'Annulée' : <div className='buttons'>
+                    {reservation.orderStatus === 'À traiter' ? <Button variant="contained" size='small' color="primary" className='main-button' onClick={(e)=>{this.handleValidation(reservation._id)}}>Véhicule prêt, envoyer la notification</Button> 
+                    : 'Notification envoyée'}
                   <p>
                   <p>
-                    <Button variant='contained' size='small' onClick={(e)=>{this.handleTermination(reservation._id)}}>
-                    Retour véhicule, Terminer
-                    </Button>  
-                  </p>            
-                  <Button variant="contained" size='small' color="secondary" onClick={(e)=>{this.handleCancellation(reservation._id)}}>
-                    Annuler
-                  </Button>    
+                    {reservation.orderStatus === 'En cours'  || reservation.orderStatus === 'Lu' ? <Button variant='contained' size='small' onClick={(e)=>{this.handleTermination(reservation._id)}}>Retour véhicule, Terminer</Button> : ''}
+                  </p>
+                    {reservation.orderStatus === 'Terminée' ? 'Terminée' : <Button variant="contained" size='small' color="secondary" onClick={(e)=>{this.handleCancellation(reservation._id)}}>Annuler</Button> } 
                   </p> 
-                </div>
+                  
+                </div>}
+                
             </List>
             <Divider />
           </div>
