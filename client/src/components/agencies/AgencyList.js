@@ -8,6 +8,12 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import FlightTakeoffIcon from '@material-ui/icons/FlightTakeoff';
 import Typist from 'react-typist';
+import handkey from '../../images/handkey.png'
+import driver from '../../images/driver.png'
+import parking from '../../images/parking.png'
+import phone from '../../images/phone.png'
+import './Agency.scss'
+
 
 class Agency extends React.Component{
     state={
@@ -82,16 +88,17 @@ class Agency extends React.Component{
             <section className='louer'>
                 <div className='flex-container'>
                     <div className='user-infos'>
-                    
+                        <img src={parking} alt=""/>
+                
                     </div>
                     <div className='user-infos'>
-
+                        <img src={handkey} alt=""/>
                     </div>
                     <div className='user-infos'>
-
+                        <img src={phone} alt=""/>
                     </div>
                     <div className='user-infos'>
-
+                        <img src={driver} alt=""/>
                     </div>
                 </div>
             </section>

@@ -8,10 +8,10 @@ import 'date-fns';
 import Modal from '@material-ui/core/Modal';
 import moment from 'moment';
 import 'moment/locale/fr';  // without this line it didn't work
-import AcUnitIcon from '@material-ui/icons/AcUnit';
-import SettingsIcon from '@material-ui/icons/Settings';
-import AirlineSeatLegroomExtraIcon from '@material-ui/icons/AirlineSeatLegroomExtra';
-import LocalGasStationIcon from '@material-ui/icons/LocalGasStation';
+import clim from '../../images/clim.png';
+import transmission from '../../images/transmission.png'
+import seat from '../../images/seat.png'
+import station from '../../images/station.png'
 import { withRouter } from "react-router";
 import DateFnsUtils from '@date-io/date-fns';
 import frLocale from "date-fns/locale/fr";
@@ -114,10 +114,10 @@ class CarDetails extends React.Component{
                 <Paper className='car-details'>
                     <h1>{this.state.car.brand} {this.state.car.model}</h1>
                     <div className='car-infos'>
-                        {this.state.car.airConditionner ? <div className='align-infos'><AcUnitIcon /> <h4>Climatisées</h4></div> : <div className='align-infos'><AcUnitIcon /> <h4>Non climatisée</h4> </div>}
-                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><SettingsIcon /> <h4>Boite automatique</h4></div> : <div className='align-infos'><SettingsIcon /> <h4>Transmission manuelle</h4></div>}
-                        {this.state.car.fuel === 'essence' ? <div className='align-infos'><LocalGasStationIcon /> <h4>Essence</h4></div> : <div className='align-infos'><LocalGasStationIcon /> <h4>Diesel</h4></div>}
-                        <div className='align-infos'><AirlineSeatLegroomExtraIcon /> {this.state.car.numberOfSeats} <h4>Sièges</h4></div>
+                        {this.state.car.airConditionner ? <div className='align-infos'><img src={clim} alt=''/> <h4>Climatisées</h4></div> : <div className='align-infos'><img src={clim} alt=''/> <h4>Non climatisée</h4> </div>}
+                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><img src={transmission} alt=''/> <h4>Boite automatique</h4></div> : <div className='align-infos'><img src={transmission} alt=''/><h4>Transmission manuelle</h4></div>}
+                        {this.state.car.fuel === 'essence' ? <div className='align-infos'><img src={station} alt=''/> <h4>Essence</h4></div> : <div className='align-infos'><img src={station} alt=''/> <h4>Diesel</h4></div>}
+                        <div className='align-infos'><img src={seat} alt=''/> {this.state.car.numberOfSeats} <h4>Sièges</h4></div>
                     </div>
                 </Paper>
                 </Grid>
