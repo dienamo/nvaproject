@@ -13,7 +13,6 @@ import driver from '../../images/driver.png'
 import parking from '../../images/parking.png'
 import phone from '../../images/phone.png'
 import './Agency.scss'
-import { response } from 'express';
 require('dotenv').config();
 
 
@@ -23,7 +22,6 @@ class Agency extends React.Component{
         selected: ''
     }
     getAllAgencies=()=>{
-        console.log('################',process.env.REACT_APP_API_URL)
         axios.get(`${process.env.REACT_APP_API_URL || ""}/api/agencies`) // en dev: http://localhost:500/agencies / en prod: /agencies
         .then(responseFromApi=>{
             console.log("#####", responseFromApi)

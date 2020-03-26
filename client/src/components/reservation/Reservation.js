@@ -7,7 +7,7 @@ class Confirmation extends React.Component{
   
   handleRental=()=>{
     let{agency,car,dateOut,dateOfReturn,rentalFees}= this.props.match.params
-    axios.post(`${process.env.REACT_APP_API_URL || ""}/rentals`,{agency,car,dateOut,dateOfReturn,rentalFees})
+    axios.post(`${process.env.REACT_APP_API_URL || ""}/api/rentals`,{agency,car,dateOut,dateOfReturn,rentalFees})
   }
   render(){
     let{vehiculeBrand,vehiculeModel,year,total,delta}=this.props.match.params
