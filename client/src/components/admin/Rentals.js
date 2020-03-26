@@ -17,7 +17,7 @@ class Rentals extends React.Component{
   }
 
   getAllReservations=()=>{
-    axios.get(`${process.env.REACT_APP_API_URL}/rentals`)
+    axios.get(`${process.env.REACT_APP_API_URL || ""}/rentals`)
     .then(responseFromApi=>{
         this.setState({
             listOfReservations : responseFromApi.data,
@@ -31,7 +31,7 @@ class Rentals extends React.Component{
 
   handleValidation=(rentalId)=>{
     // 
-    axios.put(`${process.env.REACT_APP_API_URL}/rentals/${rentalId}`)
+    axios.put(`${process.env.REACT_APP_API_URL || ""}/rentals/${rentalId}`)
     .then(response=>{
       const updatedRental = response.data.updatedRental
       const listOfReservations2 = [...this.state.filteredList.map(reservation=>{
@@ -45,7 +45,7 @@ class Rentals extends React.Component{
   }
   
   handleCancellation=(rentalId)=>{
-    axios.put(`${process.env.REACT_APP_API_URL}/cancelrental/${rentalId}`)
+    axios.put(`${process.env.REACT_APP_API_URL || ""}/cancelrental/${rentalId}`)
     .then(response=>{
       const updatedRental = response.data.updatedRental
       const listOfReservations2 = [...this.state.filteredList.map(reservation=>{
@@ -59,7 +59,7 @@ class Rentals extends React.Component{
   }
 
   handleTermination=(rentalId)=>{
-    axios.put(`${process.env.REACT_APP_API_URL}/terminaterental/${rentalId}`)
+    axios.put(`${process.env.REACT_APP_API_URL || ""}/terminaterental/${rentalId}`)
     .then(response=>{
       const updatedRental = response.data.updatedRental
       const listOfReservations2 = [...this.state.filteredList.map(reservation=>{
