@@ -124,7 +124,7 @@ class Rentals extends React.Component{
                 <div className='status'>
                   <ListItemText primary={'Statut:'} secondary={`${reservation.orderStatus}`} />
                 </div>
-                {reservation.orderStatus === 'Annulée' ? 'Annulée' : <div className='buttons'>
+                {reservation.orderStatus === 'Annulée' ? <div className='buttons'>Annulée</div> : <div className='buttons'>
                     {reservation.orderStatus === 'À traiter' ? <Button variant="contained" size='small' color="primary" className='main-button' onClick={(e)=>{this.handleValidation(reservation._id)}}>Véhicule prêt, envoyer la notification</Button> 
                     : 'Notification envoyée'}
                   <p>

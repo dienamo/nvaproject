@@ -39,7 +39,7 @@ export default function CarCard(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h5">
-            {props.car.brand} {props.car.model} {props.car.year} {props.car.feesPerDay} f/jour
+            {props.car.brand} {props.car.model} {props.car.year} <br/>{props.car.feesPerDay} fcfa/jour
           </Typography>
         {adminDetails}
         </CardContent>

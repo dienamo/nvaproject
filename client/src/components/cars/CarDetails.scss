@@ -34,6 +34,11 @@
     justify-content: flex-start;
 }
 
+.align-infos img{
+    width: 30px;
+    margin-right: 15px;
+}
+
 .main-container{
     width: 70%;
     margin: auto;
@@ -41,4 +46,12 @@
 
 .MuiPaper-root{
     padding: 10px;
+}
+
+.date-time-picker{
+    width: 60%;
+}
+
+.rental-infos{
+    text-align: -webkit-center;
 }

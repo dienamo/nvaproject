@@ -115,20 +115,20 @@ class CarDetails extends React.Component{
                     <h1>{this.state.car.brand} {this.state.car.model}</h1>
                     <div className='car-infos'>
                         {this.state.car.airConditionner ? <div className='align-infos'><img src={clim} alt=''/> <h4>Climatisées</h4></div> : <div className='align-infos'><img src={clim} alt=''/> <h4>Non climatisée</h4> </div>}
-                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><img src={transmission} alt=''/> <h4>Boite automatique</h4></div> : <div className='align-infos'><img src={transmission} alt=''/><h4>Transmission manuelle</h4></div>}
+                        {this.state.car.transmission === 'automatique' ? <div className='align-infos'><img src={transmission} alt=''/> <h4>Automatique</h4></div> : <div className='align-infos'><img src={transmission} alt=''/><h4>Manuelle</h4></div>}
                         {this.state.car.fuel === 'essence' ? <div className='align-infos'><img src={station} alt=''/> <h4>Essence</h4></div> : <div className='align-infos'><img src={station} alt=''/> <h4>Diesel</h4></div>}
-                        <div className='align-infos'><img src={seat} alt=''/> {this.state.car.numberOfSeats} <h4>Sièges</h4></div>
+                        <div className='align-infos'><img src={seat} alt=''/> <h4>{this.state.car.numberOfSeats} Sièges</h4></div>
                     </div>
                 </Paper>
                 </Grid>
                  <Grid item xs={6} className='car-reservation'>
                 <Paper>
                 <div className='rental-infos'>
-                <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}>/jour</h5>
+                <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}> fcfa/jour</h5>
                 <div className='date-time-picker'>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                        <p><DateTimePicker value={dateOut} onChange={this.handleStartDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de prise en charge' /></p>
-                        <p><DateTimePicker value={dateOfReturn} onChange={this.handleEndDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de retour'/></p>
+                        <p><DateTimePicker value={dateOut} onChange={this.handleStartDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de prise en charge' className='date-time-picker'/></p>
+                        <p><DateTimePicker value={dateOfReturn} onChange={this.handleEndDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de retour' className='date-time-picker'/></p>
                     </MuiPickersUtilsProvider>
                 </div>
                 {total <= 0 ? '' : <div><h3>{numberOfDays} {numberOfDays > 1 ? 'jours' : 'jour'}</h3>
@@ -141,7 +141,7 @@ class CarDetails extends React.Component{
                     inputProps={{ 'aria-label': 'A' }}
                 />
                 </label>
-                <h3>Total:{total}</h3>
+                <h3>Total: {total} fcfa</h3>
                 <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button></div>}
                 </div>
                 <Modal
@@ -157,7 +157,7 @@ class CarDetails extends React.Component{
                         <h5>Date de prise en charge : {dateOut}</h5>
                         <h5>Date de retour : {dateOfReturn}</h5>
                         <h5>Durée totale : {numberOfDays} jours</h5>
-                        <h5>Total : {total}fcfa</h5>
+                        <h5>Total : {total} fcfa</h5>
                         <Button variant="contained" onClick={()=>this.handleConfirm(total,numberOfDays,dateOut,dateOfReturn)}>Confirmer</Button>
                         
                     </div>

@@ -4,6 +4,7 @@
 
 .car-list{
     padding: 30px;
+    padding-right: 0;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -37,7 +38,7 @@
     align-items: center;
     padding: 50px 40px 0px 40px;
     justify-content: space-around;
-    width: 100%;
+    width: 95%;
 }
 
 .MuiFormControl-root{
