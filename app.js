@@ -76,7 +76,7 @@ app.use('/api', require('./routes/rental-routes'));
 app.use('/api', require('./routes/file-upload'));
 
 // Serve static files from client/build
-//app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/build')));
 
 // For any other routes: serve client/build/index.html SPA
 app.use((req, res, next) => {
