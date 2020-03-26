@@ -36,16 +36,6 @@ app.use(cookieParser());
 
 // Express View engine setup
 
-app.use(require('node-sass-middleware')({
-  src:  path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  sourceMap: true
-}));
-      
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
-
 app.use(session({
   secret:"some secret goes here",
   resave: true,
@@ -59,8 +49,6 @@ app.use(passport.session());
 app.locals.title = 'Express - Generated with IronGenerator';
 
 const cors = require('cors');
-
-
 app.use(cors({
   credentials: true,
   origin: ['http://localhost:3000'] // <== this will be the URL of our React app (it will be running on port 3000)
