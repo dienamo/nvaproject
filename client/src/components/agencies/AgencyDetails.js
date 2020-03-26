@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MapContainer from './GoogleMap'
+require('dotenv').config();
 
 
 class AgencyDetails extends React.Component{
@@ -20,7 +21,9 @@ class AgencyDetails extends React.Component{
     }
 
     getAgency=()=>{
-        axios.get(`${process.env.REACT_APP_API_URL || ""}/agencies/${this.props.match.params.id}`)
+        console.log()
+        const rootUrl = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : ""
+        axios.get(`${rootUrl}/api/agencies/${this.props.match.params.id}`)
         .then(responseFromApi=>{
             this.setState({
                 agency : responseFromApi.data
