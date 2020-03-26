@@ -24,7 +24,6 @@ class Agency extends React.Component{
     getAllAgencies=()=>{
         axios.get(`${process.env.REACT_APP_API_URL || ""}/api/agencies`) // en dev: http://localhost:500/agencies / en prod: /agencies
         .then(responseFromApi=>{
-            console.log("#####", responseFromApi)
             this.setState({
                 listOfAgencies : responseFromApi.data
             })
