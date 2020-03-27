@@ -17,7 +17,7 @@ class Clients extends React.Component{
   }
 
   getAllClients=()=>{
-    axios.get(`${process.env.REACT_APP_API_URL || ""}/api/users`)
+    axios.get(`${process.env.REACT_APP_APIURL || ""}/api/users`)
     .then(responseFromApi=>{
         this.setState({
             listOfClients : responseFromApi.data,

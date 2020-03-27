@@ -31,7 +31,7 @@ class CarDetails extends React.Component{
     }
     
     getCar=()=>{
-        axios.get(`${process.env.REACT_APP_API_URL || ""}/api/cars/${this.props.match.params.id}`)
+        axios.get(`${process.env.REACT_APP_APIURL || ""}/api/cars/${this.props.match.params.id}`)
         .then(responseFromApi=>{
             this.setState({
                 car : responseFromApi.data
@@ -46,7 +46,7 @@ class CarDetails extends React.Component{
         const car = this.state.car._id
         const agency = this.state.car.agency
         const driverFees = this.state.driverFees
-        axios.post(`${process.env.REACT_APP_API_URL || ""}/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn,driverFees},{withCredentials:true})
+        axios.post(`${process.env.REACT_APP_APIURL || ""}/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn,driverFees},{withCredentials:true})
             .then(response=>{
                 this.props.getUser(response.data)
                 this.props.history.push('/redirection')

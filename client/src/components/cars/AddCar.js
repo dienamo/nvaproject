@@ -15,7 +15,7 @@ class AddCar extends Component {
     
     const {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl,fuel} = this.state
     
-    axios.post(`${process.env.REACT_APP_API_URL || ""}/api/cars`, {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,fuel})
+    axios.post(`${process.env.REACT_APP_APIURL || ""}/api/cars`, {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,fuel})
       .then(() => {
           // this.props.getData();
           // Reset form

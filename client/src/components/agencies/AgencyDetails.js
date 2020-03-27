@@ -21,7 +21,7 @@ class AgencyDetails extends React.Component{
     }
 
     getAgency=()=>{
-        axios.get(`${process.env.REACT_APP_API_URL || ""}/agencies/${this.props.match.params.id}`)
+        axios.get(`${process.env.REACT_APP_APIURL || ""}/api/agencies/${this.props.match.params.id}`)
         .then(responseFromApi=>{
             this.setState({
                 agency : responseFromApi.data

@@ -12,7 +12,7 @@ class CarList extends React.Component{
         updatedCar:"",
     }
     getAllCars=()=>{
-        axios.get(`${process.env.REACT_APP_API_URL || ""}/api/cars`)
+        axios.get(`${process.env.REACT_APP_APIURL || ""}/api/cars`)
         .then(responseFromApi=>{
             this.setState({
                 listOfCars : responseFromApi.data
@@ -27,7 +27,7 @@ class CarList extends React.Component{
 
         const {available,agency,feesPerDay,numberPlate,imageUrl} = this.state
         
-        axios.put(`${process.env.REACT_APP_API_URL || ""}/api/cars/${this.state.updatedCar}`, {imageUrl,available,agency,feesPerDay,numberPlate,})
+        axios.put(`${process.env.REACT_APP_APIURL || ""}/api/cars/${this.state.updatedCar}`, {imageUrl,available,agency,feesPerDay,numberPlate,})
           .then((response) => {
               // this.props.getData();
               // Reset form
@@ -40,7 +40,7 @@ class CarList extends React.Component{
             }
             
             deleteCar=(deletedCar)=>{
-                axios.delete(`${process.env.REACT_APP_API_URL || ""}/api/cars/${deletedCar}`)
+                axios.delete(`${process.env.REACT_APP_APIURL || ""}/api/cars/${deletedCar}`)
                 .then(response =>{
                     this.setState({
                         listOfCars : this.state.listOfCars.filter(car => car._id !== response.data.carId)

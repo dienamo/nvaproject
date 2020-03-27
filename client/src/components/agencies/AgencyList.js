@@ -22,7 +22,7 @@ class Agency extends React.Component{
         selected: ''
     }
     getAllAgencies=()=>{
-        axios.get(`${process.env.REACT_APP_API_URL || ""}/api/agencies`) // en dev: http://localhost:500/agencies / en prod: /agencies
+        axios.get(`${process.env.REACT_APP_APIURL || ""}/api/agencies`) // en dev: http://localhost:500/agencies / en prod: /agencies
         .then(responseFromApi=>{
             this.setState({
                 listOfAgencies : responseFromApi.data

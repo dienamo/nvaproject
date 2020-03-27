@@ -8,7 +8,7 @@ class Agencies extends React.Component{
   }
 
   getAllAgencies=()=>{
-    axios.get(`${process.env.REACT_APP_API_URL || ""}/api/agencies`)
+    axios.get(`${process.env.REACT_APP_APIURL || ""}/api/agencies`)
     .then(responseFromApi=>{
         this.setState({
             listOfAgencies : responseFromApi.data
