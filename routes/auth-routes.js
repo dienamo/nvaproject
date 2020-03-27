@@ -60,6 +60,7 @@ authRoutes.post('/signup', (req, res, next) => {
 
         aNewUser.save(err => {
             if (err) {
+                console.error('Saving user to database went wrong.') // Pour afficher l'erreur en console au cas où
                 res.status(400).json({ message: 'Saving user to database went wrong.' });
                 return;
             }
