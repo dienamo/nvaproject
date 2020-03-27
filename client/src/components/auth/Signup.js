@@ -28,6 +28,9 @@ class Signup extends React.Component {
     const phonenumber = this.state.phonenumber
     const address = this.state.address
 
+    // Alternative
+    // const {username, password, name, lastname, phonenumber, address} = this.state
+
     this.service.signup(username, password, name, lastname, phonenumber, address)
     .then( response => {
       // reset form

@@ -18,7 +18,9 @@ authRoutes.post('/signup', (req, res, next) => {
     const password = req.body.password;
     const phonenumber = req.body.phonenumber;
     const address = req.body.address;
-    const userStatus = req.body.userStatus
+    // const userStatus = req.body.userStatus
+
+    // const {name, lastname, username, password, phonenumber, address} = req.body
     
   
     if (!username || !password) {
@@ -53,7 +55,7 @@ authRoutes.post('/signup', (req, res, next) => {
             password: hashPass,
             phonenumber,
             address,
-            userStatus
+            // userStatus
         });
 
         aNewUser.save(err => {
@@ -68,13 +70,13 @@ authRoutes.post('/signup', (req, res, next) => {
                   pass: 'hbzytesdluptbsqc'
                 }
               });
-              var mailOptions = {
+            var mailOptions = {
                 from: 'nvisioauto@gmail.com',
                 to: aNewUser.username,
                 subject: 'Bienvenue chez NVA',
                 html: `<h1>Merci ${aNewUser.name}</h1><p>Nous sommes heureux de vous compter parmi nous.</p>`
               };
-              transporter.sendMail(mailOptions, function(error, info){
+            transporter.sendMail(mailOptions, function(error, info){
                 if (error) {
                   console.log(error);
                 } else {
