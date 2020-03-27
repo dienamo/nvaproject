@@ -9,6 +9,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './NavBar.scss'
 import Notifications from './Notifications';
+import Media from 'react-media';
 
 class NavBar extends React.Component{
 
@@ -45,9 +46,14 @@ class NavBar extends React.Component{
     }
     return(
       <div className='NavBar'>
+        <Media queries={{
+          small: "(max-width: 599px)",
+          medium: "(min-width: 600px) and (max-width: 1199px)",
+          large: "(min-width: 1200px)"
+        }}>
       <AppBar position="sticky">
         <Toolbar>
-          <div className="tool-bar">
+          {/* <div className="tool-bar">
           <Typography variant="h6">
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
@@ -55,10 +61,17 @@ class NavBar extends React.Component{
           <Link to={'/login'} style={{ textDecoration: 'none' }}><Button className='connexion-button' color="inherit" variant="outlined">Connexion</Button></Link>
           <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
           </div>
-          </div>
+          </div> */}
+          {matches => (
+            <Fragment>
+              {matches.small && <p>I am small!</p>}
+              {matches.medium && <p>I am medium!</p>}
+              {matches.large && <p>I am large!</p>}
+            </Fragment>
+          )}
         </Toolbar>
       </AppBar>
-      
+      </Media>
     </div>
     )
   }

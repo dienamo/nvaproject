@@ -29,6 +29,7 @@
     "nodemailer": "^6.4.5",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "react-media": "^1.10.0",
     "react-router-dom": "^5.1.2",
     "serve-favicon": "^2.5.0"
   },
