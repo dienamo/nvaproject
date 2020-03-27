@@ -14,7 +14,7 @@ import './Signup.scss'
 
 class Signup extends React.Component {
   
-    state = { username: '', password: '' , name: '' , lastname: '' , phonenumber:''};
+    state = { username: '', password: '' , name: '' , lastname: '' , phonenumber:'',address:''};
     service = new AuthService();
   
 
@@ -26,8 +26,9 @@ class Signup extends React.Component {
     const name = this.state.name;
     const lastname = this.state.lastname;
     const phonenumber = this.state.phonenumber
+    const address = this.state.address
 
-    this.service.signup(username, password, name, lastname, phonenumber)
+    this.service.signup(username, password, name, lastname, phonenumber, address)
     .then( response => {
       // reset form
     //   this.setState({
