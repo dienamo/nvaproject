@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import '../cars/CarDetails.scss'
 import Button from '@material-ui/core/Button';
@@ -109,9 +108,8 @@ class CarDetails extends React.Component{
                 <img src={this.state.car.imageUrl} alt="" className='car-image'/>
                 </div>
                 <div className='main-container'>
-                <Grid container spacing={3}>
-                <Grid item xs={6}>
-                <Paper className='car-details'>
+                <div className='car-details'>
+                <Paper >
                     <h1>{this.state.car.brand} {this.state.car.model}</h1>
                     <div className='car-infos'>
                         {this.state.car.airConditionner ? <div className='align-infos'><img src={clim} alt=''/> <h4>Climatisées</h4></div> : <div className='align-infos'><img src={clim} alt=''/> <h4>Non climatisée</h4> </div>}
@@ -120,10 +118,9 @@ class CarDetails extends React.Component{
                         <div className='align-infos'><img src={seat} alt=''/> <h4>{this.state.car.numberOfSeats} Sièges</h4></div>
                     </div>
                 </Paper>
-                </Grid>
-                 <Grid item xs={6} className='car-reservation'>
-                <Paper>
+                </div>
                 <div className='rental-infos'>
+                <Paper>
                 <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}> fcfa/jour</h5>
                 <div className='date-time-picker'>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
@@ -143,6 +140,7 @@ class CarDetails extends React.Component{
                 </label>
                 <h3>Total: {total} fcfa</h3>
                 <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button></div>}
+                </Paper>
                 </div>
                 <Modal
                     aria-labelledby="simple-modal-title"
@@ -159,12 +157,8 @@ class CarDetails extends React.Component{
                         <h5>Durée totale : {numberOfDays} jours</h5>
                         <h5>Total : {total} fcfa</h5>
                         <Button variant="contained" onClick={()=>this.handleConfirm(total,numberOfDays,dateOut,dateOfReturn)}>Confirmer</Button>
-                        
                     </div>
                 </Modal>
-                </Paper>
-                </Grid>
-                </Grid>
                 </div>
             </div>
         )

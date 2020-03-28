@@ -55,3 +55,24 @@
 .rental-infos{
     text-align: -webkit-center;
 }
+
+@media(max-width: 768px){
+    .App{
+        .main-container {
+            display: block;
+            width: 100%;
+        }
+    .car-infos{
+        padding: 0;
+    }
+    .date-time-picker{
+        width: 80%;
+    }
+    .car-div .car-image{
+        object-fit: contain;
+    }
+    .car-div{
+        height: 33vh;
+    }
+    }
+}

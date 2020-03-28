@@ -144,11 +144,27 @@
 
     .flex-container{
         display: block;
-        width: 80vw;
+        width: 95vw;
         text-align: -webkit-center;
     }
 
     .user-infos{
-        width: 90%;
+        width: 100%;
+    }
+
+    .car-list {
+        display: block;
+        width: 100vw;
+        padding: 30px 0px;
+        text-align: -webkit-center;
+    }
+
+    .card-container{
+        width: 100%;
+    }
+
+    .filter-bar{
+        padding: 30px 0px;
+        width: 100vw;
     }
 }
