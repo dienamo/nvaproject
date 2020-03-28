@@ -41,9 +41,6 @@ class NavBar extends React.Component{
     })
   }
   
-  // handleConnexion=()=>{
-  //   this.props.history.push('/login')
-  // }
 
   render(){
     if(this.props.userInSession){
@@ -55,12 +52,40 @@ class NavBar extends React.Component{
           <Typography variant="h6">
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
-          <div className='user-in-session'>
-              {this.props.userInSession.name}
-            <Link to={'/moncompte'} style={{ textDecoration: 'none' }}><AccountBoxIcon /></Link>
-            <Notifications userInSession={this.props.userInSession}/>
-            <ExitToAppIcon onClick={() => this.logoutUser()}/>
-          </div>
+          <Media query="(max-width: 599px)">
+          {matches =>
+            matches ? (
+              <div className='user-in-session'>
+                <p id='user-name'>{this.props.userInSession.name}</p>
+                <Notifications userInSession={this.props.userInSession}/>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleOpen}>
+                  <MenuIcon />
+                </Button>
+                <div className="simple-menu">
+                <Menu
+                  anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                  anchorEl={this.state.anchorEl}
+                  getContentAnchorEl={null}
+                  keepMounted
+                  open={this.state.open}
+                  onClose={this.handleClose}
+                >
+                  <Link to={'/moncompte'} style={{ textDecoration: 'none' }}><MenuItem>Mon compte</MenuItem></Link>
+                  <Link to={'/logout'} style={{ textDecoration: 'none' }}><MenuItem>Deconnexion</MenuItem></Link>
+                </Menu>
+                </div>
+              </div>
+            ) : (
+              <div className='user-in-session'>
+                {this.props.userInSession.name}
+                <Link to={'/moncompte'} style={{ textDecoration: 'none' }}><AccountBoxIcon /></Link>
+                <Notifications userInSession={this.props.userInSession}/>
+                <ExitToAppIcon onClick={() => this.logoutUser()}/>
+            </div>
+            )
+          }
+          </Media>
+          
           </div>
         </Toolbar>
       </AppBar>
@@ -92,8 +117,8 @@ class NavBar extends React.Component{
                   open={this.state.open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleConnexion}>Connexion</MenuItem>
-                  <MenuItem onClick=''>Inscription</MenuItem>
+                  <Link to={'/login'} style={{ textDecoration: 'none' }}><MenuItem>Connexion</MenuItem></Link>
+                  <Link to={'/signup'} style={{ textDecoration: 'none' }}><MenuItem>Inscription</MenuItem></Link>
                 </Menu>
                 </div>
               </div>
@@ -105,8 +130,6 @@ class NavBar extends React.Component{
             )
           }
         </Media>
-          
-          
           </div>
         </Toolbar>
       </AppBar>

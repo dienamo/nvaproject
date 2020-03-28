@@ -33,6 +33,13 @@
   .MuiPopover-paper{
     width: 500px;
   }
+
+  @media(max-width: 768px){
+    #user-name{
+      margin-right: 5px;
+    }
+  }
+
 }
 
 
