@@ -123,3 +123,32 @@
 .louer{
     padding-top: 60px;
 }
+
+@media(max-width: 768px){
+
+    .form-container{
+        width: 90vw;
+    }
+
+    .agencies-list{
+        width: 100%;
+    }
+
+    .search-button button{
+        width: 85%;
+    }
+
+    .typist{
+        padding-bottom: 120%;
+    }
+
+    .flex-container{
+        display: block;
+        width: 80vw;
+        text-align: -webkit-center;
+    }
+
+    .user-infos{
+        width: 90%;
+    }
+}

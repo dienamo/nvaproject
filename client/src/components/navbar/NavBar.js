@@ -10,8 +10,16 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import './NavBar.scss'
 import Notifications from './Notifications';
 import Media from 'react-media';
+import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 class NavBar extends React.Component{
+
+  state={
+    open: false,
+    anchorEl: undefined
+  }
 
   service = new AuthService()
   logoutUser = () => {
@@ -20,7 +28,23 @@ class NavBar extends React.Component{
       this.props.getUser(null);  
     })
   }
+
+  handleClose=()=>{
+    this.setState({
+      open: false
+    })
+  }
+
+  handleOpen=()=>{
+    this.setState({
+      open: true
+    })
+  }
   
+  // handleConnexion=()=>{
+  //   this.props.history.push('/login')
+  // }
+
   render(){
     if(this.props.userInSession){
       return(
@@ -46,32 +70,47 @@ class NavBar extends React.Component{
     }
     return(
       <div className='NavBar'>
-        <Media queries={{
-          small: "(max-width: 599px)",
-          medium: "(min-width: 600px) and (max-width: 1199px)",
-          large: "(min-width: 1200px)"
-        }}>
       <AppBar position="sticky">
         <Toolbar>
-          {/* <div className="tool-bar">
+          <div className="tool-bar">
           <Typography variant="h6">
             <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
           </Typography>
-          <div className='nav-button'>
-          <Link to={'/login'} style={{ textDecoration: 'none' }}><Button className='connexion-button' color="inherit" variant="outlined">Connexion</Button></Link>
-          <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
+          <Media query="(max-width: 768px)">
+          {matches =>
+            matches ? (
+              <div className='nav-burger'>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleOpen}>
+                  <MenuIcon />
+                </Button>
+                <div className="simple-menu">
+                <Menu
+                  anchorOrigin={{vertical: 'top', horizontal: 'right'}}
+                  anchorEl={this.state.anchorEl}
+                  getContentAnchorEl={null}
+                  keepMounted
+                  open={this.state.open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleConnexion}>Connexion</MenuItem>
+                  <MenuItem onClick=''>Inscription</MenuItem>
+                </Menu>
+                </div>
+              </div>
+            ) : (
+              <div className='nav-button'>
+                <Link to={'/login'} style={{ textDecoration: 'none' }}><Button className='connexion-button' color="inherit" variant="outlined">Connexion</Button></Link>
+                <Link to={'/signup'} style={{ textDecoration: 'none' }}><Button color="inherit" variant="outlined">Inscription</Button></Link>
+              </div>
+            )
+          }
+        </Media>
+          
+          
           </div>
-          </div> */}
-          {matches => (
-            <Fragment>
-              {matches.small && <p>I am small!</p>}
-              {matches.medium && <p>I am medium!</p>}
-              {matches.large && <p>I am large!</p>}
-            </Fragment>
-          )}
         </Toolbar>
       </AppBar>
-      </Media>
+      
     </div>
     )
   }
