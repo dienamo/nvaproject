@@ -16,12 +16,15 @@ import DateFnsUtils from '@date-io/date-fns';
 import frLocale from "date-fns/locale/fr";
 import Radio from '@material-ui/core/Radio';
 import {DateTimePicker , MuiPickersUtilsProvider} from '@material-ui/pickers'
-
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 moment.locale('fr');
 
 class CarDetails extends React.Component{
     state = {
-        car : {},
+        car : {
+            images:[]
+        },
         dateOut: new Date(),
         dateOfReturn: new Date(),
         open: false,
@@ -102,10 +105,23 @@ class CarDetails extends React.Component{
         let total = (this.state.car.feesPerDay*numberOfDays) + driverFees;
         let dateOut = moment(this.state.dateOut).locale('fr').format('LLLL')
         let dateOfReturn = moment(this.state.dateOfReturn).locale('fr').format('LLLL')
+
+        
         return(
             <div>
                 <div className='car-div'>
-                <img src={this.state.car.imageUrl} alt="" className='car-image'/>
+                <Carousel>
+                <div>
+                    <img src={this.state.car.imageUrl} alt="" className='car-image'/>  
+                </div>
+                    {this.state.car.images.map(image=>{
+                        return(
+                            <div>
+                                <img src={image} alt="" className='car-image'/> 
+                            </div>
+                        )
+                    })}
+                    </Carousel>
                 </div>
                 <div className='main-container'>
                 <div className='car-details'>

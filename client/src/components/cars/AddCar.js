@@ -7,16 +7,17 @@ import service from '../../api/service'
 class AddCar extends Component {
   state={
     brand: "",model: "",type: "",year:"",numberOfSeats: "",numberOfDoors: "",transmission:"",airConditionner:"",
-    available:"",agency: "",feesPerDay: "",numberPlate: "",imageUrl: "",fuel: ""
+    available:"",agency: "",feesPerDay: "",numberPlate: "",imageUrl: "",fuel: "",images: []
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
     
-    const {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl,fuel} = this.state
+    const {brand,model,year,type,numberOfSeats,numberOfDoors,transmission,airConditionner,available,agency,feesPerDay,numberPlate,imageUrl,fuel,images} = this.state
     
-    axios.post(`${process.env.REACT_APP_APIURL || ""}/api/cars`, {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,fuel})
-      .then(() => {
+    axios.post(`${process.env.REACT_APP_APIURL || ""}/api/cars`, {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,fuel,images})
+      .then((car) => {
+        console.log('##################',car)
           // this.props.getData();
           // Reset form
           // this.setState({
@@ -50,6 +51,26 @@ handleFileUpload = e => {
       })
   ;
 }
+
+handleFilesUpload = e => {
+  console.log("The file to be uploaded is: ", e.target.files[0]);
+
+  const uploadData = new FormData();
+  // imageUrl => this name has to be the same as in the model since we pass
+  // req.body to .create() method when creating a new thing in '/api/things/create' POST route
+  uploadData.append("imageUrl", e.target.files[0]);
+  
+  service.handleUpload(uploadData)
+      .then(response => {
+          // console.log('response is: ', response);
+          // after the console.log we can see that response carries 'secure_url' which we can use to update the state 
+          this.setState({ images:  this.state.images.concat(response.secure_url)});
+      })
+      .catch(err => {
+          console.log("Error while uploading the file: ", err);
+      })
+  ;
+}
   render(){
    return (
         <div>
@@ -64,12 +85,16 @@ handleFileUpload = e => {
           <TextField id="outlined-basic" name="transmission" value={this.state.transmission}label="Transmission" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="fuel" value={this.state.fuel}label="Carburant" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="airConditionner" value={this.state.airConditionner}label="Air conditionnée" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="mainImgUrl" value={this.state.mainImgUrl}label="Image" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="available" value={this.state.available}label="Disponible" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="agency" value={this.state.agency}label="Agence" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="feesPerDay" value={this.state.feesPerDay}label="Tarif journalier" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="numberPlate" value={this.state.numberPlate}label="Numéro de plaque" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <label>Image principale
           <input type='file' name="imageUrl" onChange={(e) => this.handleFileUpload(e)}/>
+          </label>
+          <label>Autres images
+          <input type='file' name="images" multiple onChange={(e) => this.handleFilesUpload(e)}/>
+          </label>
           <input type="submit" value="submit"/>
           </form>
         </div>

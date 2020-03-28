@@ -21,7 +21,8 @@
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
-    "react-typist": "^2.0.5"
+    "react-typist": "^2.0.5",
+    "slick-carousel": "^1.8.1"
   },
   "scripts": {
     "start": "REACT_APP_APIURL=http://localhost:5000 react-scripts start",
