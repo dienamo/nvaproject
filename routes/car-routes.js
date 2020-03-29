@@ -25,7 +25,6 @@ router.post('/cars', (req, res, next)=>{
     imageUrl
   })
   .then(response => {
-    console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@', response)
     res.json(response);
     Agency.update({$push:{cars : response}})
     .then(response=>{
@@ -90,8 +89,14 @@ router.delete('/cars/:id', (req, res, next)=>{
   }
 
   Car.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.json({ carId : req.params.id , message: `Car with ${req.params.id} is removed successfully.` });
+    .then((car) => {
+      Agency.findByIdAndUpdate(
+        {_id: car.agency},
+        {$pull: {cars: car._id}}
+        )
+        .then(car=>{
+        res.json({ carId : req.params.id , message: `Car with ${req.params.id} is removed successfully.` });
+      })
     })
     .catch( err => {
       res.json(err);

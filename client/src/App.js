@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import AddCar from './components/cars/AddCar';
-import CarList from './components/cars/CarList'
 import AgencyList from './components/agencies/AgencyList'
 import AgencyDetails from './components/agencies/AgencyDetails'
 import { Switch, Route } from 'react-router-dom';
@@ -62,7 +61,6 @@ class App extends Component {
             <Route exact path="/login" render={() => <Login getUser={this.getTheUser} userStatus={userStatus}/>} />
             <Route exact path="/agence/:id" component={AgencyDetails} />
             <Route exact path="/admin/ajout" component={AddCar} />
-            <Route exact path="/admin/liste" component={CarList} />
             <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser} userInSession={this.state.loggedInUser}/> }/>
             <Route exact path="/redirection" render={(props) => (<Redirection history={props.history} />)} />
           </Switch>

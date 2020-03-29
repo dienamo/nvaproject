@@ -16,8 +16,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import frLocale from "date-fns/locale/fr";
 import Radio from '@material-ui/core/Radio';
 import {DateTimePicker , MuiPickersUtilsProvider} from '@material-ui/pickers'
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import Carousel from 'nuka-carousel';
 moment.locale('fr');
 
 class CarDetails extends React.Component{
@@ -110,7 +109,7 @@ class CarDetails extends React.Component{
         return(
             <div>
                 <div className='car-div'>
-                <Carousel>
+                <Carousel autoplay={true}>
                 <div>
                     <img src={this.state.car.imageUrl} alt="" className='car-image'/>  
                 </div>
@@ -126,9 +125,9 @@ class CarDetails extends React.Component{
                 <div className='main-container'>
                 <div className='car-details'>
                 <Paper >
-                    <h1>{this.state.car.brand} {this.state.car.model}</h1>
+                    <h1>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h1>
                     <div className='car-infos'>
-                        {this.state.car.airConditionner ? <div className='align-infos'><img src={clim} alt=''/> <h4>Climatisées</h4></div> : <div className='align-infos'><img src={clim} alt=''/> <h4>Non climatisée</h4> </div>}
+                        {this.state.car.airConditionner ? <div className='align-infos'><img src={clim} alt=''/> <h4>Climatisée</h4></div> : <div className='align-infos'><img src={clim} alt=''/> <h4>Non climatisée</h4> </div>}
                         {this.state.car.transmission === 'automatique' ? <div className='align-infos'><img src={transmission} alt=''/> <h4>Automatique</h4></div> : <div className='align-infos'><img src={transmission} alt=''/><h4>Manuelle</h4></div>}
                         {this.state.car.fuel === 'essence' ? <div className='align-infos'><img src={station} alt=''/> <h4>Essence</h4></div> : <div className='align-infos'><img src={station} alt=''/> <h4>Diesel</h4></div>}
                         <div className='align-infos'><img src={seat} alt=''/> <h4>{this.state.car.numberOfSeats} Sièges</h4></div>

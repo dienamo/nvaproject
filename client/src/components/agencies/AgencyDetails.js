@@ -9,6 +9,11 @@ import Select from '@material-ui/core/Select';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MapContainer from './GoogleMap'
 import Media from 'react-media';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 require('dotenv').config();
 
 
@@ -77,12 +82,8 @@ class AgencyDetails extends React.Component{
         })
         }
     }
-    
-    
     componentDidMount(){
         this.getAgency()
-        
-        
     }
 
     render(){
@@ -95,83 +96,38 @@ class AgencyDetails extends React.Component{
         // if no active filter show all availableCars
         const displayedCars = areFiltersActive ? filteredCars : availableCars
 
-        
-        
+
         return(
             <div className='container'>
                 <Media query="(max-width: 768px)">
                 {matches =>
                     matches ? (
                         <div className='sub-container'>
-                        <div className = 'list-container'>
-                        <div className='filter-bar'>
-                            <FormControl className='form-control'>
-                                <InputLabel htmlFor="age-native-simple">Prix</InputLabel>
-                                    <Select
-                                        native
-                                        value={this.state.selected}
-                                        onChange={(e)=>this.sortByPrice(e.target.value)}
-                                        inputProps={{
-                                        name: 'age',
-                                        id: 'age-native-simple',
-                                        }}
-                                    >
-                                        <option value="" />
-                                        <option value='croissant'>Croissant</option>
-                                        <option value='decroissant'>Decroissant</option>
-                                        </Select>
-                            </FormControl>
-                            <FormControl className='form-control'>
-                                <InputLabel htmlFor="age-native-simple">Transmission</InputLabel>
-                                    <Select
-                                        native
-                                        value={this.state.selected}
-                                        onChange={(e)=>this.transmission(e.target.value)}
-                                        inputProps={{
-                                        name: 'age',
-                                        id: 'age-native-simple',
-                                        }}
-                                    >
-                                        <option value="" />
-                                        <option value='automatique'>Automatique</option>
-                                        <option value='manuelle'>Manuelle</option>
-                                        <option value='Tous'>Tous</option>
-                                        </Select>
-                            </FormControl>
-                            <FormControl className='form-control'>
-                                <InputLabel htmlFor="age-native-simple">Type</InputLabel>
-                                    <Select
-                                        native
-                                        value=''
-                                        onChange={this.chooseType}
-                                        inputProps={{
-                                        name: 'age',
-                                        id: 'age-native-simple',
-                                        }}
-                                    >
-                                        <option value="" />
-                                        <option value={10}>4x4</option>
-                                        <option value={20}>Luxe</option>
-                                        <option value={30}>Sport</option>
-                                        </Select>
-                            </FormControl>
-                            <FormControl className='form-control'>
-                                <InputLabel htmlFor="age-native-simple">Climatisation</InputLabel>
-                                    <Select
-                                        native
-                                        value={this.state.selected}
-                                        onChange={(e)=>this.withAC(e.target.value)}
-                                        inputProps={{
-                                        name: 'age',
-                                        id: 'age-native-simple',
-                                        }}
-                                    >
-                                        <option value="" />
-                                        <option value='climatisées'>Climatisée</option>
-                                        <option value={20}>Non-climatisée</option>
-                                        </Select>
-                            </FormControl>
+                        <div className='agency-infos'>
+                        <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                        <Avatar alt="Remy Sharp" src=''/>
+                        </ListItemAvatar>
+                        <ListItemText
+                        primary={`${this.state.agency.name}`}
+                        secondary={
+                            <React.Fragment>
+                            <Typography
+                                component="span"
+                                variant="body2"
+                                className=''
+                                color="textPrimary"
+                            >
+                                Adresse:
+                            </Typography>
+                            {this.state.agency.address}<br/>
+                            N° de téléphone: {this.state.agency.phone}
+                            </React.Fragment>
+                        }
+                        />
+                    </ListItem>
                         </div>
+                        <div className = 'list-container'>
                         <div className='car-list'> 
                             {displayedCars.map(car=>{
                                 return(
@@ -182,12 +138,6 @@ class AgencyDetails extends React.Component{
                             })}
                         </div>
                         </div>
-                        {/* <div className='agency-details'>
-                            <h3>{this.state.agency.name}</h3>
-                            <h4>{this.state.agency.address}</h4>
-                            <h4><PhoneIcon />+{this.state.agency.phone}</h4>
-                            <MapContainer />
-                        </div> */}
                         </div>
                     ) : (
                         <div className='sub-container'>

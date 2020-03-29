@@ -4,6 +4,12 @@ import CarCard from './CarCard'
 import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import service from '../../api/service'
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 class CarList extends React.Component{
     state={
@@ -95,6 +101,26 @@ class CarList extends React.Component{
     render(){
         return(
             <div>
+                <div className='search-bar' style={{display: 'flex', alignItems:'center'}}>
+                    <div className='field' style={{width: '30%'}}>
+                    <FormControl fullWidth className='margin' variant="filled">
+                    <InputLabel htmlFor="outlined-adornment-amount">Rechercher un vehicule</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-amount"
+                        value={this.state.search}
+                        onChange={this.searchSpace}
+                        labelWidth={60}
+                    />
+                    </FormControl>
+                    </div>
+                    <div className='add-button'>
+                <Link to={"/admin/ajout"} style={{ textDecoration: 'none' }}>
+                    <Button variant="contained" style={{backgroundColor: 'slategrey', color:'white', marginLeft: '20px'}}>
+                        Ajouter un véhicule <AddCircleOutlineIcon />
+                    </Button>
+                </Link>
+                </div>
+                </div>
                 {this.state.listOfCars.map(car=>{
                     return(
                         <div key={car._id}>

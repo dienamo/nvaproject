@@ -11,6 +11,7 @@ import Rentals from './Rentals'
 import Agencies from './Agencies'
 import Clients from './Clients'
 
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -55,10 +56,10 @@ export default function SimpleTabs(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
+  
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor:'darkslategrey'}}>
         <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="Gestion des véhicules" {...a11yProps(0)} />
           <Tab label="Réservations" {...a11yProps(1)} />

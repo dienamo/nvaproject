@@ -3,6 +3,10 @@ import TextField from '@material-ui/core/TextField';
 import '../cars/AddCar.scss'
 import axios from 'axios'
 import service from '../../api/service'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 class AddCar extends Component {
   state={
@@ -17,7 +21,6 @@ class AddCar extends Component {
     
     axios.post(`${process.env.REACT_APP_APIURL || ""}/api/cars`, {brand,model,type,year,numberOfSeats,numberOfDoors,transmission,airConditionner,imageUrl,available,agency,feesPerDay,numberPlate,fuel,images})
       .then((car) => {
-        console.log('##################',car)
           // this.props.getData();
           // Reset form
           // this.setState({
@@ -78,16 +81,88 @@ handleFilesUpload = e => {
           <form onSubmit={this.handleFormSubmit} className="AddCar">
           <TextField id="outlined-basic" name="brand" value={this.state.brand}label="Marque" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="model" value={this.state.model}label="Model" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="year" value={this.state.year}label="Année" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="type" value={this.state.type}label="Type" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="numberOfSeats" value={this.state.numberOfSeats}label="Nombre de siège" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="numberOfDoors" value={this.state.numberOfDoors}label="Nombre de portes" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="transmission" value={this.state.transmission}label="Transmission" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="fuel" value={this.state.fuel}label="Carburant" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="airConditionner" value={this.state.airConditionner}label="Air conditionnée" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="available" value={this.state.available}label="Disponible" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <TextField id="outlined-basic" name="year" value={this.state.year}label="Année" type='Number' variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          {/* <TextField id="outlined-basic" name="type" value={this.state.type}label="Type" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/> */}
+          <FormControl variant="outlined" className='text-field'>
+            <InputLabel id="demo-simple-select-outlined-label">Type</InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.type}
+              onChange={ e => this.handleChange(e)}
+              label="Type"
+              name='type'
+            >
+              <MenuItem value='Berline'>Berline</MenuItem>
+              <MenuItem value='4X4'>4X4</MenuItem>
+              <MenuItem value='Sport'>Sport</MenuItem>
+              <MenuItem value='Luxe'>Luxe</MenuItem>
+            </Select>
+          </FormControl>
+          <TextField id="outlined-basic" name="numberOfSeats" value={this.state.numberOfSeats}label="Nombre de siège" type='Number' variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <TextField id="outlined-basic" name="numberOfDoors" value={this.state.numberOfDoors}label="Nombre de portes" type='Number' variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          {/* <TextField id="outlined-basic" name="transmission" value={this.state.transmission}label="Transmission" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/> */}
+          <FormControl variant="outlined" className='text-field'>
+            <InputLabel id="demo-simple-select-outlined-label">Transmission</InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.transmission}
+              onChange={ e => this.handleChange(e)}
+              label="Transmission"
+              name='transmission'
+            >
+              <MenuItem value='automatique'>Automatique</MenuItem>
+              <MenuItem value='manuelle'>Manuelle</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className='text-field'>
+            <InputLabel id="demo-simple-select-outlined-label">Carburant</InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.fuel}
+              onChange={ e => this.handleChange(e)}
+              label="Fuel"
+              name='fuel'
+            >
+              <MenuItem value='essence'>Essence</MenuItem>
+              <MenuItem value='diesel'>Diesel</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className='text-field'>
+            <InputLabel id="demo-simple-select-outlined-label">Climatisation</InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.airConditionner}
+              onChange={ e => this.handleChange(e)}
+              label="Climatistion"
+              name='airConditionner'
+            >
+              <MenuItem value='Climatisée'>Oui</MenuItem>
+              <MenuItem value='Non climatisée'>Non</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl variant="outlined" className='text-field'>
+            <InputLabel id="demo-simple-select-outlined-label">Disponibilité</InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.available}
+              onChange={ e => this.handleChange(e)}
+              label="Disponibilité"
+              name='available'
+            >
+              <MenuItem value={true}>Disponible</MenuItem>
+              <MenuItem value={false}>Indisponible</MenuItem>
+            </Select>
+          </FormControl>
+          {/* <TextField id="outlined-basic" name="fuel" value={this.state.fuel}label="Carburant" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/> */}
+          {/* <TextField id="outlined-basic" name="airConditionner" value={this.state.airConditionner}label="Air conditionnée" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <TextField id="outlined-basic" name="available" value={this.state.available}label="Disponible" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/> */}
           <TextField id="outlined-basic" name="agency" value={this.state.agency}label="Agence" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-          <TextField id="outlined-basic" name="feesPerDay" value={this.state.feesPerDay}label="Tarif journalier" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          <TextField id="outlined-basic" name="feesPerDay" value={this.state.feesPerDay}label="Tarif journalier" type='Number' variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="numberPlate" value={this.state.numberPlate}label="Numéro de plaque" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <label>Image principale
           <input type='file' name="imageUrl" onChange={(e) => this.handleFileUpload(e)}/>
