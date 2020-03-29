@@ -139,8 +139,8 @@ class CarDetails extends React.Component{
                 <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}> fcfa/jour</h5>
                 <div className='date-time-picker'>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
-                        <p><DateTimePicker value={dateOut} onChange={this.handleStartDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de prise en charge' className='date-time-picker'/></p>
-                        <p><DateTimePicker value={dateOfReturn} onChange={this.handleEndDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de retour' className='date-time-picker'/></p>
+                        <p><DateTimePicker value={this.state.dateOut} onChange={this.handleStartDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de prise en charge' className='date-time-picker'/></p>
+                        <p><DateTimePicker value={this.state.dateOfReturn} onChange={this.handleEndDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de retour' className='date-time-picker'/></p>
                     </MuiPickersUtilsProvider>
                 </div>
                 {total <= 0 ? '' : <div><h3>{numberOfDays} {numberOfDays > 1 ? 'jours' : 'jour'}</h3>
