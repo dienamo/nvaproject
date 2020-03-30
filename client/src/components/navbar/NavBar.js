@@ -13,7 +13,7 @@ import Media from 'react-media';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import logo from '../../images/logo-nva.png'
+import logo from '../../images/black-logo-nva.png'
 
 class NavBar extends React.Component{
 
