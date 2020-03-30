@@ -13,6 +13,7 @@ import Media from 'react-media';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import logo from '../../images/logo-nva.png'
 
 class NavBar extends React.Component{
 
@@ -99,7 +100,7 @@ class NavBar extends React.Component{
         <Toolbar>
           <div className="tool-bar">
           <Typography variant="h6">
-            <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
+            <Link to={'/'} style={{ textDecoration: 'none' }}><img src={logo} alt='' style={{width: '47px'}}/></Link>
           </Typography>
           <Media query="(max-width: 768px)">
           {matches =>
