@@ -1,19 +1,19 @@
 {
-  "short_name": "Nva",
+  "short_name": "NvA",
   "name": "Nouvelle Vision de l'Automobile",
   "icons": [
     {
-      "src": "../src/images/logo-nva.png",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "../src/images/logo-nva.png",
+      "src": "logo-nva.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "../src/images/logo-nva.png",
+      "src": "logo-nva.png",
       "type": "image/png",
       "sizes": "512x512"
     }
