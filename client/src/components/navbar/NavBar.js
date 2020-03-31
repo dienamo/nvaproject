@@ -100,7 +100,7 @@ class NavBar extends React.Component{
         <Toolbar>
           <div className="tool-bar">
           <Typography variant="h6">
-            <Link to={'/'} style={{ textDecoration: 'none' }}><img src={logo} alt='' style={{width: '47px'}}/></Link>
+            <Link to={'/'} style={{ textDecoration: 'none' }}><img src={logo} alt='' style={{width: '49px'}}/></Link>
           </Typography>
           <Media query="(max-width: 768px)">
           {matches =>

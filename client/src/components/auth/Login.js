@@ -10,9 +10,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import './Login.scss'
+import logo from '../../images/black-logo-nva.png'
 
 
 class Login extends React.Component {
@@ -67,7 +67,7 @@ class Login extends React.Component {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className='paper'>
           <Avatar className='avatar'>
-            <LockOutlinedIcon />
+            <img src={logo} alt='' style={{width: '50px'}}/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Connexion

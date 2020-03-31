@@ -7,10 +7,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import { withRouter } from "react-router";
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import './Signup.scss'
+import logo from '../../images/black-logo-nva.png'
 
 class Signup extends React.Component {
   
@@ -72,7 +72,7 @@ class Signup extends React.Component {
       <CssBaseline />
       <div className='paper'>
         <Avatar className='avatar'>
-          <LockOutlinedIcon />
+          <img src={logo} alt='' style={{width: '50px'}}/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Inscription
