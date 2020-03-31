@@ -28,7 +28,6 @@ export default function CarCard(props) {
     <Button variant="contained" size="small" className='reservation-button'>
       Réserver
     </Button>)
-      const adminDetails = props.isAdmin ? <div>{props.car.feesPerDay}</div> : <div></div>
   return (
     <Card className={classes.root}>
       <CardActionArea>
@@ -37,11 +36,11 @@ export default function CarCard(props) {
           image={props.car.imageUrl}
           title="Contemplative Reptile"
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h5">
-            {props.car.brand} {props.car.model} {props.car.year} <br/>{props.car.feesPerDay} fcfa/jour
+        <CardContent style={{padding: '0px 16px'}}>
+          <Typography>
+            <h2 style={{margin: '0'}}>{props.car.brand} {props.car.model} {props.car.year} <br/></h2>
+            <h3 style={{margin: '0'}}>{props.car.feesPerDay} fcfa/jour</h3>
           </Typography>
-        {adminDetails}
         </CardContent>
       </CardActionArea>
       <CardActions>
