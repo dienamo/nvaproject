@@ -205,7 +205,7 @@ class CarDetails extends React.Component{
                         <h5>Date de retour : {dateOfReturn}</h5>
                         <h5>Durée totale : {numberOfDays} jours</h5>
                         <h5>Total : {total} fcfa</h5>
-                        <PaymentApp />
+                        <PaymentApp dateOut={dateOut} dateOfReturn={dateOfReturn} carId={this.state.car._id} agency = {this.state.car.agency} total={total} numberOfDays={numberOfDays} driverFees={this.state.driverFees}/>
                     </div>
                 </Modal>
                 </div>

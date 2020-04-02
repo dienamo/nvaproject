@@ -5,7 +5,6 @@ import TextField from '@material-ui/core/TextField';
 import './PaymentApp.scss'
 import axios from 'axios'
 
-
 const CARD_OPTIONS = {
   iconStyle: 'solid',
   style: {
@@ -121,7 +120,10 @@ class CheckoutForm extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
-    const {data: clientSecret} = await axios.post(`${process.env.REACT_APP_APIURL || ""}/api/payment-intents`,{amount: 25})
+    const {data: car} = await axios.get(`${process.env.REACT_APP_APIURL || ""}/api/cars/${this.props.car}`)    
+
+    if(car.available){
+      const {data: clientSecret} = await axios.post(`${process.env.REACT_APP_APIURL || ""}/api/payment-intents`,{amount: 25})
 
         const {stripe, elements} = this.props;
         // const {email, phone, name, error, cardComplete} = this.state;
@@ -141,13 +143,25 @@ class CheckoutForm extends React.Component {
             },
           }
         });
-    
         if (result.error) {
           // Show error to your customer (e.g., insufficient funds)
           console.log(result.error.message);
         } else {
           // The payment has been processed!
           if (result.paymentIntent.status === 'succeeded') {
+            const {car, agency, total, numberOfDays, dateOut, dateOfReturn, driverFees} = this.props
+            axios.post(`${process.env.REACT_APP_APIURL || ""}/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn,driverFees},{withCredentials:true})
+            .then(response=>{
+              this.setState({
+                paymentMethod: true
+              })
+                
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+            
+
             // Show a success message to your customer
             // There's a risk of the customer closing the window before callback
             // execution. Set up a webhook or plugin to listen for the
@@ -155,7 +169,9 @@ class CheckoutForm extends React.Component {
             // post-payment actions.
           }
         }
+    }
 
+    else console.log('vehicule non disponible')
     
   };
 
@@ -164,6 +180,7 @@ class CheckoutForm extends React.Component {
   };
 
   render() {
+    console.log(this.props)
     const {error, processing, paymentMethod, name, email, phone  } = this.state;
     const {stripe} = this.props;
     return paymentMethod ? (
@@ -245,18 +262,18 @@ class CheckoutForm extends React.Component {
         </fieldset>
         {error && <ErrorMessage>{error.message}</ErrorMessage>}
         <SubmitButton processing={processing} error={error} disabled={!stripe}>
-          Pay $25
+          Payer {this.props.total}fcfa
         </SubmitButton>
       </form>
     );
   }
 }
 
-const InjectedCheckoutForm = () => (
+const InjectedCheckoutForm = (props) => (
   <ElementsConsumer>
     {({stripe, elements}) => (
-      <CheckoutForm stripe={stripe} elements={elements} />
-    )}
+      <CheckoutForm stripe={stripe} elements={elements} dateOut={props.dateOut} dateOfReturn={props.dateOfReturn} car={props.car} agency = {props.agency} total={props.total} numberOfDays={props.numberOfDays} driverFees={props.driverFees}/>
+      )}
   </ElementsConsumer>
 );
 
@@ -272,11 +289,11 @@ const ELEMENTS_OPTIONS = {
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe('pk_test_ZKjnenCuYpJ5cDustOHqkLHL004MAfYuh8');
 
-const PaymentApp = () => {
+const PaymentApp = (props) => {
   return (
     <div className="AppWrapper">
       <Elements stripe={stripePromise} options={ELEMENTS_OPTIONS}>
-        <InjectedCheckoutForm />
+        <InjectedCheckoutForm dateOut={props.dateOut} dateOfReturn={props.dateOfReturn} car={props.carId} agency = {props.agency} total={props.total} numberOfDays={props.numberOfDays} driverFees={props.driverFees}/>
       </Elements>
     </div>
   );
