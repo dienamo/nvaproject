@@ -11,15 +11,16 @@ import './NavBar.scss'
 import Notifications from './Notifications';
 import Media from 'react-media';
 import MenuIcon from '@material-ui/icons/Menu';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import logo from '../../images/black-logo-nva.png'
+import Paper from '@material-ui/core/Paper';
+
 
 class NavBar extends React.Component{
 
   state={
     open: false,
-    anchorEl: undefined
+    anchorEl: undefined,
+    showMenu: false
   }
 
   service = new AuthService()
@@ -30,16 +31,19 @@ class NavBar extends React.Component{
     })
   }
 
-  handleClose=()=>{
-    this.setState({
-      open: false
-    })
+  handleClose=(e)=>{
+    if (!this.dropdownMenu.contains(e.target)) {
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener('click', this.handleClose);
+      });
+    }
   }
 
-  handleOpen=()=>{
-    this.setState({
-      open: true
-    })
+  handleOpen=(e)=>{
+    e.preventDefault()
+    this.setState({ showMenu: true }, () => {
+      document.addEventListener('click', this.handleClose);
+    });
   }
   
 
@@ -51,30 +55,26 @@ class NavBar extends React.Component{
         <Toolbar>
           <div className="tool-bar">
           <Typography variant="h6">
-            <Link to={'/'} style={{ textDecoration: 'none' }}>NVA</Link>
+            <Link to={'/'} style={{ textDecoration: 'none' }}><img src={logo} alt='' className='logo'/></Link>
           </Typography>
-          <Media query="(max-width: 599px)">
+          <Media query="(max-width: 768px)">
           {matches =>
             matches ? (
               <div className='user-in-session'>
                 <p id='user-name'>{this.props.userInSession.name}</p>
                 <Notifications userInSession={this.props.userInSession}/>
-                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleOpen}>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=>this.handleOpen(e)}>
                   <MenuIcon />
                 </Button>
-                <div className="simple-menu">
-                <Menu
-                  anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                  anchorEl={this.state.anchorEl}
-                  getContentAnchorEl={null}
-                  keepMounted
-                  open={this.state.open}
-                  onClose={this.handleClose}
-                >
-                  <Link to={'/moncompte'} style={{ textDecoration: 'none' }}><MenuItem>Mon compte</MenuItem></Link>
-                  <Link to={'/logout'} style={{ textDecoration: 'none' }}><MenuItem>Deconnexion</MenuItem></Link>
-                </Menu>
-                </div>
+                {this.state.showMenu ?
+                <div className="menu-in-session" ref={(element) => {
+                  this.dropdownMenu = element;
+                }}>
+                <Paper>
+                <p><Link to={'/moncompte'} style={{ textDecoration: 'none' }}>Mon compte</Link></p>
+                <p><button onClick={() => this.logoutUser()} style={{ textDecoration: 'none' }}>Deconnexion</button></p>
+                </Paper>
+                </div> : null} 
               </div>
             ) : (
               <div className='user-in-session'>
@@ -96,32 +96,28 @@ class NavBar extends React.Component{
     }
     return(
       <div className='NavBar'>
-      <AppBar position="sticky">
+      <AppBar position="sticky" top='0px'>
         <Toolbar>
           <div className="tool-bar">
           <Typography variant="h6">
-            <Link to={'/'} style={{ textDecoration: 'none' }}><img src={logo} alt='' style={{width: '49px'}}/></Link>
+            <Link to={'/'} style={{ textDecoration: 'none' }}><img src={logo} alt='' className='logo'/></Link>
           </Typography>
           <Media query="(max-width: 768px)">
           {matches =>
             matches ? (
               <div className='nav-burger'>
-                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={this.handleOpen}>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=>this.handleOpen(e)}>
                   <MenuIcon />
                 </Button>
-                <div className="simple-menu">
-                <Menu
-                  anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-                  anchorEl={this.state.anchorEl}
-                  getContentAnchorEl={null}
-                  keepMounted
-                  open={this.state.open}
-                  onClose={this.handleClose}
-                >
-                  <Link to={'/login'} style={{ textDecoration: 'none' }}><MenuItem>Connexion</MenuItem></Link>
-                  <Link to={'/signup'} style={{ textDecoration: 'none' }}><MenuItem>Inscription</MenuItem></Link>
-                </Menu>
-                </div>
+                {this.state.showMenu ?
+                <div className="menu" ref={(element) => {
+                  this.dropdownMenu = element;
+                }}>
+                <Paper>
+                <p><Link to={'/login'} style={{ textDecoration: 'none' }}>Connexion</Link></p>
+                <p><Link to={'/signup'} style={{ textDecoration: 'none' }}>Inscription</Link></p>
+                </Paper>
+                </div> : null}       
               </div>
             ) : (
               <div className='nav-button'>

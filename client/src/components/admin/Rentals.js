@@ -76,7 +76,6 @@ class Rentals extends React.Component{
     let keyword = event.target.value;
     const copyList = [...this.state.listOfReservations]
     const filteredList = copyList.filter(theReservation => {
-      console.log(theReservation)
       return theReservation.user.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || theReservation.user.lastname.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
       || theReservation.car.brand.toLowerCase().indexOf(keyword.toLowerCase()) !== -1 || theReservation.car.model.toLowerCase().indexOf(keyword.toLowerCase()) !== -1
       || theReservation.user.username.toLowerCase().indexOf(keyword.toLowerCase()) !== -1

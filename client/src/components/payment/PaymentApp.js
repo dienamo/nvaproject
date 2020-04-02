@@ -127,7 +127,6 @@ class CheckoutForm extends React.Component {
 
         const {stripe, elements} = this.props;
         // const {email, phone, name, error, cardComplete} = this.state;
-      console.log(clientSecret)
     
         if (!stripe || !elements) {
           // Stripe.js has not loaded yet. Make sure to disable

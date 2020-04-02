@@ -19,7 +19,6 @@ class Notifications extends React.Component{
       .then(response=>{
           const notifNumber = response.filter(rental=> rental.orderStatus === 'En cours').length
           const notificationContent = response.filter(rental=> rental.orderStatus === 'En cours')
-          console.log(notificationContent)
           this.setState({
               notification : notifNumber,
               notificationContent : notificationContent

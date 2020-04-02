@@ -1,4 +1,8 @@
 .NavBar{
+
+  position: sticky;
+    top: 0px;
+    z-index: 1000;
   .MuiPaper-root{
     color: black;
     background: white;
@@ -30,13 +34,31 @@
     background-color: black;
     color: white;
   }
-  .MuiPopover-paper{
-    width: 500px;
+  
+  .logo{
+    width: 47px;
   }
 
   @media(max-width: 768px){
-    #user-name{
-      margin-right: 5px;
+    .menu{
+      position: absolute;
+      right: 0px;
+    }
+
+    .menu-in-session{
+      position: absolute;
+      right: 0px;
+      top: 49px;
+    }
+    .user-in-session{
+      width: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .logo{
+      width: 38px;
     }
   }
 
