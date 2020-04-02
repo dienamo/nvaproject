@@ -5,6 +5,7 @@ const Car = require('../models/Car')
 const Rental = require('../models/Rental')
 const User = require('../models/User')
 var nodemailer = require('nodemailer');
+var stripe = require('stripe')('sk_test_tcmAm0jYgl9VlTLNDwdkEWWn00AP9TXt3U');
 
 router.post('/rentals', (req, res, next)=>{
   let {car,dateOut,dateOfReturn,agency,numberOfDays,driverFees} = req.body
@@ -293,6 +294,20 @@ router.put('/readbyuser' , (req , res , next)=>{
     {multi : true}
   )
   .then(response => res.json(response))
+})
+
+router.post('/payment-intents' , (req,res,next)=>{
+  stripe.paymentIntents.create(
+  {
+    amount: 2000,
+    currency: 'eur',
+    payment_method_types: ['card'],
+  },
+  function(err, paymentIntent) {
+    // asynchronously called
+    res.status(200).send(paymentIntent.client_secret)
+  }
+)
 })
 
 module.exports = router;

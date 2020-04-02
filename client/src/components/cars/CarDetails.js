@@ -17,6 +17,7 @@ import frLocale from "date-fns/locale/fr";
 import Radio from '@material-ui/core/Radio';
 import {DateTimePicker , MuiPickersUtilsProvider} from '@material-ui/pickers'
 import Carousel from 'nuka-carousel';
+import PaymentApp from '../payment/PaymentApp'
 moment.locale('fr');
 
 class CarDetails extends React.Component{
@@ -27,6 +28,7 @@ class CarDetails extends React.Component{
         dateOut: new Date(),
         dateOfReturn: new Date(),
         open: false,
+        openpay: false,
         checked: false,
         driverFees:0
     }
@@ -80,9 +82,22 @@ class CarDetails extends React.Component{
         : this.props.history.push('/login')
       }
 
+      handleOpenpay=()=>{
+        this.props.userInSession ? this.setState({
+            openpay: true
+        })
+        : this.props.history.push('/login')
+      }
+
       handleClose=()=>{
         this.setState({
             open: false
+        })
+      }
+
+      handleClosepay=()=>{
+        this.setState({
+            openpay: false
         })
       }
 
@@ -154,7 +169,9 @@ class CarDetails extends React.Component{
                 />
                 </label>
                 <h3>Total: {total} fcfa</h3>
-                <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button></div>}
+                <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button>
+                <Button variant="contained" onClick={this.handleOpenpay}>Payer par carte bancaire</Button>
+                </div>}
                 </Paper>
                 </div>
                 <Modal
@@ -172,6 +189,23 @@ class CarDetails extends React.Component{
                         <h5>Durée totale : {numberOfDays} jours</h5>
                         <h5>Total : {total} fcfa</h5>
                         <Button variant="contained" onClick={()=>this.handleConfirm(total,numberOfDays,dateOut,dateOfReturn)}>Confirmer</Button>
+                    </div>
+                </Modal>
+                <Modal
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    open={this.state.openpay}
+                    onClose={this.handleClosepay}
+                    >
+                    <div className='confirmation-modal'>
+                        <h2 id="simple-modal-title">Details de votre réservation</h2>
+                        <p id="simple-modal-description"></p>
+                        <h4>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h4>
+                        <h5>Date de prise en charge : {dateOut}</h5>
+                        <h5>Date de retour : {dateOfReturn}</h5>
+                        <h5>Durée totale : {numberOfDays} jours</h5>
+                        <h5>Total : {total} fcfa</h5>
+                        <PaymentApp />
                     </div>
                 </Modal>
                 </div>
