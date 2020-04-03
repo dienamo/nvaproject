@@ -161,7 +161,22 @@ handleFilesUpload = e => {
           {/* <TextField id="outlined-basic" name="fuel" value={this.state.fuel}label="Carburant" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/> */}
           {/* <TextField id="outlined-basic" name="airConditionner" value={this.state.airConditionner}label="Air conditionnée" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="available" value={this.state.available}label="Disponible" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/> */}
-          <TextField id="outlined-basic" name="agency" value={this.state.agency}label="Agence" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+          {/* 5e66959a715a600f4689cf47   5e7f34478468ef0bbca17c79 */}
+          <FormControl variant="outlined" className='text-field'>
+          <InputLabel id="demo-simple-select-outlined-label">Agence</InputLabel>
+          <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={this.state.agency}
+              onChange={ e => this.handleChange(e)}
+              label="Agence"
+              name='agency'
+            >
+              <MenuItem value='5e669f290e4eee105dd20e03'>NVA Mermoz</MenuItem>
+              <MenuItem value='5e7f34478468ef0bbca17c79'>Aéroport international de Dakar-Yoff</MenuItem>
+              <MenuItem value='5e66968a715a600f4689cf48'>Aéroport International Blaise Diagne</MenuItem>
+            </Select>
+          </FormControl>
           <TextField id="outlined-basic" name="feesPerDay" value={this.state.feesPerDay}label="Tarif journalier" type='Number' variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <TextField id="outlined-basic" name="numberPlate" value={this.state.numberPlate}label="Numéro de plaque" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
           <label>Image principale

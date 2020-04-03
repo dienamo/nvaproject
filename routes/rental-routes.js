@@ -297,17 +297,26 @@ router.put('/readbyuser' , (req , res , next)=>{
 })
 
 router.post('/payment-intents' , (req,res,next)=>{
-  stripe.paymentIntents.create(
-  {
-    amount: 2000,
-    currency: 'eur',
-    payment_method_types: ['card'],
-  },
-  function(err, paymentIntent) {
-    // asynchronously called
-    res.status(200).send(paymentIntent.client_secret)
-  }
-)
+  console.log(req.body)
+  const numberOfDays= req.body.numberOfDays
+  const car = req.body.carId
+
+  Car.findById(car)
+    .then(car=>{
+      const feesPerDay = car.feesPerDay
+      const amount = numberOfDays * feesPerDay
+      stripe.paymentIntents.create(
+        {
+          amount,
+          currency: 'xof',
+          payment_method_types: ['card'],
+        },
+        function(err, paymentIntent) {
+          // asynchronously called
+          res.status(200).send(paymentIntent.client_secret)
+        }
+      )
+    })
 })
 
 module.exports = router;

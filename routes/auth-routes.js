@@ -2,7 +2,7 @@
 
 const express    = require('express');
 const authRoutes = express.Router();
-
+const mongoose = require('mongoose');
 const passport   = require('passport');
 const bcrypt     = require('bcryptjs');
 
@@ -141,6 +141,20 @@ authRoutes.get('/loggedin', (req, res, next) => {
     }
     res.status(403).json({ message: 'Unauthorized' });
 });
+
+authRoutes.put('/user/:id', (req, res, next)=>{
+    if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      res.status(400).json({ message: 'Specified id is not valid' });
+      return;
+    }
+    User.findByIdAndUpdate(req.params.id, req.body)
+      .then(() => {
+        res.json({ message: `User with ${req.params.id} is updated successfully.` });
+      })
+      .catch(err => {
+        res.json(err);
+      })
+  })
 
 
 module.exports = authRoutes;

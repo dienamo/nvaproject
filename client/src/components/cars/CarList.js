@@ -64,16 +64,16 @@ class CarList extends React.Component{
                 })
             }
 
-      handleClose=()=>{
-        this.setState({
-            open: false
-        })
-      }
+            handleClose=()=>{
+                this.setState({
+                    open: false
+                })
+            }
 
-      handleChange = (event) => {  
-        const {name, value} = event.target;
-        this.setState({[name]: value});
-    }
+            handleChange = (event) => {  
+                const {name, value} = event.target;
+                this.setState({[name]: value});
+            }
 
     handleFileUpload = e => {
         console.log("The file to be uploaded is: ", e.target.files[0]);

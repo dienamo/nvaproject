@@ -12,6 +12,8 @@ import handkey from '../../images/handkey.png'
 import driver from '../../images/driver.png'
 import parking from '../../images/parking.png'
 import phone from '../../images/phone.png'
+import CarCard from '../cars/CarCard'
+import { Link } from 'react-router-dom';
 import './Agency.scss'
 require('dotenv').config();
 
@@ -19,6 +21,7 @@ require('dotenv').config();
 class Agency extends React.Component{
     state={
         listOfAgencies: [],
+        listOfCars: [],
         selected: ''
     }
     getAllAgencies=()=>{
@@ -26,6 +29,18 @@ class Agency extends React.Component{
         .then(responseFromApi=>{
             this.setState({
                 listOfAgencies : responseFromApi.data
+            })
+        })
+        .catch(err=>{
+            console.log('Error',err)
+        })
+    }
+
+    getAllCars=()=>{
+        axios.get(`${process.env.REACT_APP_APIURL || ""}/api/cars`) // en dev: http://localhost:500/agencies / en prod: /agencies
+        .then(responseFromApi=>{
+            this.setState({
+                listOfCars : responseFromApi.data
             })
         })
         .catch(err=>{
@@ -45,6 +60,7 @@ class Agency extends React.Component{
 
     componentDidMount(){
         this.getAllAgencies()
+        this.getAllCars()
     }
     render(){
         return(
@@ -104,8 +120,15 @@ class Agency extends React.Component{
                     </div>
                 </div>
             </section>
-            <section >
-
+            <h2>Toute notre gamme de véhicules</h2>
+            <section className='all-cars'>
+            {this.state.listOfCars.map(car=>{
+                return(
+                    <div key={car._id} className='card-container'>                        
+                        <Link to={`/agence/${car.agency.name}/vehicule/${car.brand}/${car.model}/${car._id}`} style={{ textDecoration: 'none' }} ><div className='car-card'><CarCard car={car}/></div></Link> 
+                    </div> 
+                    )
+                })}
             </section>
             </div>
         )

@@ -3,13 +3,18 @@ import React from 'react'
  
 export class MapContainer extends React.Component {
   render() {
+    const lat = this.props.agencymap[0]
+    const lng = this.props.agencymap[1]
+    console.log(lat)
+    console.log(lng)
     return (
-      <Map google={this.props.google} zoom={10} initialCenter={{
-        lat: 14.4974,
-        lng: -16.46660948
+      <div style={{ height: '100vh', width: '100%' }}>
+      <Map style={{width: '28%'}} google={this.props.google} zoom={14} initialCenter={{
+        lat: lat,
+        lng: lng
       }}>
  
-        <Marker onClick={this.onMarkerClick}
+        <Marker 
                 name={'Current location'} />
  
         <InfoWindow onClose={this.onInfoWindowClose}>
@@ -18,6 +23,7 @@ export class MapContainer extends React.Component {
             </div>
         </InfoWindow>
       </Map>
+      </div>
     );
   }
 }

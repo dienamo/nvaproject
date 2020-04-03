@@ -27,6 +27,11 @@
 
 .agency-details{
     padding: 50px 0px;
+    width: 100%;
+}
+
+.map-container{
+    width: 25%;
 }
 
 .MuiCardMedia-root{
@@ -124,6 +129,16 @@
     padding-top: 60px;
 }
 
+.all-cars{
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: space-between;
+    height: 100vh;
+    padding: 100px;
+}
+
 @media(max-width: 768px){
 
     .form-container{
@@ -171,4 +186,15 @@
     .sub-container{
         display: block;
     }
+
+    .louer{
+        height: 100%;
+    }
+
+    .all-cars{
+        display: block;
+        padding: 0;
+        width: 95%;
+    }
+    
 }

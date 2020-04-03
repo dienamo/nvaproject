@@ -224,7 +224,7 @@ class AgencyDetails extends React.Component{
                             <h3>{this.state.agency.name}</h3>
                             <h4>{this.state.agency.address}</h4>
                             <h4><PhoneIcon />+{this.state.agency.phone}</h4>
-                            <MapContainer />
+                            <MapContainer agencymap={this.state.agency.latlng}/>
                         </div>
                         </div>
                     )

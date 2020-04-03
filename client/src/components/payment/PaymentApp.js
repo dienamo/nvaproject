@@ -120,10 +120,14 @@ class CheckoutForm extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
 
+    this.setState({
+      processing: true
+    })
+
     const {data: car} = await axios.get(`${process.env.REACT_APP_APIURL || ""}/api/cars/${this.props.car}`)    
 
     if(car.available){
-      const {data: clientSecret} = await axios.post(`${process.env.REACT_APP_APIURL || ""}/api/payment-intents`,{amount: 25})
+      const {data: clientSecret} = await axios.post(`${process.env.REACT_APP_APIURL || ""}/api/payment-intents`,{numberOfDays: this.props.numberOfDays, carId: this.props.car})
 
         const {stripe, elements} = this.props;
         // const {email, phone, name, error, cardComplete} = this.state;
@@ -138,7 +142,7 @@ class CheckoutForm extends React.Component {
           payment_method: {
             card: elements.getElement(CardElement),
             billing_details: {
-              name: 'Jenny Rosen',
+              name: this.state.name,
             },
           }
         });
@@ -179,7 +183,6 @@ class CheckoutForm extends React.Component {
   };
 
   render() {
-    console.log(this.props)
     const {error, processing, paymentMethod, name, email, phone  } = this.state;
     const {stripe} = this.props;
     return paymentMethod ? (
