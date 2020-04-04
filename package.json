@@ -18,6 +18,8 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "connect-mongostore": "^0.1.4",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
@@ -35,6 +37,7 @@
     "react-media": "^1.10.0",
     "react-responsive-carousel": "^3.1.51",
     "react-router-dom": "^5.1.2",
+    "react-spinners": "^0.8.1",
     "serve-favicon": "^2.5.0",
     "stripe": "^8.38.0"
   },

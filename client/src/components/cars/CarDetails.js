@@ -51,6 +51,7 @@ class CarDetails extends React.Component{
         const driverFees = this.state.driverFees
         axios.post(`${process.env.REACT_APP_APIURL || ""}/api/rentals`,{car,agency,total,numberOfDays,dateOut,dateOfReturn,driverFees},{withCredentials:true})
             .then(response=>{
+                console.log(response)
                 this.props.getUser(response.data)
                 this.props.history.push('/redirection')
             })

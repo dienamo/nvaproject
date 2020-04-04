@@ -9,6 +9,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const session       = require('express-session');
 const passport      = require('passport');
+const MongoStore = require("connect-mongo")(session);
 
 require('dotenv').config();
 require('./configs/passport');
@@ -40,6 +41,10 @@ app.use(session({
   secret:"some secret goes here",
   resave: true,
   saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  })
   // store: MongoStore
 }));
 

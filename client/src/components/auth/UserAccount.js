@@ -21,18 +21,20 @@ class UserAccount extends React.Component{
       user:{
         rentals:[]
       },
-      open: false
+      openAddress: false,
+      openPhonenumber: false
     }
     this.service = new AuthService();
   }
 
-  handleFormSubmit = (event) => {
+  handleAddressFormSubmit = (event) => {
     event.preventDefault();
     
-    const {address,phonenumber} = this.state
+    const {address} = this.state
 
-    axios.put(`${process.env.REACT_APP_APIURL || ""}/api/user/${this.state.user._id}`, {address, phonenumber})
+    axios.put(`${process.env.REACT_APP_APIURL || ""}/api/user/${this.state.user._id}`, {address})
       .then((response) => {
+        console.log(response)
           // this.props.getData();
           // Reset form
           // this.setState({
@@ -41,7 +43,25 @@ class UserAccount extends React.Component{
               // });
             })
             .catch(error => console.log(error))
-        }
+  }
+
+  handlePhonenumberFormSubmit = (event) => {
+    event.preventDefault();
+    
+    const {phonenumber} = this.state
+
+    axios.put(`${process.env.REACT_APP_APIURL || ""}/api/user/${this.state.user._id}`, {phonenumber})
+      .then((response) => {
+        console.log(response)
+          // this.props.getData();
+          // Reset form
+          // this.setState({
+              //   brand: "",model: "",type: "",numberOfSeats: "",numberOfDoors: "",transmission:"",airConditionner:"",
+              //   mainImgUrl:"",agency: "",feesPerDay: "",numberPlate: ""
+              // });
+            })
+            .catch(error => console.log(error))
+  }
 
   fetchUserInfo = (id) => {
     this.service.userAccount(id)
@@ -53,16 +73,28 @@ class UserAccount extends React.Component{
 
   }
 
-  handleOpen=(updatedUser)=>{
+  
+  handleOpenAddress=()=>{
     this.setState({
-        open: true,
-        updatedUser: updatedUser
+        openAddress: true,
     })
   }
 
-  handleClose=()=>{
+  handleOpenPhonenumber=()=>{
     this.setState({
-      open: false
+        openPhonenumber: true,
+    })
+  }
+
+  handleCloseAddress=()=>{
+    this.setState({
+      openAddress: false
+    })
+  }
+
+  handleClosePhonenumber=()=>{
+    this.setState({
+      openPhonenumber: false
     })
   }
 
@@ -88,44 +120,66 @@ class UserAccount extends React.Component{
   render(){
     const user = this.state.user
 
-    if (!this.props.userInSession) return "loading..."
+    if (!this.props.userInSession) return "Chargement..."
 
     return(
       <div>
-      <h3>Mon profil</h3>
+      <h3 style={{padding: '40px'}}>Mon profil</h3>
       <div className='main-container'>
        <div className='profil'>
          <Paper>
-          <h4>Mon compte</h4>
+          <h4 style={{textAlign: 'center'}}>Mon compte</h4>
           <h5>{user.name} {user.lastname}</h5>
           <p>Membre depuis le : {user.created_at}</p>
           <p>Adresse courriel : {user.username}</p>
+          <div className='update-button'>
           <p>Adresse : {user.address}</p>
+          <Button onClick={()=>this.handleOpenAddress(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px'}}>
+              Mettre à jour
+          </Button>
+          </div>
+          <div className='update-button'>
           <p>Numéro de téléphone : {user.phonenumber}</p>
+          <Button onClick={()=>this.handleOpenPhonenumber(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px'}}>
+              Mettre à jour
+          </Button>
+          </div>
           </Paper>
           <Modal
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
-          open={this.state.open}
-          onClose={this.handleClose}
+          open={this.state.openAddress}
+          onClose={this.handleCloseAddress}
           >
           <div className='confirmation-modal'>
-              <h2 id="simple-modal-title">Mise à jour du profile</h2>
-              <form onSubmit={this.handleFormSubmit} className="AddCar">
+              <h2 id="simple-modal-title">Nouvelle adresse</h2>
+              <form onSubmit={this.handleAddressFormSubmit}>
                   <TextField id="outlined-basic" name="address" value={this.state.available}label="Adresse" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
+                  <input type="submit" value="submit"/>
+              </form>
+              <p id="simple-modal-description"></p>                         
+          </div>
+          </Modal>
+          <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.openPhonenumber}
+          onClose={this.handleClosePhonenumber}
+          >
+          <div className='confirmation-modal'>
+              <h2 id="simple-modal-title">Nouveau numéro de téléphone</h2>
+              <form onSubmit={this.handlePhonenumberFormSubmit}>
                   <TextField id="outlined-basic" name="phonenumber" value={this.state.agency}label="N° de téléphone" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
                   <input type="submit" value="submit"/>
               </form>
               <p id="simple-modal-description"></p>                         
           </div>
           </Modal>
-          <Button onClick={()=>this.handleOpen(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white'}}>
-              Mettre à jour
-          </Button>
+          
         </div>
         <div className='rentals-list'>
         <Paper>
-       <h4>Mes reservations</h4>
+       <h4 style={{textAlign: 'center'}}>Mes reservations</h4>
        {this.state.user.rentals.map(rental=>{
          return(
          <div key={rental._id} className='list-items'>

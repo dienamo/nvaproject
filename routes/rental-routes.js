@@ -278,8 +278,14 @@ router.get('/isreadynumber' , (req , res , next)=>{
   User.findById(req.user._id)
   .populate({
     path: 'rentals',
-    model: 'Rental'
+      populate: {
+        path: ('car'),
+        populate:{
+          path:('agency')
+        }
+    },
   })
+
   .then(user=>{
     // res.json(user.rentals.filter(rental=> rental.orderStatus === 'En cours').length)
     res.json(user.rentals)

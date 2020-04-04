@@ -3,13 +3,13 @@ import React from 'react'
  
 export class MapContainer extends React.Component {
   render() {
+    
+    if(!this.props.agencymap) return 'Chargement...'
     const lat = this.props.agencymap[0]
     const lng = this.props.agencymap[1]
-    console.log(lat)
-    console.log(lng)
     return (
-      <div style={{ height: '100vh', width: '100%' }}>
-      <Map style={{width: '28%'}} google={this.props.google} zoom={14} initialCenter={{
+      <div style={{ height: '56vh', width: '100%' , position:'relative'}}>
+      <Map google={this.props.google} zoom={14} initialCenter={{
         lat: lat,
         lng: lng
       }}>

@@ -65,9 +65,10 @@ class Notifications extends React.Component{
             onClose={this.handleClose}
             >
             <div className='confirmation-modal'>
-                <h2 id="simple-modal-title">Details de votre réservation</h2>
+                <h2 id="simple-modal-title">{this.state.notificationContent.rentals > 0 ? 'Mes réservation' : "Aucune notification, consultez l'historique"}</h2>
                 <p id="simple-modal-description"></p>
                 {this.state.notificationContent.map(notification=>{
+                    console.log(notification)
                     return(
                         <div>
                             {notification._id}
