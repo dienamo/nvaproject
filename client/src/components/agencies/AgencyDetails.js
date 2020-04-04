@@ -87,7 +87,7 @@ class AgencyDetails extends React.Component{
     }
 
     render(){
-
+        
         //this.setState({filteredArray: this.state.agency.cars})
         const availableCars = this.state.agency.cars
         const filteredCars = this.state.filteredArray

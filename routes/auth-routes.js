@@ -148,8 +148,9 @@ authRoutes.put('/user/:id', (req, res, next)=>{
       return;
     }
     User.findByIdAndUpdate(req.params.id, req.body)
-      .then(() => {
-        res.json({ message: `User with ${req.params.id} is updated successfully.` });
+      .populate('rentals')
+      .then((response) => {
+        res.json(response);
       })
       .catch(err => {
         res.json(err);

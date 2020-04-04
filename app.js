@@ -39,7 +39,8 @@ app.use(cookieParser());
 app.use(session({
   secret:"some secret goes here",
   resave: true,
-  saveUninitialized: true
+  saveUninitialized: true,
+  // store: MongoStore
 }));
 
 app.use(passport.initialize());

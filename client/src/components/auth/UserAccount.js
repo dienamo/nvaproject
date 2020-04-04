@@ -16,6 +16,8 @@ class UserAccount extends React.Component{
   constructor(props){
     super(props)
     this.state={
+      address: '',
+      phonenumber:'',
       user:{
         rentals:[]
       },
@@ -70,12 +72,24 @@ class UserAccount extends React.Component{
 }
 
   componentDidMount(){
-    this.fetchUserInfo(this.props.userInSession._id);
+    if (this.props.userInSession) {
+      this.fetchUserInfo(this.props.userInSession._id);
+    }
+    
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.userInSession !== this.props.userInSession) {
+      // AJAX vient d3 revenir avec le user
+      this.fetchUserInfo(this.props.userInSession._id);
+    }
   }
 
   render(){
-    const user = this.props.userInSession
-    console.log(user)
+    const user = this.state.user
+
+    if (!this.props.userInSession) return "loading..."
+
     return(
       <div>
       <h3>Mon profil</h3>
@@ -106,7 +120,7 @@ class UserAccount extends React.Component{
           </div>
           </Modal>
           <Button onClick={()=>this.handleOpen(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white'}}>
-              Mettre à jour mon profile
+              Mettre à jour
           </Button>
         </div>
         <div className='rentals-list'>

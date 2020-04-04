@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "DEBUG=nvaproject:* nodemon ./bin/www",
+    "dev": "DEBUG=nvaproject:* nodemon --ignore client ./bin/www",
     "dev-windows": "nodemon ./bin/www",
     "build": "cd client && npm install && npm run build"
   },

@@ -49,6 +49,7 @@ class App extends Component {
   }
 
   render(){
+    
     const userStatus = this.state.loggedInUser && this.state.loggedInUser.userStatus
    return (
         <div className="App">
