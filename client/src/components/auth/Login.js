@@ -114,9 +114,6 @@ class Login extends React.Component {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Mot de passe oublié?
-                </Link>
               </Grid>
               <Grid item>
                 <Link to={"/signup"} href="#" variant="body2">

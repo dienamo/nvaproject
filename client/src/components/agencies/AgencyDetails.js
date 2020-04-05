@@ -82,6 +82,50 @@ class AgencyDetails extends React.Component{
         })
         }
     }
+
+    chooseType = (value) => {
+
+        if(value === 'Tous'){
+            this.setState({
+                selected : value,
+                filteredArray : this.state.agency.cars
+            })
+          }
+
+        if(value === 'Berline'){
+        this.setState({
+            selected : value,
+            filteredArray : this.state.agency.cars.filter(car=>{
+                return car.type === value
+            })
+        })
+      }
+      if(value === '4X4'){
+        this.setState({
+            selected : value,
+            filteredArray : this.state.agency.cars.filter(car=>{
+                return car.type === value
+            })
+        })
+      }
+      if(value === 'Sport'){
+        this.setState({
+            selected : value,
+            filteredArray : this.state.agency.cars.filter(car=>{
+                return car.type === value
+            })
+        })
+      }
+      if(value === 'Luxe'){
+        this.setState({
+            selected : value,
+            filteredArray : this.state.agency.cars.filter(car=>{
+                return car.type === value
+            })
+        })
+      }
+    }
+
     componentDidMount(){
         this.getAgency()
     }
@@ -154,7 +198,6 @@ class AgencyDetails extends React.Component{
                                         id: 'age-native-simple',
                                         }}
                                     >
-                                        <option value="" />
                                         <option value='croissant'>Croissant</option>
                                         <option value='decroissant'>Decroissant</option>
                                         </Select>
@@ -170,27 +213,27 @@ class AgencyDetails extends React.Component{
                                         id: 'age-native-simple',
                                         }}
                                     >
-                                        <option value="" />
+                                        <option value='Tous'>Tous</option>
                                         <option value='automatique'>Automatique</option>
                                         <option value='manuelle'>Manuelle</option>
-                                        <option value='Tous'>Tous</option>
                                         </Select>
                             </FormControl>
                             <FormControl className='form-control'>
                                 <InputLabel htmlFor="age-native-simple">Type</InputLabel>
                                     <Select
                                         native
-                                        value=''
-                                        onChange={this.chooseType}
+                                        value={this.state.selected}
+                                        onChange={(e)=>this.chooseType(e.target.value)}
                                         inputProps={{
-                                        name: 'age',
+                                        name: 'type',
                                         id: 'age-native-simple',
                                         }}
                                     >
-                                        <option value="" />
-                                        <option value={10}>4x4</option>
-                                        <option value={20}>Luxe</option>
-                                        <option value={30}>Sport</option>
+                                        <option value='Tous'>Tous</option>
+                                        <option value='4X4'>4x4</option>
+                                        <option value='Luxe'>Luxe</option>
+                                        <option value='Sport'>Sport</option>
+                                        <option value='Berline'>Berline</option>
                                         </Select>
                             </FormControl>
                             <FormControl className='form-control'>
@@ -200,13 +243,13 @@ class AgencyDetails extends React.Component{
                                         value={this.state.selected}
                                         onChange={(e)=>this.withAC(e.target.value)}
                                         inputProps={{
-                                        name: 'age',
+                                        name: 'airConditionner',
                                         id: 'age-native-simple',
                                         }}
                                     >
-                                        <option value="" />
-                                        <option value='climatisées'>Climatisée</option>
-                                        <option value={20}>Non-climatisée</option>
+                                        <option value='Tous'>Tous</option>
+                                        <option value='Climatisée'>Climatisées</option>
+                                        <option value='Non climatisée'>Non climatisées</option>
                                         </Select>
                             </FormControl>
                         </div>

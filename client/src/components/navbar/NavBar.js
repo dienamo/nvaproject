@@ -61,7 +61,7 @@ class NavBar extends React.Component{
           {matches =>
             matches ? (
               <div className='user-in-session'>
-                <p id='user-name'>{this.props.userInSession.name}</p>
+                <p id='user-name' style={{marginRight: '20px'}}>{this.props.userInSession.name}</p>
                 <Notifications userInSession={this.props.userInSession}/>
                 <Button aria-controls="simple-menu" aria-haspopup="true" onClick={(e)=>this.handleOpen(e)}>
                   <MenuIcon />

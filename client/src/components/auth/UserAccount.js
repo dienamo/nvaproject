@@ -124,11 +124,11 @@ class UserAccount extends React.Component{
 
     return(
       <div>
-      <h3 style={{padding: '40px'}}>Mon profil</h3>
+      <h2 style={{padding: '40px'}}>Mon profil</h2>
       <div className='main-container'>
        <div className='profil'>
          <Paper>
-          <h4 style={{textAlign: 'center'}}>Mon compte</h4>
+          <h3 style={{textAlign: 'center'}}>Mon compte</h3>
           <h5>{user.name} {user.lastname}</h5>
           <p>Membre depuis le : {user.created_at}</p>
           <p>Adresse courriel : {user.username}</p>
@@ -179,7 +179,7 @@ class UserAccount extends React.Component{
         </div>
         <div className='rentals-list'>
         <Paper>
-       <h4 style={{textAlign: 'center'}}>Mes reservations</h4>
+       <h3 style={{textAlign: 'center'}}>Mes reservations</h3>
        {this.state.user.rentals.map(rental=>{
          return(
          <div key={rental._id} className='list-items'>
