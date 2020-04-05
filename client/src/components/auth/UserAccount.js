@@ -134,13 +134,13 @@ class UserAccount extends React.Component{
           <p>Adresse courriel : {user.username}</p>
           <div className='update-button'>
           <p>Adresse : {user.address}</p>
-          <Button onClick={()=>this.handleOpenAddress(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px'}}>
+          <Button onClick={()=>this.handleOpenAddress(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px' ,textTransform: 'none'}}>
               Mettre à jour
           </Button>
           </div>
           <div className='update-button'>
           <p>Numéro de téléphone : {user.phonenumber}</p>
-          <Button onClick={()=>this.handleOpenPhonenumber(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px'}}>
+          <Button onClick={()=>this.handleOpenPhonenumber(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px', textTransform: 'none'}}>
               Mettre à jour
           </Button>
           </div>

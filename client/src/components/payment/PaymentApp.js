@@ -149,6 +149,9 @@ class CheckoutForm extends React.Component {
         if (result.error) {
           // Show error to your customer (e.g., insufficient funds)
           console.log(result.error.message);
+          this.setState({
+            processing: false
+          })
         } else {
           // The payment has been processed!
           if (result.paymentIntent.status === 'succeeded') {
@@ -198,7 +201,7 @@ class CheckoutForm extends React.Component {
       </div>
     ) : (
       <form className="Form" onSubmit={this.handleSubmit}>
-        <fieldset className="FormGroup">
+        <fieldset className="FormGroup" style={{backgroundColor: 'cornflowerblue'}}>
           <TextField
             className="card-owner-informtions"
             label="Nom"

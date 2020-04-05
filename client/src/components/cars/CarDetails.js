@@ -141,7 +141,7 @@ class CarDetails extends React.Component{
                 <div className='main-container'>
                 <div className='car-details'>
                 <Paper >
-                    <h1>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h1>
+                    <h1 style={{marginTop: '0px'}}>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h1>
                     <div className='car-infos'>
                         {this.state.car.airConditionner ? <div className='align-infos'><img src={clim} alt=''/> <h4>Climatisée</h4></div> : <div className='align-infos'><img src={clim} alt=''/> <h4>Non climatisée</h4> </div>}
                         {this.state.car.transmission === 'automatique' ? <div className='align-infos'><img src={transmission} alt=''/> <h4>Automatique</h4></div> : <div className='align-infos'><img src={transmission} alt=''/><h4>Manuelle</h4></div>}
@@ -170,18 +170,19 @@ class CarDetails extends React.Component{
                 />
                 </label>
                 <h3>Total: {total} fcfa</h3>
-                <Button variant="contained" onClick={this.handleOpen}>Payer à l'agence</Button>
-                <Button variant="contained" onClick={this.handleOpenpay}>Payer par carte bancaire</Button>
+                <Button variant="contained" onClick={this.handleOpen} style={{textTransform:'none'}}>Payer à l'agence</Button>
+                <Button variant="contained" onClick={this.handleOpenpay} style={{textTransform:'none'}}>Payer par carte bancaire</Button>
                 </div>}
                 </Paper>
                 </div>
                 <Modal
+                    style={{borderRadius: '5px'}}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                     open={this.state.open}
                     onClose={this.handleClose}
                     >
-                    <div className='confirmation-modal'>
+                    <div className='confirmation-modal' style={{borderRadius: '5px'}}>
                         <h2 id="simple-modal-title">Details de votre réservation</h2>
                         <p id="simple-modal-description"></p>
                         <h4>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h4>
@@ -198,7 +199,8 @@ class CarDetails extends React.Component{
                     open={this.state.openpay}
                     onClose={this.handleClosepay}
                     >
-                    <div className='confirmation-modal'>
+                    <div className='confirmation-modal' style={{borderRadius: '5px'}}>
+                    
                         <h2 id="simple-modal-title">Details de votre réservation</h2>
                         <p id="simple-modal-description"></p>
                         <h4>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h4>
