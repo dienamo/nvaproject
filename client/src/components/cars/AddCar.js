@@ -172,9 +172,9 @@ handleFilesUpload = e => {
               label="Agence"
               name='agency'
             >
-              <MenuItem value='5e8b16d3c9360005e1b9bcaa'>NVA Dakar VDN</MenuItem>
-              <MenuItem value='5e7f34478468ef0bbca17c79'>Aéroport international de Dakar-Yoff</MenuItem>
-              <MenuItem value='5e8b2e4dc9360005e1b9bcab'>Aéroport International Blaise Diagne</MenuItem>
+              <MenuItem value='5e8c8b7da57e700662673ac2'>NVA Dakar VDN</MenuItem>
+              <MenuItem value='5e8c8ab9a57e700662673ac1'>Aéroport international de Dakar-Yoff</MenuItem>
+              <MenuItem value='5e8c8c89a57e700662673ac3'>Aéroport International Blaise Diagne</MenuItem>
             </Select>
           </FormControl>
           <TextField id="outlined-basic" name="feesPerDay" value={this.state.feesPerDay}label="Tarif journalier" type='Number' variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
