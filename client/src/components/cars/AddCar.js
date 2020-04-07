@@ -75,6 +75,7 @@ handleFilesUpload = e => {
   ;
 }
   render(){
+    console.log(this.state.agency)
    return (
         <div>
           <h1>Ajout d'un vehicule</h1>

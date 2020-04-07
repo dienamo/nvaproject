@@ -25,8 +25,7 @@ router.post('/cars', (req, res, next)=>{
     imageUrl
   })
   .then(response => {
-    res.json(response);
-    Agency.update({$push:{cars : response}})
+    Agency.findByIdAndUpdate({_id: agency} , {$push:{cars : response}})
     .then(response=>{
       res.json(response)
     })
