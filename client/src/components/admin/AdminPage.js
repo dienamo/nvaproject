@@ -9,14 +9,14 @@ class AdminPage extends React.Component{
     if (!this.props.userStatus) return "Chargement..."
 
     return(
-      <div>
-    {this.props.userStatus === 'admin' ?
-      <div>
-        <Header />
+        <div>
+      {this.props.userStatus === 'admin' ?
+        <div>
+          <Header />
+        </div>
+      : <Redirect to={{pathname: '/login'}} />
+      }
       </div>
-     : <Redirect to={{pathname: '/login'}} />
-    }
-     </div>
     )
     }
     
