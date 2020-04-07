@@ -57,6 +57,7 @@ router.get('/cars/:id', (req, res, next)=>{
   }
 
   Car.findById(req.params.id)
+    .populate('agency')
     .then(response => {
       res.status(200).json(response);
     })

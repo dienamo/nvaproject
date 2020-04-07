@@ -18,6 +18,8 @@ import Radio from '@material-ui/core/Radio';
 import {DateTimePicker , MuiPickersUtilsProvider} from '@material-ui/pickers'
 import Carousel from 'nuka-carousel';
 import PaymentApp from '../payment/PaymentApp'
+import telephone from '../../images/telephone.png'
+import MapContainer from '../agencies/GoogleMap'
 moment.locale('fr');
 
 class CarDetails extends React.Component{
@@ -120,12 +122,11 @@ class CarDetails extends React.Component{
         let total = (this.state.car.feesPerDay*numberOfDays) + driverFees;
         let dateOut = moment(this.state.dateOut).locale('fr').format('LLLL')
         let dateOfReturn = moment(this.state.dateOfReturn).locale('fr').format('LLLL')
-
         
         return(
             <div>
                 <div className='car-div'>
-                <Carousel autoplay={true}>
+                <Carousel autoplay={true} wrapAround={true}>
                 <div>
                     <img src={this.state.car.imageUrl} alt="" className='car-image'/>  
                 </div>
@@ -149,11 +150,22 @@ class CarDetails extends React.Component{
                         <div className='align-infos'><img src={seat} alt=''/> <h4>{this.state.car.numberOfSeats} Sièges</h4></div>
                     </div>
                 </Paper>
+                {
+                    this.state.car.agency ? <Paper>
+                    <div className='agency-details'>
+                        <h3>{this.state.car.agency.name}</h3>
+                        <h4>{this.state.car.agency.address}</h4>
+                        <h4 style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}><img src={telephone} alt="" style={{width: '26px', marginRight:'5px'}}/> +{this.state.car.agency.phone}</h4>
+                        <MapContainer agencymap={this.state.car.agency.latlng}/>
+                    </div>
+                    </Paper> : ''
+                }
+                
                 </div>
                 <div className='rental-infos'>
                 <Paper>
-                <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}> fcfa/jour</h5>
-                <div className='date-time-picker'>
+                <h1 style={{display:'inline'}}>{this.state.car.feesPerDay}</h1><h5 style={{display:'inline'}}> Fcfa/jour</h5>
+                <div className='date-time-picker' style={{marginTop: '68px'}}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                         <p><DateTimePicker value={this.state.dateOut} onChange={this.handleStartDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de prise en charge' className='date-time-picker'/></p>
                         <p><DateTimePicker value={this.state.dateOfReturn} onChange={this.handleEndDateChange} minDate={new Date()} ampm={false} autoOk={true} disableToolbar={true} format="d MMM yyyy HH:mm" label='Date de retour' className='date-time-picker'/></p>
@@ -169,7 +181,7 @@ class CarDetails extends React.Component{
                     inputProps={{ 'aria-label': 'A' }}
                 />
                 </label>
-                <h3>Total: {total} fcfa</h3>
+                <h3>Total: {total} Fcfa</h3>
                 <Button variant="contained" onClick={this.handleOpen} style={{textTransform:'none'}}>Payer à l'agence</Button>
                 <Button variant="contained" onClick={this.handleOpenpay} style={{textTransform:'none'}}>Payer par carte bancaire</Button>
                 </div>}
@@ -182,14 +194,14 @@ class CarDetails extends React.Component{
                     open={this.state.open}
                     onClose={this.handleClose}
                     >
-                    <div className='confirmation-modal' style={{borderRadius: '5px'}}>
-                        <h2 id="simple-modal-title">Details de votre réservation</h2>
+                    <div className='confirmation-to-agency-modal'>
+                        <h2 id="simple-modal-title">Détails de votre réservation</h2>
                         <p id="simple-modal-description"></p>
                         <h4>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h4>
                         <h5>Date de prise en charge : {dateOut}</h5>
                         <h5>Date de retour : {dateOfReturn}</h5>
                         <h5>Durée totale : {numberOfDays} jours</h5>
-                        <h5>Total : {total} fcfa</h5>
+                        <h5>Total : {total} Fcfa</h5>
                         <Button variant="contained" onClick={()=>this.handleConfirm(total,numberOfDays,dateOut,dateOfReturn)}>Confirmer</Button>
                     </div>
                 </Modal>
@@ -201,13 +213,13 @@ class CarDetails extends React.Component{
                     >
                     <div className='confirmation-modal' style={{borderRadius: '5px'}}>
                     
-                        <h2 id="simple-modal-title">Details de votre réservation</h2>
+                        <h2 id="simple-modal-title">Détails de votre réservation</h2>
                         <p id="simple-modal-description"></p>
                         <h4>{this.state.car.brand} {this.state.car.model} {this.state.car.year}</h4>
                         <h5>Date de prise en charge : {dateOut}</h5>
                         <h5>Date de retour : {dateOfReturn}</h5>
                         <h5>Durée totale : {numberOfDays} jours</h5>
-                        <h5>Total : {total} fcfa</h5>
+                        <h5>Total : {total} Fcfa</h5>
                         <PaymentApp dateOut={dateOut} dateOfReturn={dateOfReturn} carId={this.state.car._id} agency = {this.state.car.agency} total={total} numberOfDays={numberOfDays} driverFees={this.state.driverFees}/>
                     </div>
                 </Modal>

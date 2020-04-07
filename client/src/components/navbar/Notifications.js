@@ -3,6 +3,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Badge from '@material-ui/core/Badge';
 import Modal from '@material-ui/core/Modal';
 import AuthService from '../auth/auth-service';
+import './NavBar.scss'
 
 class Notifications extends React.Component{
 
@@ -64,7 +65,7 @@ class Notifications extends React.Component{
             open={this.state.open}
             onClose={this.handleClose}
             >
-            <div className='confirmation-modal'>
+            <div className='notification-modal'>
                 <h2 id="simple-modal-title">{this.state.notificationContent.rentals > 0 ? 'Mes réservation' : "Aucune notification, consultez l'historique"}</h2>
                 <p id="simple-modal-description"></p>
                 {this.state.notificationContent.map(notification=>{

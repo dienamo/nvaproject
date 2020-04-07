@@ -6,7 +6,7 @@ import '../agencies/Agency.scss'
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import PhoneIcon from '@material-ui/icons/Phone';
+import telephone from '../../images/telephone.png'
 import MapContainer from './GoogleMap'
 import Media from 'react-media';
 import ListItem from '@material-ui/core/ListItem';
@@ -266,7 +266,7 @@ class AgencyDetails extends React.Component{
                         <div className='agency-details'>
                             <h3>{this.state.agency.name}</h3>
                             <h4>{this.state.agency.address}</h4>
-                            <h4><PhoneIcon />+{this.state.agency.phone}</h4>
+                            <h4 style={{display: 'flex', justifyContent: 'center', alignItems:'center'}}><img src={telephone} alt="" style={{width: '26px', marginRight:'5px'}}/> +{this.state.agency.phone}</h4>
                             <MapContainer agencymap={this.state.agency.latlng}/>
                         </div>
                         </div>

@@ -86,9 +86,9 @@ class Agency extends React.Component{
                         <em>None</em>
                     </MenuItem> */}
                     {/* 5e66959a715a600f4689cf47   5e7f34478468ef0bbca17c79 */}
-                    <MenuItem value='5e669f290e4eee105dd20e03' className='agency-name'>NVA Mermoz</MenuItem>
-                    <MenuItem value='5e66959a715a600f4689cf47' className='agency-name'>Aéroport international de Dakar-Yoff <FlightTakeoffIcon /></MenuItem>
-                    <MenuItem value='5e66968a715a600f4689cf48' className='agency-name'>Aéroport International Blaise Diagne <FlightTakeoffIcon /></MenuItem>
+                    <MenuItem value='5e8b16d3c9360005e1b9bcaa' className='agency-name'>NVA Dakar VDN</MenuItem>
+                    <MenuItem value='5e7f34478468ef0bbca17c79' className='agency-name'>Aéroport international de Dakar-Yoff <FlightTakeoffIcon /></MenuItem>
+                    <MenuItem value='5e8b2e4dc9360005e1b9bcab' className='agency-name'>Aéroport International Blaise Diagne <FlightTakeoffIcon /></MenuItem>
                     </Select>
                 <div className='search-button'>
                 <Button onClick={(e)=>{this.handleSeach(e.target.value)}}

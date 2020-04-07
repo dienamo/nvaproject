@@ -11,6 +11,8 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
+import moment from 'moment';
+moment.locale('fr');
 
 class UserAccount extends React.Component{
   constructor(props){
@@ -130,7 +132,7 @@ class UserAccount extends React.Component{
          <Paper>
           <h3 style={{textAlign: 'center'}}>Mon compte</h3>
           <h5>{user.name} {user.lastname}</h5>
-          <p>Membre depuis le : {user.created_at}</p>
+          <p>Membre depuis le : {moment(user.created_at).locale('fr').format('LLL')}</p>
           <p>Adresse courriel : {user.username}</p>
           <div className='update-button'>
           <p>Adresse : {user.address}</p>

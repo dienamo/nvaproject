@@ -1,6 +1,6 @@
 .confirmation-modal{
     background-color: slateblue;
-    color: aquamarine;
+    color: skyblue;
     position: absolute;
     width: 40;
     border: 2px solid #000;
@@ -59,6 +59,18 @@
     width: 40%;
 }
 
+.confirmation-to-agency-modal{
+    background-color: white;
+    position: absolute; 
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40;
+    border: 2px solid #000;
+    padding: 15px;
+    border: hidden;
+}
+
 @media(max-width: 768px){
     .App{
         .main-container {
@@ -85,13 +97,16 @@
 }
     .confirmation-modal{
         background-color: slateblue;
-        color: aquamarine;
-        position: absolute;
+        color: skyblue;
+        position: absolute; 
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 40;
         border: 2px solid #000;
-        top: 12%;
-        left: 0%;
         padding: 15px;
         border: hidden;
     }
+
+    
 }
