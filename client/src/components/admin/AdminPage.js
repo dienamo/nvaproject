@@ -5,6 +5,9 @@ import Header from './Header'
 class AdminPage extends React.Component{
   
   render(){
+
+    if (!this.props.userStatus) return "Chargement..."
+
     return(
       <div>
     {this.props.userStatus === 'admin' ?
