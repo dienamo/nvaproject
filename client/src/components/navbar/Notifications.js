@@ -54,6 +54,8 @@ class Notifications extends React.Component{
     }
 
     render(){
+        console.log(this.state.notificationContent)
+        const notification = this.state.notificationContent
         return(
             <div>
             <Badge badgeContent={this.state.notification} color="secondary" onClick={this.handleOpen}>
@@ -66,13 +68,15 @@ class Notifications extends React.Component{
             onClose={this.handleClose}
             >
             <div className='notification-modal'>
-                <h2 id="simple-modal-title">{this.state.notificationContent.rentals > 0 ? 'Mes réservation' : "Aucune notification, consultez l'historique"}</h2>
+                <h3 id="simple-modal-title">{this.state.notificationContent.length > 0 ? '' : "Aucune notification, veuillez consulter votre compte"}</h3>
                 <p id="simple-modal-description"></p>
-                {this.state.notificationContent.map(notification=>{
+                {notification.map(notification=>{
                     console.log(notification)
                     return(
                         <div>
-                            {notification._id}
+                            <h3>Le véhicule {notification.car.brand} {notification.car.model} {notification.car.year} est prêt à être récupéré à l'agence:</h3> 
+                            <h3>{notification.car.agency.name}.</h3>
+                            <h3>Merci d'avoir choisi NVA.</h3>
                         </div>
                     )
                 })}
