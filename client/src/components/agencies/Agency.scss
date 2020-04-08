@@ -133,19 +133,20 @@
 
 .user-infos{
     background-color: ghostwhite;
+    color: dimgray;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    height: 400px;
+    height: 320px;
     width: 45%;
     margin-bottom: 80px;
+    padding: 10px;
 }
 
 .user-infos img{
     padding-top: 30px;
 }
 
-.user-infos p{
-    margin-top: 40px;
-    padding: 20px;
+.user-infos h3{
+    height: 43px;
 }
 
 .louer{

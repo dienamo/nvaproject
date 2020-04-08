@@ -100,7 +100,7 @@ class Agency extends React.Component{
                 </section>
             
             <section className='louer'>
-                <h2>Nos services</h2>
+                <h2 style={{color: 'dimgrey'}}>Nos services</h2>
                 <div className='flex-container'>
                     <div className='user-infos'>
                         <img src={parking} alt=""/>
@@ -124,7 +124,7 @@ class Agency extends React.Component{
                     </div>
                 </div>
             </section>
-            <h2>Toute notre gamme de véhicules</h2>
+            <h2 style={{color: 'dimgrey'}}>Toute notre gamme de véhicules</h2>
             <section className='all-cars'>
             {this.state.listOfCars.map(car=>{
                 return(
