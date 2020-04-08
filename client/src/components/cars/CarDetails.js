@@ -182,8 +182,8 @@ class CarDetails extends React.Component{
                 />
                 </label>
                 <h3>Total: {total} Fcfa</h3>
-                <Button variant="contained" onClick={this.handleOpen} style={{textTransform:'none'}}>Payer à l'agence</Button>
-                <Button variant="contained" onClick={this.handleOpenpay} style={{textTransform:'none'}}>Payer par carte bancaire</Button>
+                <Button variant="contained" onClick={this.handleOpen} style={{textTransform:'none', backgroundColor: 'white'}}>Payer à l'agence</Button>
+                <Button variant="contained" onClick={this.handleOpenpay} style={{textTransform:'none', backgroundColor: 'lightblue'}}>Payer par carte bancaire</Button>
                 </div>}
                 </Paper>
                 </div>
