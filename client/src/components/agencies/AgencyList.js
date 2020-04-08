@@ -100,22 +100,27 @@ class Agency extends React.Component{
                 </section>
             
             <section className='louer'>
+                <h2>Nos services</h2>
                 <div className='flex-container'>
                     <div className='user-infos'>
                         <img src={parking} alt=""/>
                         <h3>Un parc automobile varié adapté à vos besoins</h3>
+                        <p>Trouvez la <strong>voiture de location</strong> la mieux adaptée à vos besoins et bénéficiez de notre gamme complète de services en réservant directement sur notre site.</p> 
                     </div>
                     <div className='user-infos'>
                         <img src={handkey} alt=""/>
                         <h3>Réservez en toute confiance</h3>
+                        <p>Nous proposons un service de <strong>location de voiture </strong>très simple et flexible dans notre agence de <strong>Dakar VDN</strong> </p>
                     </div>
                     <div className='user-infos'>
                         <img src={phone} alt=""/>
                         <h3>Votre location à portée de main</h3>
+                        <p>Vous pouvez à présent prolonger votre location où que vous soyez avec notre <strong>version mobile</strong>!</p>
                     </div>
                     <div className='user-infos'>
                         <img src={driver} alt=""/>
                         <h3>Location avec chauffeur</h3>
+                        <p>Pour que vos déplacements professionnels ou privés deviennent un moment de détente, nous avons conçu des forfaits d’une demie journée ou d’une journée complète de <strong>location de véhicule avec chauffeur</strong></p>
                     </div>
                 </div>
             </section>

@@ -128,6 +128,7 @@
     width: 55vw;
     margin: auto;
     justify-content: space-between;
+    padding-top: 50px;
 }
 
 .user-infos{
@@ -136,6 +137,14 @@
     height: 400px;
     width: 45%;
     margin-bottom: 80px;
+}
+
+.user-infos img{
+    padding-top: 30px;
+}
+
+.user-infos p{
+    margin-top: 40px;
 }
 
 .louer{
@@ -149,7 +158,7 @@
     margin: auto;
     justify-content: space-between;
     height: 100%;
-    padding: 100px;
+    padding: 50px 100px;
 }
 
 @media(max-width: 768px){
