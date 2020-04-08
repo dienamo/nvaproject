@@ -82,10 +82,6 @@ class Agency extends React.Component{
                     labelWidth='{labelWidth}'
                     displayEmpty={false}
                     >
-                    {/* <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem> */}
-                    {/* 5e66959a715a600f4689cf47   5e7f34478468ef0bbca17c79 */}
                     <MenuItem value='5e8c8b7da57e700662673ac2' className='agency-name'>NVA Dakar VDN</MenuItem>
                     <MenuItem value='5e8c8ab9a57e700662673ac1' className='agency-name'>Aéroport international de Dakar-Yoff <FlightTakeoffIcon /></MenuItem>
                     <MenuItem value='5e8c8c89a57e700662673ac3' className='agency-name'>Aéroport International Blaise Diagne <FlightTakeoffIcon /></MenuItem>
@@ -107,16 +103,19 @@ class Agency extends React.Component{
                 <div className='flex-container'>
                     <div className='user-infos'>
                         <img src={parking} alt=""/>
-                
+                        <h3>Un parc automobile varié adapté à vos besoins</h3>
                     </div>
                     <div className='user-infos'>
                         <img src={handkey} alt=""/>
+                        <h3>Réservez en toute confiance</h3>
                     </div>
                     <div className='user-infos'>
                         <img src={phone} alt=""/>
+                        <h3>Votre location à portée de main</h3>
                     </div>
                     <div className='user-infos'>
                         <img src={driver} alt=""/>
+                        <h3>Location avec chauffeur</h3>
                     </div>
                 </div>
             </section>
