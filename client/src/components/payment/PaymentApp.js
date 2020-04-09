@@ -191,11 +191,10 @@ class CheckoutForm extends React.Component {
     return paymentMethod ? (
       <div className="Result">
         <div className="ResultTitle" role="alert">
-          Payment successful
+          Votre paiement à été traité avec succès!
         </div>
         <div className="ResultMessage">
-          Thanks for trying Stripe Elements. No money was charged, but we
-          generated a PaymentMethod: {paymentMethod.id}
+          Merci d'avoir choisi NVA vous recevrez tous les détails du paiement par mail ref: {paymentMethod.id}
         </div>
         <ResetButton onClick={this.reset} />
       </div>

@@ -131,7 +131,7 @@ class CarList extends React.Component{
                             open={this.state.open}
                             onClose={this.handleClose}
                             >
-                            <div className='confirmation-modal'>
+                            <div className='add-car-modal' style={{backgroundColor: 'white', width: '30%', textAlign: 'center', position: 'absolute',top: '12%',left: '36%'}}>
                                 <h2 id="simple-modal-title">Mise à jour du vehicule</h2>
                                 <form onSubmit={this.handleFormSubmit} className="AddCar">
                                     <TextField id="outlined-basic" name="available" value={this.state.available}label="Disponible" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>

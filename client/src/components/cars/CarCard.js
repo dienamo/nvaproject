@@ -34,7 +34,7 @@ export default function CarCard(props) {
         <CardMedia
           className={classes.media}
           image={props.car.imageUrl}
-          title="Contemplative Reptile"
+          title="Car"
         />
         <CardContent style={{padding: '0px 16px'}}>
           <Typography>
