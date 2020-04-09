@@ -131,18 +131,18 @@ class UserAccount extends React.Component{
        <div className='profil'>
          <Paper>
           <h3 style={{textAlign: 'center'}}>Mon compte</h3>
-          <h5>{user.name} {user.lastname}</h5>
+          <h4>{user.name} {user.lastname}</h4>
           <p>Membre depuis le : {moment(user.created_at).locale('fr').format('LLL')}</p>
           <p>Adresse courriel : {user.username}</p>
           <div className='update-button'>
           <p>Adresse : {user.address}</p>
-          <Button onClick={()=>this.handleOpenAddress(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px' ,textTransform: 'none'}}>
+          <Button onClick={()=>this.handleOpenAddress(user._id)} variant="contained" style={{backgroundColor: 'mediumaquamarine', color:'white', height:'25px' ,width:'100px', padding: '0px' ,textTransform: 'none'}}>
               Mettre à jour
           </Button>
           </div>
           <div className='update-button'>
           <p>Numéro de téléphone : {user.phonenumber}</p>
-          <Button onClick={()=>this.handleOpenPhonenumber(user._id)} variant="contained" style={{backgroundColor: 'slategrey', color:'white', height:'25px' , padding: '0px', textTransform: 'none'}}>
+          <Button onClick={()=>this.handleOpenPhonenumber(user._id)} variant="contained" style={{backgroundColor: 'mediumaquamarine', color:'white', height:'25px' ,width:'100px', padding: '0px', textTransform: 'none'}}>
               Mettre à jour
           </Button>
           </div>
