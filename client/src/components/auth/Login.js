@@ -6,8 +6,6 @@ import { withRouter } from "react-router";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -50,17 +48,6 @@ class Login extends React.Component {
 
   render(){
     return(
-      // <div>
-      //     <form onSubmit={this.handleFormSubmit} className="Login">
-      //     <TextField id="outlined-basic" name="username" value={this.state.username}label="Adresse mail" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-      //     <TextField id="outlined-basic" name="password" value={this.state.password}label="Mot de passe" variant="outlined" className='text-field' onChange={ e => this.handleChange(e)}/>
-      //     <input type="submit" value="login"/>
-      //     </form>
-      //     <p>
-      //     Vous n'avez pas de compte? 
-      //     <Link to={"/signup"} style={{ textDecoration: 'none' }}>S'inscrire</Link>
-      //   </p>
-      // </div>
       <Grid container component="main" className='root'>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className='image' />
@@ -99,10 +86,9 @@ class Login extends React.Component {
               value={this.state.password}
               onChange={ e => this.handleChange(e)}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+            <Link to={"/forgotPassword"} href="#" variant="body2">
+              <p style={{textAlign: 'right'}}>{"Mot de passe oublié"}</p>
+            </Link>
             <Button
               type="submit"
               fullWidth
@@ -112,18 +98,11 @@ class Login extends React.Component {
             >
               Connexion
             </Button>
-            <Grid container>
               <Grid item xs>
               </Grid>
-              <Grid item>
                 <Link to={"/signup"} href="#" variant="body2">
-                  {"Vous n'avez pas de compte? Inscription"}
+                  <p style={{textAlign: 'right'}}>{"Vous n'avez pas de compte? Inscription"}</p>
                 </Link>
-                <Link to={"/forgotPassword"} href="#" variant="body2">
-                  {"Mot de passe oublié"}
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </div>
       </Grid>
