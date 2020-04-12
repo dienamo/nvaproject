@@ -5,6 +5,8 @@ const authRoutes = express.Router();
 const mongoose = require('mongoose');
 const passport   = require('passport');
 const bcrypt     = require('bcryptjs');
+const crypto = require("crypto");
+
 
 // require the user model !!!!
 const User       = require('../models/User');
@@ -157,5 +159,89 @@ authRoutes.put('/user/:id', (req, res, next)=>{
       })
   })
 
+authRoutes.post('/forgotPassword' , (req, res, next) => {
+  if(req.body.email === '') {
+    res.status(400).send('email required');
+  }
+  console.error(req.body.email);
+  User.findOne({
+      username : req.body.email
+  })
+  .then(user=>{
+    if (!user) {
+      console.error('username not in database')
+    } else {
+      const token = crypto.randomBytes(20).toString('hex');
+      User.findByIdAndUpdate(user._id , {
+        resetPasswordToken: token,
+        resetPasswordExpires: Date.now() + 3600000,
+      },{new: true})
+      .then(user=>{
+        const transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'nvisioauto@gmail.com',
+            pass: 'hbzytesdluptbsqc'
+          }
+        });
+        const mailOptions = {
+            from: 'nvisioauto@gmail.com',
+            to: user.username,
+            subject: 'Lien de réinitialisation de mot de passe',
+            html: `http://localhost:3000/reset/${token}`
+          };
+        transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+        });
+      })
+    }
+  })
+})
+
+authRoutes.get('/reset' , (req , res , next)=>{
+  User.findOne({
+    resetPasswordToken: req.query.resetToken,
+    resetPasswordExpires: {$gt: Date.now()
+    }
+  })
+  .then(user=>{
+    if(!user) {
+      console.log('Le lien de réinitialisation du mot de passe st invalide ou a expiré')
+      res.json('Le lien de réinitialisation du mot de passe st invalide ou a expiré')
+    } else {
+      res.status(200).send({
+        username: user.username,
+        message: 'password reset link a-ok'
+      })
+    }
+  })
+})
+
+authRoutes.put('/updatePassword' ,(req,res,next)=>{
+  const password = req.body.password
+  User.findOne({username: req.body.username})
+    .then(user=>{
+      if(user) {
+        console.log('user exist in db')
+        const salt     = bcrypt.genSaltSync(10);
+        const hashPass = bcrypt.hashSync(password, salt);
+        User.findByIdAndUpdate(user._id , {
+          password: hashPass,
+          resetPasswordToken: null,
+          resetPasswordExpires: null
+        })
+        .then(()=>{
+          console.log('password updated');
+          res.status(200).send({message: 'password updated'})
+        })
+      } else {
+        res.status(404).json('no user exist in db to update')
+      }
+    })
+})
 
 module.exports = authRoutes;

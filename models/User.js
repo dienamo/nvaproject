@@ -9,7 +9,15 @@ const userSchema = new Schema({
   address: {type : String , required: true},
   phonenumber: {type : Number , required: true},
   rentals: [{type : Schema.Types.ObjectId, ref: 'Rental'}] ,
-  userStatus : {type : String ,  enum : ['admin' , 'standard'] , default : 'standard'}
+  userStatus : {type : String ,  enum : ['admin' , 'standard'] , default : 'standard'},
+  resetPasswordToken: {
+    type: String,
+    required: false
+  },
+  resetPasswordExpires: {
+    type: Date,
+    required: false
+  }
 }, 
 {
   timestamps: {

@@ -8,6 +8,8 @@ import NavBar from './components/navbar/NavBar';
 import CarDetails from './components/cars/CarDetails'
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
+import ForgotPassword from './components/auth/ForgotPassword'
+import ResetPassword from './components/auth/ResetPassword'
 import Redirection from './components/reservation/Redirection'
 import AuthService from './components/auth/auth-service';
 import UserAccount from './components/auth/UserAccount';
@@ -60,6 +62,8 @@ class App extends Component {
             <Route exact path="/moncompte" render={() => <UserAccount getUser={this.getTheUser} userInSession={this.state.loggedInUser}/>} />
             <Route exact path="/signup" render={() => <Signup getUser={this.getTheUser} />} />
             <Route exact path="/login" render={() => <Login getUser={this.getTheUser} userStatus={userStatus}/>} />
+            <Route exact path="/forgotPassword" render={() => <ForgotPassword getUser={this.getTheUser}/>} />
+            <Route exact path="/reset/:token" component = {ResetPassword} />
             <Route exact path="/agence/:id" component={AgencyDetails} />
             <Route exact path="/admin/ajout" component={AddCar} />
             <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser} userInSession={this.state.loggedInUser}/> }/>

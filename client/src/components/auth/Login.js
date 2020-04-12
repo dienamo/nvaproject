@@ -119,6 +119,9 @@ class Login extends React.Component {
                 <Link to={"/signup"} href="#" variant="body2">
                   {"Vous n'avez pas de compte? Inscription"}
                 </Link>
+                <Link to={"/forgotPassword"} href="#" variant="body2">
+                  {"Mot de passe oublié"}
+                </Link>
               </Grid>
             </Grid>
           </form>
