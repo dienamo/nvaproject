@@ -14,11 +14,13 @@ import Redirection from './components/reservation/Redirection'
 import AuthService from './components/auth/auth-service';
 import UserAccount from './components/auth/UserAccount';
 import AdminPage from './components/admin/AdminPage'
+//import { Button } from '@material-ui/core';
 
 class App extends Component {
   state = { 
     loggedInUser: null,
-    notifications: 0
+    notifications: 0,
+    installButton: false
   }
   service = new AuthService()
 
@@ -46,8 +48,43 @@ class App extends Component {
     })
   }
 
+  installPrompt = null;
+
   componentDidMount() {
     this.fetchUser();
+    console.log("Listening for Install prompt");
+    window.addEventListener('beforeinstallprompt',e=>{
+      // For older browsers
+      e.preventDefault();
+      console.log("Install Prompt fired");
+      this.installPrompt = e;
+      // See if the app is already installed, in that case, do nothing
+      if((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true){
+        return false;
+      }
+      // Set the state variable to make button visible
+      this.setState({
+        installButton:true
+      })
+    })
+  }
+
+  installApp=async ()=>{
+    if(!this.installPrompt) return false;
+    this.installPrompt.prompt();
+    let outcome = await this.installPrompt.userChoice;
+    if(outcome.outcome==='accepted'){
+      console.log("App Installed")
+    }
+    else{
+      console.log("App not installed");
+    }
+    // Remove the event reference
+    this.installPrompt=null;
+    // Hide the button
+    this.setState({
+      installButton:false
+    })
   }
 
   render(){
@@ -69,6 +106,12 @@ class App extends Component {
             <Route exact path="/agence/:agenceName/vehicule/:vehiculeBrand/:vehiculeModel/:id" render={() => <CarDetails getUser={this.getTheUser} userInSession={this.state.loggedInUser}/> }/>
             <Route exact path="/redirection" render={(props) => (<Redirection history={props.history} />)} />
           </Switch>
+          {/* <Conditional condition={this.state.installButton}
+             style={styles.installBtn}
+             onClick={this.installApp}>
+            Install As Application
+          </Conditional> */}
+          {this.state.installButton ? <button onClick={this.installApp}>Install As Application</button> : ''}
         </div>
       )
   }
