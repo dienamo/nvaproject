@@ -62,21 +62,33 @@ class Agency extends React.Component{
     componentDidMount(){
         this.getAllAgencies()
         this.getAllCars()
-        console.log("Listening for Install prompt");
-    window.addEventListener('beforeinstallprompt',e=>{
-      // For older browsers
-      //e.preventDefault();
-      console.log("Install Prompt fired");
-      this.installPrompt = e;
-      // See if the app is already installed, in that case, do nothing
-      if((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true){
-        return false;
-      }
-      // Set the state variable to make button visible
-      this.setState({
-        installButton:true
-      })
-    })
+    //     console.log("Listening for Install prompt");
+    // window.addEventListener('beforeinstallprompt',e=>{
+    //   // For older browsers
+    //   e.preventDefault();
+    //   console.log("Install Prompt fired");
+      
+    //   this.installPrompt = e;
+    //   // See if the app is already installed, in that case, do nothing
+    //   if((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true){
+    //     return false;
+    //   }
+    //   // Set the state variable to make button visible
+    //   this.setState({
+    //     installButton:true
+    //   })
+    // })
+    let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  console.log("Install Prompt fired")
+  // Stash the event so it can be triggered later.
+  deferredPrompt = e;
+  // Update UI notify the user they can install the PWA
+  showInstallPromotion();
+});
     }
 
     installApp=async ()=>{
