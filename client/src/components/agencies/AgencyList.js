@@ -22,8 +22,7 @@ class Agency extends React.Component{
     state={
         listOfAgencies: [],
         listOfCars: [],
-        selected: '',
-        installButton: false
+        selected: ''
     }
     getAllAgencies=()=>{
         axios.get(`${process.env.REACT_APP_APIURL || ""}/api/agencies`) // en dev: http://localhost:500/agencies / en prod: /agencies
@@ -62,33 +61,7 @@ class Agency extends React.Component{
     componentDidMount(){
         this.getAllAgencies()
         this.getAllCars()
-    //     console.log("Listening for Install prompt");
-    // window.addEventListener('beforeinstallprompt',e=>{
-    //   // For older browsers
-    //   e.preventDefault();
-    //   console.log("Install Prompt fired");
-      
-    //   this.installPrompt = e;
-    //   // See if the app is already installed, in that case, do nothing
-    //   if((window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true){
-    //     return false;
-    //   }
-    //   // Set the state variable to make button visible
-    //   this.setState({
-    //     installButton:true
-    //   })
-    // })
-    let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  console.log("Install Prompt fired")
-  // Stash the event so it can be triggered later.
-});
     }
-
-
     render(){
         return(
             <div>
@@ -161,7 +134,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
                     )
                 })}
             </section>
-            {this.state.installButton ? <button onClick={this.installApp}>Install As Application</button> : ''}
             </div>
         )
     }
