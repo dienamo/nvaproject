@@ -85,29 +85,9 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   console.log("Install Prompt fired")
   // Stash the event so it can be triggered later.
-  deferredPrompt = e;
-  // Update UI notify the user they can install the PWA
-  showInstallPromotion();
 });
     }
 
-    installApp=async ()=>{
-        if(!this.installPrompt) return false;
-        this.installPrompt.prompt();
-        let outcome = await this.installPrompt.userChoice;
-        if(outcome.outcome==='accepted'){
-          console.log("App Installed")
-        }
-        else{
-          console.log("App not installed");
-        }
-        // Remove the event reference
-        this.installPrompt=null;
-        // Hide the button
-        this.setState({
-          installButton:false
-        })
-      }
 
     render(){
         return(
