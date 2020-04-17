@@ -22,7 +22,8 @@ class Agency extends React.Component{
     state={
         listOfAgencies: [],
         listOfCars: [],
-        selected: ''
+        selected: '',
+        showError: false
     }
     getAllAgencies=()=>{
         axios.get(`${process.env.REACT_APP_APIURL || ""}/api/agencies`) // en dev: http://localhost:500/agencies / en prod: /agencies
@@ -55,7 +56,11 @@ class Agency extends React.Component{
     }
 
     handleSeach=()=>{
-        this.props.history.push(`/agence/${this.state.selected}`)
+        if(this.state.selected === '') {
+            this.setState({showError: true})
+        } else {
+            this.props.history.push(`/agence/${this.state.selected}`)
+        }
     }
 
     componentDidMount(){
@@ -95,6 +100,11 @@ class Agency extends React.Component{
                     Rechercher un véhicule
                 </Button>
                 </div>
+                {this.state.showError && (
+                        <p>
+                            Veuillez selectionner une agence
+                        </p>
+                )}
                 </FormControl>
                 </Paper>
                 </section>
