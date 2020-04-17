@@ -101,7 +101,7 @@ class Agency extends React.Component{
                 </Button>
                 </div>
                 {this.state.showError && (
-                        <p>
+                        <p style={{color: 'blueviolet'}}>
                             Veuillez selectionner une agence
                         </p>
                 )}
